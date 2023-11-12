@@ -2,12 +2,11 @@
 
 namespace BetSimApi.Model
 {
-    public class UserBet
+    public class Coupon
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int BetId { get; set; }
-        public Odd PredictedWinner { get; set; }
+        public User User { get; set; }
+        public List<Bet> Bets{  get; set; }
         [Required]
         public double Value { get; set; }
 

@@ -1,22 +1,13 @@
-﻿using BetSimApi.Model.Enum;
-using System.ComponentModel.DataAnnotations;
+﻿using BetSimApi.Model.Enums;
 
 namespace BetSimApi.Model
 {
     public class Bet
     {
         public int Id { get; set; }
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public BetType Type { get; set; }
-        [Required]
-        public string Date { get; set; }
-        public List<Odd> Odds { get; set; }
-        public int EventID { get; set; }
-        public string Winner { get; set; }
-        public string Score { get; set; }
+        public BetStatus status { get; set; }
+        public Offert OffertId { get; set; }
+        public Odd PredictedWinner { get; set; }
+        public Coupon? Coupon { get; set; }
     }
-
-   
 }
