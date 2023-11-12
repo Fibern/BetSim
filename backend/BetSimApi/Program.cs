@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DbMainContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("SqlServer"),
+builder.Services.AddDbContext<DbMainContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("Dbconnect"),
     builder => builder.EnableRetryOnFailure()));
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

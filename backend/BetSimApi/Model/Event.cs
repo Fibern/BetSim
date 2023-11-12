@@ -10,7 +10,6 @@ namespace BetSimApi.Model
         public string Title { get; set; }
         [Required]
         public string Icon { get; set; }
-        public User Owner { get; set; }
         public List<Offert>? Offerts  { get; set; }
         public List<User>? Administrators { get; set; }
     }
