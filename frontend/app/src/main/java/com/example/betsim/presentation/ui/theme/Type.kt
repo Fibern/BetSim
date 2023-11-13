@@ -1,4 +1,4 @@
-package com.example.betsim.ui.theme
+package com.example.betsim.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
