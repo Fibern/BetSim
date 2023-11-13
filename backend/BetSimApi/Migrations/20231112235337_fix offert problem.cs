@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BetSimApi.Migrations
 {
     /// <inheritdoc />
-    public partial class createmodel : Migration
+    public partial class fixoffertproblem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -138,8 +138,8 @@ namespace BetSimApi.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    status = table.Column<int>(type: "integer", nullable: false),
-                    OffertIdId = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    OffertId = table.Column<int>(type: "integer", nullable: false),
                     PredictedWinnerId = table.Column<int>(type: "integer", nullable: false),
                     CouponId = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -158,8 +158,8 @@ namespace BetSimApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bet_Offert_OffertIdId",
-                        column: x => x.OffertIdId,
+                        name: "FK_Bet_Offert_OffertId",
+                        column: x => x.OffertId,
                         principalTable: "Offert",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -171,9 +171,9 @@ namespace BetSimApi.Migrations
                 column: "CouponId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bet_OffertIdId",
+                name: "IX_Bet_OffertId",
                 table: "Bet",
-                column: "OffertIdId");
+                column: "OffertId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bet_PredictedWinnerId",

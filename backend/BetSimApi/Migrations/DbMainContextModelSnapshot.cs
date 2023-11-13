@@ -33,20 +33,20 @@ namespace BetSimApi.Migrations
                     b.Property<int?>("CouponId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("OffertIdId")
+                    b.Property<int>("OffertId")
                         .HasColumnType("integer");
 
                     b.Property<int>("PredictedWinnerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("status")
+                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CouponId");
 
-                    b.HasIndex("OffertIdId");
+                    b.HasIndex("OffertId");
 
                     b.HasIndex("PredictedWinnerId");
 
@@ -218,9 +218,9 @@ namespace BetSimApi.Migrations
                         .WithMany("Bets")
                         .HasForeignKey("CouponId");
 
-                    b.HasOne("BetSimApi.Model.Offert", "OffertId")
+                    b.HasOne("BetSimApi.Model.Offert", "Offert")
                         .WithMany()
-                        .HasForeignKey("OffertIdId")
+                        .HasForeignKey("OffertId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -232,7 +232,7 @@ namespace BetSimApi.Migrations
 
                     b.Navigation("Coupon");
 
-                    b.Navigation("OffertId");
+                    b.Navigation("Offert");
 
                     b.Navigation("PredictedWinner");
                 });
