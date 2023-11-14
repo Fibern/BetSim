@@ -4,11 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.betsim.presentation.ui.theme.BetSimTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-
+/*
 data class BottomNavigationItem(
     val title: String,
     val selectedIcon: ImageVector,
@@ -17,7 +16,7 @@ data class BottomNavigationItem(
     val badgeCount: Int? = null
 )
 
-/*
+
  val items = listOf(
                     BottomNavigationItem(
                         title = "Dzisiaj",
