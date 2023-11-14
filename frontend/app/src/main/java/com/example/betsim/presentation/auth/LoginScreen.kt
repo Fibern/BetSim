@@ -14,7 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.auth.components.AuthInput
 
 @Composable
 fun LoginScreen(
@@ -68,46 +68,21 @@ fun LoginScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    OutlinedTextField(
-                        value = loginState,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 36.dp),
-                        placeholder = {Text("Login")},
-                        onValueChange = {
-                            viewModel.onEvent(AuthEvent.EnteredLogin(it))
-                        },
-                        singleLine = true,
-                        leadingIcon = { Icon(Icons.Rounded.Person, contentDescription = null) }
-                    )
-                }
+                AuthInput(
+                    text = loginState,
+                    label = "Login",
+                    onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
+                    icon = Icons.Rounded.Person
+                )
                 Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    OutlinedTextField(
-                        value = passwordState,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 36.dp),
-                        placeholder = {Text("Hasło")},
-                        visualTransformation =  PasswordVisualTransformation(),
-                        onValueChange = {
-                            viewModel.onEvent(AuthEvent.EnteredPassword(it))
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                        singleLine = true,
-                        leadingIcon = { Icon(Icons.Rounded.Lock, contentDescription = null) }
-                    )
-                }
-                Spacer(modifier = Modifier.height(10.dp))
+                AuthInput(
+                    text = passwordState,
+                    label = "Hasło",
+                    onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
+                    icon = Icons.Rounded.Lock,
+                    isPassword = true
+                )
+                Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
