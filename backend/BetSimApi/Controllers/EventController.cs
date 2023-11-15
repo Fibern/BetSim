@@ -8,6 +8,8 @@ using System.Diagnostics.Tracing;
 
 namespace BetSimApi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class EventController:ControllerBase
     {
         private readonly IMediator _mediator;

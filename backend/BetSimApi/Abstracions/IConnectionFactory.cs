@@ -2,7 +2,7 @@
 
 namespace BetSimApi.Abstracions
 {
-    public interface IPostgresConnectionFactory
+    public interface IConnectionFactory
     {
         NpgsqlConnection CreateConnection();
     }

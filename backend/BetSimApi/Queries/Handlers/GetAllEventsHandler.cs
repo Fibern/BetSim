@@ -26,7 +26,8 @@ namespace BetSimApi.Queries.Handlers
         {
             await using var connection = _connectionFactory.CreateConnection();
 
-            var all = connection.QueryAsync<Event>("select * from Event");
+            var all = await connection.QueryAsync<Event>("select * from \"Event\" ");
+            connection.Dispose();
 
             return _mapper.Map<List<EventViewModel>>(all);
         }

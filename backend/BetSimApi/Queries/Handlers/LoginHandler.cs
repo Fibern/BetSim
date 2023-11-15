@@ -2,7 +2,7 @@
 using BetSimApi.Model.Classes;
 using MediatR;
 
-namespace BetSimApi.Handlers
+namespace BetSimApi.Queries.Handlers
 {
     //public class LoginHandler : IRequestHandler<LoginCommand, JwtInfo>
     //{

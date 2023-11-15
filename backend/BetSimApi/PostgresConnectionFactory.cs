@@ -3,11 +3,11 @@ using Npgsql;
 
 namespace BetSimApi
 {
-    public class PostgresConnection : IConnectionFactory
+    public class PostgresConnectionFactory : IConnectionFactory
     {
         private IConfiguration _configuration;
 
-        public PostgresConnection(IConfiguration configuration)
+        public PostgresConnectionFactory(IConfiguration configuration)
         {
             _configuration = configuration;
         }
