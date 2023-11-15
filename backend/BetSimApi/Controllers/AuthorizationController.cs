@@ -1,5 +1,4 @@
 ﻿using BetSimApi.Commands;
-using BetSimApi.Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

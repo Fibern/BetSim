@@ -7,7 +7,7 @@ using Dapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BetSimApi.Handlers
+namespace BetSimApi.Queries.Handlers
 {
     public class GetAllEventsHandler : IRequestHandler<GetAllEventsQuery, List<EventViewModel>>
     {
