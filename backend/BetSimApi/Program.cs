@@ -1,20 +1,31 @@
 using BetSimApi;
+using BetSimApi.Abstracions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add Framework services.
 builder.Services.AddDbContext<DbMainContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("Dbconnect"),
     builder => builder.EnableRetryOnFailure()));
 
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
+
+//inject mediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//app services
+builder.Services.AddScoped<IConnectionFactory,PostgresConnectionFactory>();
 
 //configre authorization
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
