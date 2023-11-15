@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -32,6 +33,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.auth.components.AuthInput
+import com.example.betsim.presentation.auth.components.AuthTextField
+import com.example.betsim.presentation.ui.theme.BetSimTheme
 
 @Composable
 fun LoginScreen(
@@ -41,10 +44,7 @@ fun LoginScreen(
     val loginState = viewModel.login.value
     val passwordState = viewModel.password.value
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    BetSimTheme {
 
         Surface(
             modifier = Modifier
@@ -57,17 +57,9 @@ fun LoginScreen(
                 verticalArrangement = Arrangement.Center
             ) {
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Logowanie",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
-                Spacer(modifier = Modifier.height(20.dp))
+                AuthTextField(text = "Logowanie")
+                Spacer(modifier = Modifier.height(10.dp))
+
                 AuthInput(
                     text = loginState,
                     label = "Login",
@@ -75,6 +67,7 @@ fun LoginScreen(
                     icon = Icons.Rounded.Person
                 )
                 Spacer(modifier = Modifier.height(10.dp))
+
                 AuthInput(
                     text = passwordState,
                     label = "Hasło",
@@ -83,6 +76,7 @@ fun LoginScreen(
                     isPassword = true
                 )
                 Spacer(modifier = Modifier.height(20.dp))
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -92,23 +86,28 @@ fun LoginScreen(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 100.dp)
+                            .padding(horizontal = 100.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
                     ) {
                         Text(text = "Zaloguj")
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 36.dp),
-                ){
+                ) {
                     Text(
                         text = buildAnnotatedString {
                             append("Nie masz konta? ")
                             withStyle(
                                 SpanStyle(
-                                    color = Color.Blue
+                                    color = MaterialTheme.colorScheme.primary
                                 )
                             ) {
                                 append("Zarejestruj się tutaj")
@@ -123,7 +122,6 @@ fun LoginScreen(
         }
     }
 }
-
 @Preview
 @Composable
 fun LoginPreviewScreen(){
@@ -151,7 +149,7 @@ fun LoginPreviewScreen(){
                 ) {
                     Text(
                         text = "Logowanie",
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.headlineLarge
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))

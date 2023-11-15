@@ -14,12 +14,12 @@ import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.auth.components.AuthInput
+import com.example.betsim.presentation.auth.components.AuthTextField
 
 @Composable
 fun RegisterScreen(
@@ -52,23 +53,16 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Rejestracja",
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
+            AuthTextField(text = "Rejestracja")
+            Spacer(modifier = Modifier.height(10.dp))
+
             AuthInput(
                 text = loginState,
                 label = "Login",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
                 icon = Icons.Rounded.Person
             )
+
             Spacer(modifier = Modifier.height(10.dp))
             AuthInput(
                 text = emailState,
@@ -76,6 +70,7 @@ fun RegisterScreen(
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
                 icon = Icons.Rounded.Email
             )
+
             Spacer(modifier = Modifier.height(10.dp))
             AuthInput(
                 text = passwordState,
@@ -84,6 +79,7 @@ fun RegisterScreen(
                 icon = Icons.Rounded.Lock,
                 isPassword = true
             )
+
             Spacer(modifier = Modifier.height(10.dp))
             AuthInput(
                 text = password2State,
@@ -93,6 +89,7 @@ fun RegisterScreen(
                 isPassword = true
             )
             Spacer(modifier = Modifier.height(20.dp))
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -102,12 +99,17 @@ fun RegisterScreen(
                     onClick = { /*TODO*/ },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 100.dp)
+                        .padding(horizontal = 100.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 ) {
                     Text(text = "Zarejestruj")
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -118,12 +120,13 @@ fun RegisterScreen(
                         append("Masz już konto? ")
                         withStyle(
                             SpanStyle(
-                                color = Color.Blue
+                                color = MaterialTheme.colorScheme.primary
                             )
                         ) {
                             append("Zaloguj się tutaj")
                         }
                     },
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.clickable {
                         navController.navigate(Screen.LoginScreen.route)
                     }
