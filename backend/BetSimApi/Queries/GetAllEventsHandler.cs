@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using BetSimApi.Abstracions;
 using BetSimApi.Model;
-using BetSimApi.Queries;
 using BetSimApi.ViewModel;
 using Dapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BetSimApi.Queries.Handlers
 {
