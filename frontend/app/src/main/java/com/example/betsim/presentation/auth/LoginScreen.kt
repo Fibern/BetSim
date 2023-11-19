@@ -34,7 +34,6 @@ import androidx.navigation.NavController
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.auth.components.AuthInput
 import com.example.betsim.presentation.auth.components.AuthTextField
-import com.example.betsim.presentation.ui.theme.BetSimTheme
 
 @Composable
 fun LoginScreen(
@@ -44,84 +43,88 @@ fun LoginScreen(
     val loginState = viewModel.login.value
     val passwordState = viewModel.password.value
 
-    BetSimTheme {
-
-        Surface(
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
+
+            AuthTextField(text = "Logowanie")
+            Spacer(modifier = Modifier.height(10.dp))
+
+            AuthInput(
+                text = loginState,
+                label = "Login",
+                onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
+                icon = Icons.Rounded.Person
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+
+            AuthInput(
+                text = passwordState,
+                label = "Hasło",
+                onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
+                icon = Icons.Rounded.Lock,
+                isPassword = true
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
-
-                AuthTextField(text = "Logowanie")
-                Spacer(modifier = Modifier.height(10.dp))
-
-                AuthInput(
-                    text = loginState,
-                    label = "Login",
-                    onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
-                    icon = Icons.Rounded.Person
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-
-                AuthInput(
-                    text = passwordState,
-                    label = "Hasło",
-                    onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
-                    icon = Icons.Rounded.Lock,
-                    isPassword = true
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Button(
-                        onClick = { /*TODO*/ },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 100.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
-                        )
-                    ) {
-                        Text(text = "Zaloguj")
-                    }
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
+                Button(
+                    onClick = {
+                              navController.navigate(Screen.HomeNav.route){
+                                  popUpTo(Screen.AuthNav.route){
+                                      inclusive = true
+                                  }
+                              }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 36.dp),
-                ) {
-                    Text(
-                        text = buildAnnotatedString {
-                            append("Nie masz konta? ")
-                            withStyle(
-                                SpanStyle(
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            ) {
-                                append("Zarejestruj się tutaj")
-                            }
-                        },
-                        modifier = Modifier.clickable {
-                            navController.navigate(Screen.RegisterScreen.route)
-                        }
+                        .padding(horizontal = 100.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     )
+                ) {
+                    Text(text = "Zaloguj")
                 }
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 36.dp),
+            ) {
+                Text(
+                    text = buildAnnotatedString {
+                        append("Nie masz konta? ")
+                        withStyle(
+                            SpanStyle(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        ) {
+                            append("Zarejestruj się tutaj")
+                        }
+                    },
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screen.RegisterScreen.route)
+                    }
+                )
             }
         }
     }
 }
+
 @Preview
 @Composable
 fun LoginPreviewScreen(){

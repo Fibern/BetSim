@@ -38,6 +38,9 @@ class RegisterScreenViewModel @Inject constructor(
             is AuthEvent.EnteredPassword2 -> {
                 _password2.value = event.value
             }
+            is AuthEvent.OnAuthClick -> {
+
+            }
         }
     }
 }

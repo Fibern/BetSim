@@ -28,6 +28,9 @@ class LoginScreenViewModel @Inject constructor(
             is AuthEvent.EnteredPassword -> {
                 _password.value = event.value
             }
+            is AuthEvent.OnAuthClick -> {
+
+            }
             else -> {}
         }
     }
