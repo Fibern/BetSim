@@ -40,4 +40,8 @@
     <None Include="C:\Users\praktykant\source\repos\BetSim\backend\BetSimApi\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\" />
+  </ItemGroup>
+
 </Project>

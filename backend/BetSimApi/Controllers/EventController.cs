@@ -1,6 +1,5 @@
 ﻿using BetSimApi.Commands;
 using BetSimApi.Queries;
-using BetSimApi.Queries.Handlers;
 using BetSimApi.ViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +22,7 @@ namespace BetSimApi.Controllers
         public async Task<List<EventViewModel>> GetAllEvents()
         {
             var command = new GetAllEventsQuery();
-            return await _mediator.Send(command);
+            return await Ok(_mediator.Send(command));
         }
 
         [HttpPost]

@@ -3,7 +3,7 @@ using BetSimApi.Model;
 using BetSimApi.ViewModel;
 using MediatR;
 
-namespace BetSimApi.Commands.Handlers
+namespace BetSimApi.Commands
 {
     public class PostEventHandler : IRequestHandler<PostEventCommand, int>
     {

@@ -5,7 +5,7 @@ using BetSimApi.ViewModel;
 using Dapper;
 using MediatR;
 
-namespace BetSimApi.Queries.Handlers
+namespace BetSimApi.Queries
 {
     public class GetAllEventsHandler : IRequestHandler<GetAllEventsQuery, List<EventViewModel>>
     {
