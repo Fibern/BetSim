@@ -35,7 +35,7 @@ fun BetSimSurface() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = Screen.UserNav.route
+            startDestination = Screen.AuthNav.route
         ) {
             navigation(
                 startDestination = Screen.LoginScreen.route,

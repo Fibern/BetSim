@@ -5,8 +5,7 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,8 +34,8 @@ fun CouponPreview() {
     ExtendedFloatingActionButton(
         onClick = {},
         modifier = Modifier
-            .width(300.dp)
-            .height(500.dp)
+            .fillMaxSize()
+            .padding(start = 100.dp, top = 300.dp)
         ,
         containerColor = MaterialTheme.colorScheme.primary,
         interactionSource = remember{ NoRippleInteractionSource() }

@@ -6,12 +6,11 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Leaderboard
@@ -29,7 +28,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,10 +43,22 @@ import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.coupons.CouponsScreen
+import com.example.betsim.presentation.event_details_user.EventDetailScreen
+import com.example.betsim.presentation.events_user.EventsUserScreen
+import com.example.betsim.presentation.leaderboard.LeaderboardScreen
+import com.example.betsim.presentation.settings.SettingsScreen
 import com.example.betsim.presentation.user_main.components.CouponPreview
 
 
@@ -58,7 +68,8 @@ data class BottomNavigationItem(
     val unselectedIcon: ImageVector,
     val hasNews: Boolean,
     val badgeCount: Int? = null,
-    val hide: Boolean
+    val hide: Boolean,
+    val route: String
 )
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
@@ -74,7 +85,8 @@ fun UserMainScreen(
             unselectedIcon = Icons.Outlined.Today,
             hasNews = false,
             badgeCount = null,
-            hide = false
+            hide = false,
+            route = Screen.EventsScreen.route
         ),
         BottomNavigationItem(
             title = "Wszystko",
@@ -82,7 +94,8 @@ fun UserMainScreen(
             unselectedIcon = Icons.Outlined.CalendarMonth,
             hasNews = false,
             badgeCount = null,
-            hide = false
+            hide = false,
+            route = Screen.EventsScreen.route
         ),
         BottomNavigationItem(
             title = "Kupony",
@@ -90,7 +103,8 @@ fun UserMainScreen(
             unselectedIcon = Icons.Outlined.Receipt,
             hasNews = false,
             badgeCount = null,
-            hide = false
+            hide = false,
+            route = Screen.CouponsScreen.route
         ),
         BottomNavigationItem(
             title = "Ranking",
@@ -98,7 +112,8 @@ fun UserMainScreen(
             unselectedIcon = Icons.Outlined.Leaderboard,
             hasNews = false,
             badgeCount = null,
-            hide = true
+            hide = true,
+            route = Screen.LeaderboardScreen.route,
         ),
         BottomNavigationItem(
             title = "Ustawienia",
@@ -106,7 +121,8 @@ fun UserMainScreen(
             unselectedIcon = Icons.Outlined.Settings,
             hasNews = false,
             badgeCount = null,
-            hide = true
+            hide = true,
+            route = Screen.SettingsScreen.route
         )
     )
     var selectedItemIndex by rememberSaveable {
@@ -130,6 +146,16 @@ fun UserMainScreen(
                     MutableInteractionSource()
                 }
             ) { collapsed = true },
+
+        topBar = {
+            TopAppBar(
+                title = { Text("username") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            ) },
+
         floatingActionButton = {
 
             AnimatedVisibility(
@@ -148,7 +174,8 @@ fun UserMainScreen(
                                 onClick = {/*TODO*/
                                     collapsed = false
                                 },
-                                containerColor = MaterialTheme.colorScheme.primary
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.padding(top = 500.dp, start = 200.dp)
                             ){
                                 BadgedBox(
                                     badge = {
@@ -166,8 +193,24 @@ fun UserMainScreen(
                         }
                     },
                     transitionSpec = {
-                        if (hidden) fadeIn(tween(delayMillis = 300)) togetherWith fadeOut()
-                        else slideInHorizontally() + fadeIn() togetherWith slideOutHorizontally() + fadeOut()
+                        if(hidden)
+                            slideIn(
+                                initialOffset = {IntOffset(it.width, it.height)}, animationSpec = tween(delayMillis = 500)
+                            ) + fadeIn(
+                                animationSpec = tween(delayMillis = 500)
+                            ) togetherWith slideOut(
+                                targetOffset = {IntOffset(it.width, it.height)}, animationSpec = tween(durationMillis = 500)
+                            ) + fadeOut(tween(durationMillis = 500))
+                        else
+                            slideIn(
+                                initialOffset = {IntOffset(it.width, it.height)}
+                            ) + fadeIn(
+
+                            ) togetherWith  slideOut(
+                                targetOffset = {IntOffset(it.width, it.height)}, animationSpec = tween(durationMillis = 500)
+                            ) + fadeOut(
+                                tween(durationMillis = 500)
+                            )
                     }
                 )
 
@@ -188,6 +231,7 @@ fun UserMainScreen(
                             hidden = item.hide
                             collapsed = true
                             selectedItemIndex = index
+                            navController.navigate(item.route)
                         },
                         label = {
                             Text(text = item.title, color = MaterialTheme.colorScheme.onPrimary)
@@ -218,14 +262,17 @@ fun UserMainScreen(
             }
         }
     ) { innerPadding ->
-       // NavHost(navController = navController, startDestination = )
 
-        Surface (
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
-        ){
-
+        NavHost(
+            navController = navController,
+            startDestination = Screen.EventsScreen.route,
+            Modifier.padding(innerPadding)
+            ){
+            composable(Screen.EventsScreen.route) { EventsUserScreen() }
+            composable(Screen.EventDetailScreen.route) { EventDetailScreen() }
+            composable(Screen.CouponsScreen.route) { CouponsScreen() }
+            composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
+            composable(Screen.SettingsScreen.route) { SettingsScreen() }
         }
 
     }
