@@ -22,7 +22,7 @@ namespace BetSimApi.Controllers
         public async Task<List<EventViewModel>> GetAllEvents()
         {
             var command = new GetAllEventsQuery();
-            return await Ok(_mediator.Send(command));
+            return await _mediator.Send(command);
         }
 
         [HttpPost]
