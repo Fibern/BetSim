@@ -81,7 +81,7 @@ fun LoginScreen(
             ) {
                 Button(
                     onClick = {
-                              navController.navigate(Screen.HomeNav.route){
+                              navController.navigate(Screen.UserNav.route){
                                   popUpTo(Screen.AuthNav.route){
                                       inclusive = true
                                   }
