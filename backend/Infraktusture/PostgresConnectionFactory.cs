@@ -1,4 +1,5 @@
 ﻿using BetSimApi.Abstracions;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace BetSimApi
