@@ -81,6 +81,8 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_secondary,
     onPrimary = md_theme_light_onSecondary,
+    secondary = md_theme_dark_onSecondary,
+
     background = md_theme_light_background,
     onBackground = md_theme_light_onBackground,
     surfaceVariant = md_theme_light_surfaceVariant,

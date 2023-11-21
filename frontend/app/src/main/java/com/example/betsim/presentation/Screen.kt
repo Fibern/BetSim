@@ -20,6 +20,7 @@ sealed class Screen(val route: String) {
     data object UserNav: Screen("user_navigation")
     data object UserMainScreen: Screen("user_main_screen")
     data object EventsScreen: Screen("events_screen")
+    data object TodayEventsScreen: Screen("today_events_screen")
     data object EventDetailScreen: Screen("event_detail_screen")
     data object SettingsScreen: Screen("settings_screen")
     data object CouponsScreen: Screen("coupons_screen")
@@ -35,7 +36,7 @@ fun BetSimSurface() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = Screen.AuthNav.route
+            startDestination = Screen.UserNav.route
         ) {
             navigation(
                 startDestination = Screen.LoginScreen.route,
