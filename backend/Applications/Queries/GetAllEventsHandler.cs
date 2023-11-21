@@ -3,6 +3,7 @@ using AutoMapper;
 using BetSimApi.Model;
 using BetSimApi.ViewModel;
 using MediatR;
+using System.Collections.ObjectModel;
 
 namespace BetSimApi.Queries
 {
@@ -19,7 +20,7 @@ namespace BetSimApi.Queries
 
         public async Task<List<EventViewModel>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
         {
-            var all= _eventRepository.GetAllAsync();
+            var all = await _eventRepository.GetAllAsync();
             return _mapper.Map<List<EventViewModel>>(all);
         }
     }
