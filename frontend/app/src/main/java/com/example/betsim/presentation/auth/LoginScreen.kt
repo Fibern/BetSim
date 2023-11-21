@@ -1,6 +1,5 @@
 package com.example.betsim.presentation.auth
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -32,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.auth.components.AuthButton
+import com.example.betsim.presentation.auth.components.AuthClickableText
 import com.example.betsim.presentation.auth.components.AuthInput
 import com.example.betsim.presentation.auth.components.AuthTextField
 
@@ -79,23 +79,12 @@ fun LoginScreen(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Button(
-                    onClick = {
-                              navController.navigate(Screen.UserNav.route){
-                                  popUpTo(Screen.AuthNav.route){
-                                      inclusive = true
-                                  }
-                              }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 100.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
-                ) {
-                    Text(text = "Zaloguj")
+                AuthButton("Zaloguj"){
+                    navController.navigate(Screen.UserNav.route){
+                        popUpTo(Screen.AuthNav.route){
+                            inclusive = true
+                        }
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -105,21 +94,9 @@ fun LoginScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 36.dp),
             ) {
-                Text(
-                    text = buildAnnotatedString {
-                        append("Nie masz konta? ")
-                        withStyle(
-                            SpanStyle(
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        ) {
-                            append("Zarejestruj się tutaj")
-                        }
-                    },
-                    modifier = Modifier.clickable {
-                        navController.navigate(Screen.RegisterScreen.route)
-                    }
-                )
+                AuthClickableText(text = "Nie masz konta?", coloredText = " Zarejestruj się tutaj!"){
+                    navController.navigate(Screen.RegisterScreen.route)
+                }
             }
         }
     }

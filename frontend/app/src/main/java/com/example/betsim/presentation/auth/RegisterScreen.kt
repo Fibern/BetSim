@@ -123,7 +123,7 @@ fun RegisterScreen(
                                 color = MaterialTheme.colorScheme.primary
                             )
                         ) {
-                            append("Zaloguj się tutaj")
+                            append("Zaloguj się tutaj!")
                         }
                     },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
