@@ -1,32 +1,25 @@
-﻿using AutoMapper;
-using BetSimApi.Abstracions;
+﻿using Application.Abstractions;
+using AutoMapper;
 using BetSimApi.Model;
 using BetSimApi.ViewModel;
-using Dapper;
 using MediatR;
 
 namespace BetSimApi.Queries
 {
     public class GetAllEventsHandler : IRequestHandler<GetAllEventsQuery, List<EventViewModel>>
     {
-        private DbMainContext _dbContext;
-        private IConnectionFactory _connectionFactory;
+        private IEventRepository _eventRepository;
         private IMapper _mapper;
 
-        public GetAllEventsHandler(DbMainContext dbContext, IMapper mapper, IConnectionFactory connection)
+        public GetAllEventsHandler(IMapper mapper,IEventRepository eventRepository)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
-            _connectionFactory = connection;
+            _eventRepository = eventRepository;
         }
 
         public async Task<List<EventViewModel>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
         {
-            await using var connection = _connectionFactory.CreateConnection();
-
-            var all = await connection.QueryAsync<Event>("select * from \"Event\" ");
-            connection.Dispose();
-
+            var all= _eventRepository.GetAllAsync();
             return _mapper.Map<List<EventViewModel>>(all);
         }
     }

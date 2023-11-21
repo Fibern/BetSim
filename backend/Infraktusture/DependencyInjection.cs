@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using BetSimApi.Abstracions;
+using Application.Abstractions;
+using Infrastructure.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection;
     public static class DependencyInjection
@@ -13,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
             //app services
             services.AddScoped<IConnectionFactory, PostgresConnectionFactory>();
+            services.AddScoped<IEventRepository, EventRepository>();
 
             //services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
