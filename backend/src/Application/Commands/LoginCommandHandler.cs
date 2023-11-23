@@ -1,5 +1,4 @@
-﻿using BetSimApi.Model.Classes;
-using MediatR;
+﻿using MediatR;
 
 namespace BetSimApi.Commands
 {

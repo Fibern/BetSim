@@ -22,25 +22,25 @@ builder.Services.AddSwaggerGen();
 
 
 //configre authorization
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//   .AddJwtBearer(o =>
-//   {
-//       o.TokenValidationParameters = new TokenValidationParameters
-//       {
-//           ClockSkew = TimeSpan.FromMinutes(1),
-//           IgnoreTrailingSlashWhenValidatingAudience = true,
-//           IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("TokenOptions: SigningKey").Value!)),
-//           ValidateIssuerSigningKey = true,
-//           RequireExpirationTime = true,    
-//           RequireAudience = true,
-//           RequireSignedTokens = true,
-//           ValidateAudience = true,
-//           ValidateIssuer = true,
-//           ValidateLifetime = true,
-//           ValidAudience = "api://my-audience/",
-//           ValidIssuer = "api://my-issuer/"
-//       };
-//   });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+   .AddJwtBearer(o =>
+   {
+       o.TokenValidationParameters = new TokenValidationParameters
+       {
+           ClockSkew = TimeSpan.FromMinutes(1),
+           IgnoreTrailingSlashWhenValidatingAudience = true,
+           IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("TokenOptions: SigningKey").Value!)),
+           ValidateIssuerSigningKey = true,
+           RequireExpirationTime = true,
+           RequireAudience = true,
+           RequireSignedTokens = true,
+           ValidateAudience = true,
+           ValidateIssuer = true,
+           ValidateLifetime = true,
+           ValidAudience = "api://my-audience/",
+           ValidIssuer = "api://my-issuer/"
+       };
+   });
 
 var app = builder.Build();
 

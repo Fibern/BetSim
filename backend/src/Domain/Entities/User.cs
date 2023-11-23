@@ -10,7 +10,7 @@ namespace BetSimApi.Model
         [Required]
         public string Email { get; set; }
         public string Role { get; set; }
-        public double Points { get; set; } = 0;
+        public double Points { get; set; } = 500;
         [Required]
         public string Password { get; set; }
         public byte[] PasswordHash { get; set; } = new byte[0];
