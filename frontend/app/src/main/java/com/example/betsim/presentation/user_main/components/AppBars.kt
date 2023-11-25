@@ -24,9 +24,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
@@ -61,7 +58,7 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
             hasNews = false,
             badgeCount = null,
             hide = false,
-            route = Screen.TodayEventsScreen.route
+            route = Screen.TodayTournamentsScreen.route
         ),
         BottomNavigationItem(
             title = "Wszystko",
@@ -70,7 +67,7 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
             hasNews = false,
             badgeCount = null,
             hide = false,
-            route = Screen.EventsScreen.route
+            route = Screen.TournamentsScreen.route
         ),
         BottomNavigationItem(
             title = "Kupony",
@@ -97,13 +94,11 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
             hasNews = false,
             badgeCount = null,
             hide = true,
-            route = Screen.SettingsScreen.route
+            route = Screen.ProfileScreen.route
         )
     )
 
-    var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(1)
-    }
+
 
 
     NavigationBar(
@@ -112,14 +107,14 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
         items.forEachIndexed { index, item ->
+            val selected = currentDestination?.hierarchy?.any { it.route == item.route } == true
             NavigationBarItem(
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.onPrimary.copy(0.15f).compositeOver(MaterialTheme.colorScheme.primary)
                 ),
-                selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
+                selected = selected,
                 onClick = {
                     onClick(item.hide)
-                    selectedItemIndex = index
                     navController.navigate(item.route){
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
@@ -145,7 +140,7 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
                         }
                     ) {
                         Icon(
-                            imageVector = if (index == selectedItemIndex) item.selectedIcon
+                            imageVector = if (selected) item.selectedIcon
                             else item.unselectedIcon,
                             contentDescription = item.title,
                             tint = MaterialTheme.colorScheme.onPrimary

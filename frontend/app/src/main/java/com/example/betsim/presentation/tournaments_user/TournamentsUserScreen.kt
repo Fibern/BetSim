@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.events_user
+package com.example.betsim.presentation.tournaments_user
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,19 +11,18 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.betsim.presentation.events_user.components.EventItem
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.betsim.presentation.tournaments_user.components.TournamentItem
 
-
-data class Event(
-    val name: String
-)
 
 @Composable
-fun EventsUserScreen(
-
+fun TournamentsUserScreen(
+    viewModel: TournamentsScreenViewModel = hiltViewModel(),
+    navController: NavController
 ){
 
-    val events = listOf(Event("aaaa"),Event("123"),Event("aaaa"),Event("aaaa"),Event("aaaa"),Event("aaaa"),Event("aaaa"),Event("asaaa"))
+    val state = viewModel.state.value
 
     Surface(
         modifier = Modifier
@@ -35,8 +34,8 @@ fun EventsUserScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         ){
-            items(events){event ->
-                    EventItem(text = event.name)
+            items(state.tournaments){tournament ->
+                    TournamentItem(text = tournament.name)
             }
         }
 

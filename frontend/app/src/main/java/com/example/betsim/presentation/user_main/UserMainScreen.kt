@@ -11,15 +11,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.coupons.CouponsScreen
 import com.example.betsim.presentation.event_details_user.EventDetailScreen
-import com.example.betsim.presentation.events_user.EventsUserScreen
 import com.example.betsim.presentation.leaderboard.LeaderboardScreen
 import com.example.betsim.presentation.profile.Profile
+import com.example.betsim.presentation.tournaments_user.TournamentsUserScreen
 import com.example.betsim.presentation.user_main.components.BetSimBottomAppBar
 import com.example.betsim.presentation.user_main.components.BetSimTopAppBar
 import com.example.betsim.presentation.user_main.components.FloatingABAnimation
@@ -63,18 +65,31 @@ fun UserMainScreen(
 
 
     ) { innerPadding ->
-
         NavHost(
             navController = navController,
-            startDestination = Screen.CouponsScreen.route,
+            startDestination = Screen.TournamentsScreen.route,
             Modifier.padding(innerPadding)
         ){
-            composable(Screen.EventsScreen.route) { EventsUserScreen() }
+            composable(Screen.TournamentsScreen.route,
+                arguments = listOf(
+                    navArgument("today"){
+                        type = NavType.BoolType
+                        defaultValue = false
+                    }
+                )
+            ) { TournamentsUserScreen(navController = navController) }
             composable(Screen.EventDetailScreen.route) { EventDetailScreen() }
             composable(Screen.CouponsScreen.route) { CouponsScreen() }
             composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
-            composable(Screen.TodayEventsScreen.route) { EventsUserScreen() }
-            composable(Screen.SettingsScreen.route) { Profile() }
+            composable(Screen.TodayTournamentsScreen.route,
+                arguments = listOf(
+                    navArgument("today"){
+                        type = NavType.BoolType
+                        defaultValue = true
+                    }
+                )
+            ) { TournamentsUserScreen(navController = navController) }
+            composable(Screen.ProfileScreen.route) { Profile() }
         }
 
         OpenedCouponFog(padding = innerPadding, active = !collapsed) {

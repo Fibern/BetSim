@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.events_user.components
+package com.example.betsim.presentation.tournaments_user.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun EventItem(
+fun TournamentItem(
     text: String
 ) {
     Box(

@@ -111,8 +111,8 @@ fun CouponsList(color: Color){
 typealias ComposableFun = @Composable ()->Unit
 sealed class TabItem(val title:String, val screens:ComposableFun) {
 
-    object InGame : TabItem(title = "W grze", screens = { CouponsList(Color.Magenta) })
-    object Ended: TabItem(title = "Rozliczone", screens={ CouponsList(Color.Cyan) })
+    object InGame : TabItem(title = "Oczekujące", screens = { CouponsList(Color.Magenta) })
+    object Ended: TabItem(title = "Zakończone", screens={ CouponsList(Color.Cyan) })
 
 
 }
