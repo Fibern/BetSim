@@ -1,10 +1,12 @@
 package com.example.betsim.presentation.events_user
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,7 +32,8 @@ fun EventsUserScreen(
 
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.background(MaterialTheme.colorScheme.background)
         ){
             items(events){event ->
                     EventItem(text = event.name)

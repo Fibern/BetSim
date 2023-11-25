@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -22,6 +23,7 @@ fun EventItem(
             .clip(RoundedCornerShape(8.dp))
             .height(150.dp)
             .fillMaxWidth()
+            .shadow(6.dp, RoundedCornerShape(8.dp), clip = true)
             .background(MaterialTheme.colorScheme.secondary)
         ,
         contentAlignment = Alignment.Center

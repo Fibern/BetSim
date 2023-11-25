@@ -2,6 +2,9 @@ package com.example.betsim.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val primary = Color(0xFF222F3E)
+val secondary = Color(0xFF1F2330)
+
 val md_theme_light_primary = Color(0xFF0062A2)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFD1E4FF)
