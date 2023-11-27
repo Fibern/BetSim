@@ -58,7 +58,7 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
             hasNews = false,
             badgeCount = null,
             hide = false,
-            route = Screen.TodayTournamentsScreen.route
+            route = "today"
         ),
         BottomNavigationItem(
             title = "Wszystko",
@@ -67,7 +67,7 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
             hasNews = false,
             badgeCount = null,
             hide = false,
-            route = Screen.TournamentsScreen.route
+            route = "all"
         ),
         BottomNavigationItem(
             title = "Kupony",

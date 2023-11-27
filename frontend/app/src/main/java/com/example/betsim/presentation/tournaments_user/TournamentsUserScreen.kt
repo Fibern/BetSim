@@ -1,6 +1,7 @@
 package com.example.betsim.presentation.tournaments_user
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ fun TournamentsUserScreen(
 ){
 
     val state = viewModel.state.value
+    val route = viewModel.route.value
 
     Surface(
         modifier = Modifier
@@ -35,7 +37,12 @@ fun TournamentsUserScreen(
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         ){
             items(state.tournaments){tournament ->
-                    TournamentItem(text = tournament.name)
+                    TournamentItem(
+                        text = tournament.name,
+                        Modifier.clickable(onClick = {
+                            navController.navigate(route)
+                        })
+                    )
             }
         }
 

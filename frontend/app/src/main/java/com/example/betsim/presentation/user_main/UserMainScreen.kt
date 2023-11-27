@@ -16,11 +16,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.coupons.CouponsScreen
-import com.example.betsim.presentation.event_details_user.EventDetailScreen
 import com.example.betsim.presentation.leaderboard.LeaderboardScreen
 import com.example.betsim.presentation.profile.Profile
+import com.example.betsim.presentation.tournament_details_user.TournamentDetailScreen
 import com.example.betsim.presentation.tournaments_user.TournamentsUserScreen
 import com.example.betsim.presentation.user_main.components.BetSimBottomAppBar
 import com.example.betsim.presentation.user_main.components.BetSimTopAppBar
@@ -67,29 +68,35 @@ fun UserMainScreen(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.TournamentsScreen.route,
+            startDestination = "all",
             Modifier.padding(innerPadding)
         ){
-            composable(Screen.TournamentsScreen.route,
-                arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    }
-                )
-            ) { TournamentsUserScreen(navController = navController) }
-            composable(Screen.EventDetailScreen.route) { EventDetailScreen() }
+            navigation(startDestination = Screen.TodayTournamentsScreen.route, route = "today"){
+                composable(Screen.TodayTournamentsScreen.route,
+                    arguments = listOf(
+                        navArgument("today"){
+                            type = NavType.BoolType
+                            defaultValue = true
+                        }
+                    )
+                ) { TournamentsUserScreen(navController = navController) }
+                composable(Screen.TodayTournamentDetailScreen.route) { TournamentDetailScreen() }
+            }
+            navigation(startDestination = Screen.TournamentsScreen.route, route = "all"){
+                composable(Screen.TournamentsScreen.route,
+                    arguments = listOf(
+                        navArgument("today"){
+                            type = NavType.BoolType
+                            defaultValue = false
+                        }
+                    )
+                ) { TournamentsUserScreen(navController = navController) }
+                composable(Screen.TournamentDetailScreen.route) { TournamentDetailScreen() }
+            }
+            composable(Screen.ProfileScreen.route) { Profile() }
             composable(Screen.CouponsScreen.route) { CouponsScreen() }
             composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
-            composable(Screen.TodayTournamentsScreen.route,
-                arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = true
-                    }
-                )
-            ) { TournamentsUserScreen(navController = navController) }
-            composable(Screen.ProfileScreen.route) { Profile() }
+
         }
 
         OpenedCouponFog(padding = innerPadding, active = !collapsed) {
@@ -97,6 +104,8 @@ fun UserMainScreen(
         }
 
     }
+
+
 
 }
 

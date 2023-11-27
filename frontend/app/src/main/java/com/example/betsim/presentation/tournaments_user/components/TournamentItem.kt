@@ -16,10 +16,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TournamentItem(
-    text: String
+    text: String,
+    modifier: Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .height(150.dp)
             .fillMaxWidth()

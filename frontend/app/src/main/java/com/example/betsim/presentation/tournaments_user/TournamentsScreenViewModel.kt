@@ -1,9 +1,11 @@
 package com.example.betsim.presentation.tournaments_user
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.betsim.presentation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,8 +29,14 @@ class TournamentsScreenViewModel @Inject constructor(
     private var _state = mutableStateOf<TournamentsState>(TournamentsState())
     val state = _state
 
+    private var _route = mutableStateOf<String>("")
+    val route = _route
+
     init {
         isToday = checkNotNull(savedStateHandle["today"])
+        _route.value = if(isToday) Screen.TodayTournamentDetailScreen.route
+                        else Screen.TournamentDetailScreen.route
+        Log.i("jd",route.value)
         getTournaments()
     }
 
