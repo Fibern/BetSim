@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -31,8 +32,10 @@ import com.example.betsim.presentation.user_main.components.OpenedCouponFog
 
 @Composable
 fun UserMainScreen(
-   // viewModel: UserMainViewModel = hiltViewModel()
+    viewModel: UserMainViewModel = hiltViewModel()
 ){
+
+    val state = viewModel.state.value
 
     val navController = rememberNavController()
 
@@ -55,7 +58,7 @@ fun UserMainScreen(
 
         topBar = { BetSimTopAppBar() },
         floatingActionButton = {
-            FloatingABAnimation(hidden = hidden, collapsed = collapsed) {
+            FloatingABAnimation(hidden = hidden, collapsed = collapsed, games = state.games) {
             collapsed = false
         } },
         bottomBar = {
@@ -80,7 +83,7 @@ fun UserMainScreen(
                         }
                     )
                 ) { TournamentsUserScreen(navController = navController) }
-                composable(Screen.TodayTournamentDetailScreen.route) { TournamentDetailScreen() }
+                composable(Screen.TodayTournamentDetailScreen.route) { TournamentDetailScreen(mainViewModel = viewModel) }
             }
             navigation(startDestination = Screen.TournamentsScreen.route, route = "all"){
                 composable(Screen.TournamentsScreen.route,
@@ -91,7 +94,7 @@ fun UserMainScreen(
                         }
                     )
                 ) { TournamentsUserScreen(navController = navController) }
-                composable(Screen.TournamentDetailScreen.route) { TournamentDetailScreen() }
+                composable(Screen.TournamentDetailScreen.route) { TournamentDetailScreen(mainViewModel = viewModel) }
             }
             composable(Screen.ProfileScreen.route) { Profile() }
             composable(Screen.CouponsScreen.route) { CouponsScreen() }

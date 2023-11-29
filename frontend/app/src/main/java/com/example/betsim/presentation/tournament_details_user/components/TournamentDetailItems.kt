@@ -20,11 +20,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.betsim.presentation.tournament_details_user.TournamentGame
+import com.example.betsim.domain.model.TournamentGame
 
 @Composable
 fun TournamentDetailChoice(
-    game: TournamentGame
+    game: TournamentGame,
+    onClick: (TournamentGame) -> Unit
 ) {
 
     Column(
@@ -52,7 +53,9 @@ fun TournamentDetailChoice(
             game.odds.forEachIndexed(){ index: Int, it: Float ->
                 Button(
                     onClick = {
+                        /*TODO*/
                               game.selected.value = index
+                              onClick(game)
                     },
                     modifier = Modifier
                         .width(80.dp),

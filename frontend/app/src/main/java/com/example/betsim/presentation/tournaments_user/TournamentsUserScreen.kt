@@ -21,6 +21,7 @@ import com.example.betsim.presentation.tournaments_user.components.TournamentIte
 fun TournamentsUserScreen(
     viewModel: TournamentsScreenViewModel = hiltViewModel(),
     navController: NavController
+
 ){
 
     val state = viewModel.state.value

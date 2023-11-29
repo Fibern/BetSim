@@ -15,8 +15,11 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material3.Badge
@@ -36,6 +39,7 @@ import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.example.betsim.domain.model.TournamentGame
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
@@ -49,15 +53,13 @@ class NoRippleInteractionSource : MutableInteractionSource{
 }
 
 @Composable
-fun FloatingCoupon() {
-
+fun FloatingCoupon(games: List<TournamentGame>) {
 
     ExtendedFloatingActionButton(
         onClick = {},
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 100.dp, top = 300.dp)
-        ,
+            .padding(start = 100.dp, top = 300.dp),
         containerColor = MaterialTheme.colorScheme.primary,
         interactionSource = remember{ NoRippleInteractionSource() }
     ) {
@@ -65,10 +67,15 @@ fun FloatingCoupon() {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ){
-            Text(text = "coupon")
+            LazyColumn(){
+                items(games){
+                    Row {
+                        Text(text = it.odds[it.selected.value!!].toString())
+                    }
+                }
+            }
         }
     }
-
 
 }
 
@@ -127,7 +134,7 @@ fun OpenedCouponFog(padding: PaddingValues, active: Boolean, onActionDown: () ->
 }
 
 @Composable
-fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, onClick: () -> Unit){
+fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<TournamentGame>, onClick: () -> Unit){
     AnimatedVisibility(
         visible = !hidden,
         enter = fadeIn(tween(150)),
@@ -141,7 +148,7 @@ fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, onClick: () -> Unit
                 if(it){
                     FloatAB(onClick = ({ onClick() }))
                 }else{
-                    FloatingCoupon()
+                    FloatingCoupon(games)
                 }
             },
             transitionSpec = {
@@ -176,6 +183,6 @@ fun FloatingCouponPreview(
 
 ){
 
-    FloatingCoupon()
+    FloatingCoupon(listOf())
 
 }
