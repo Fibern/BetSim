@@ -7,7 +7,7 @@ data class TournamentGame(
     var id: Int,
     var homeTeam: String,
     var awayTeam: String,
-    var odds: List<Float>,
+    var odds: List<Odd>,
     var selected: MutableState<Int?> = mutableStateOf(null)
 ){
     override fun equals(other: Any?): Boolean {

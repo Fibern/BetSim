@@ -16,7 +16,6 @@ sealed class Screen(val route: String) {
     data object AuthNav: Screen("auth_navigation")
     data object LoginScreen: Screen("login_screen")
     data object RegisterScreen: Screen("register_screen")
-
     data object UserNav: Screen("user_navigation")
     data object UserMainScreen: Screen("user_main_screen")
     data object TournamentsScreen: Screen("events_screen?today={today}")

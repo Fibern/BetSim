@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
 
 @Composable
@@ -50,7 +51,7 @@ fun TournamentDetailChoice(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            game.odds.forEachIndexed(){ index: Int, it: Float ->
+            game.odds.forEachIndexed(){ index: Int, it: Odd ->
                 Button(
                     onClick = {
                         /*TODO*/
@@ -63,7 +64,7 @@ fun TournamentDetailChoice(
                         containerColor = if(index == game.selected.value) Color.Black else MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    Text(text = it.toString())
+                    Text(text = it.odd.toString())
                 }
                 Spacer(modifier = Modifier.weight(1f))
             }

@@ -37,7 +37,7 @@ fun TournamentDetailScreen(
                 val list = mainViewModel.state.value.games
                 val ind = list.indexOf(game)
                 if (ind != -1){
-                    state.games[ind] = list[ind]
+                    state.games[index] = list[ind]
                 }
                 TournamentDetailChoice(game){
                     if(it !in mainViewModel.state.value.games) mainViewModel.state.value.games.add(it)
