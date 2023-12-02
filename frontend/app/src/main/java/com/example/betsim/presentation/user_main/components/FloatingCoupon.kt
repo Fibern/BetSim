@@ -1,6 +1,7 @@
 package com.example.betsim.presentation.user_main.components
 
 
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -13,11 +14,13 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,21 +28,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.example.betsim.common.components.bottomBorder
+import com.example.betsim.common.components.topBorder
+import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
@@ -54,7 +64,7 @@ class NoRippleInteractionSource : MutableInteractionSource{
 }
 
 @Composable
-fun FloatingCoupon(games: List<TournamentGame>) {
+fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, onClick: (TournamentGame) -> Unit) {
 
     ExtendedFloatingActionButton(
         onClick = {},
@@ -68,19 +78,73 @@ fun FloatingCoupon(games: List<TournamentGame>) {
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ){
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
+           Row (
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth()
+                    .height(24.dp)
+                    .bottomBorder(1.dp, MaterialTheme.colorScheme.onPrimary),
+                verticalAlignment = Alignment.CenterVertically
             ){
+                Text(text = "Twój kupon", color = MaterialTheme.colorScheme.onPrimary)
+            }
+            Row (
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = 96.dp, top = 24.dp)
+            ){
+                LazyColumn{
 
-                items(games){
-                    FloatingCouponItem(game = it)
+                    items(games){
+                        FloatingCouponItem(game = it){
+                            onClick(it)
+                        }
+                    }
+
                 }
-
+            }
+            Row (
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(bottom = 72.dp)
+                    .height(24.dp)
+                    .topBorder(1.dp, MaterialTheme.colorScheme.onPrimary),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ){
+                Text(
+                    text = "Łączny kurs",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                )
+                Text(
+                    text = oddsValue,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.padding(end = 40.dp)
+                )
             }
             Row(
-                modifier = Modifier.align(Alignment.BottomEnd)
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(horizontal = 8.dp)
+                    .padding(bottom = 8.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.Bottom
             ){
-                OutlinedButton(onClick = { /*TODO*/ }) {
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f),
+                    singleLine = true,
+                    label = {"jd"}
+                )
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.padding(bottom = 4.dp)
+                ) {
                     Text(text = "Postaw", color = MaterialTheme.colorScheme.onPrimary)
                 }
             }
@@ -144,7 +208,7 @@ fun OpenedCouponFog(padding: PaddingValues, active: Boolean, onActionDown: () ->
 }
 
 @Composable
-fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<TournamentGame>, onClick: () -> Unit){
+fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<TournamentGame>, oddsValue: String, onClick: () -> Unit, onDeleteClick: (TournamentGame) -> Unit){
     AnimatedVisibility(
         visible = !hidden,
         enter = fadeIn(tween(150)),
@@ -158,7 +222,9 @@ fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<Tournam
                 if(it){
                     FloatAB(onClick = ({ onClick() }))
                 }else{
-                    FloatingCoupon(games)
+                    FloatingCoupon(games, oddsValue){ game ->
+                        onDeleteClick(game)
+                    }
                 }
             },
             transitionSpec = {
@@ -184,4 +250,24 @@ fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<Tournam
         )
 
     }
+}
+
+
+@SuppressLint("UnrememberedMutableState")
+@Preview
+@Composable
+fun FCoupon(){
+    val state: MutableState<Int?> = mutableStateOf(0)
+    val list = listOf(
+        TournamentGame(1,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+        TournamentGame(5,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+        TournamentGame(4,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+        TournamentGame(3,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+        TournamentGame(2,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+        TournamentGame(7,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+        TournamentGame(8,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
+    )
+    FloatingCoupon(
+        games = list, "123"
+    ){}
 }

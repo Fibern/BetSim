@@ -35,7 +35,7 @@ fun UserMainScreen(
     viewModel: UserMainViewModel = hiltViewModel()
 ){
 
-    val state = viewModel.state.value
+    val games = viewModel.games
 
     val navController = rememberNavController()
 
@@ -58,9 +58,16 @@ fun UserMainScreen(
 
         topBar = { BetSimTopAppBar() },
         floatingActionButton = {
-            FloatingABAnimation(hidden = hidden, collapsed = collapsed, games = state.games) {
-            collapsed = false
-        } },
+            FloatingABAnimation(
+                hidden = hidden,
+                collapsed = collapsed,
+                games = games,
+                oddsValue = viewModel.oddValue.doubleValue.toString(),
+                onClick = {collapsed = false},
+                onDeleteClick = { game ->
+                    viewModel.onEvent(UserMainEvent.DeleteGame(game))
+                }
+            ) },
         bottomBar = {
             BetSimBottomAppBar(navController){
             hidden = it

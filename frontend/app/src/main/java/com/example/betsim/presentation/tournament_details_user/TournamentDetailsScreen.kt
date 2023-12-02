@@ -34,13 +34,13 @@ fun TournamentDetailScreen(
         ){
 
             itemsIndexed(state.games){index, game->
-                val list = mainViewModel.state.value.games
+                val list = mainViewModel.games
                 val ind = list.indexOf(game)
                 if (ind != -1){
                     state.games[index] = list[ind]
                 }
                 TournamentDetailChoice(game){
-                    if(it !in mainViewModel.state.value.games) mainViewModel.state.value.games.add(it)
+                    if(it !in mainViewModel.games) mainViewModel.games.add(it)
                 }
             }
 
