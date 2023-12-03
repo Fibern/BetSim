@@ -2,13 +2,15 @@ package com.example.betsim.domain.model
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import java.util.Date
 
 data class TournamentGame(
-    var id: Int,
-    var homeTeam: String,
-    var awayTeam: String,
-    var odds: List<Odd>,
-    var selected: MutableState<Int?> = mutableStateOf(null)
+    val id: Int,
+    val homeTeam: String,
+    val awayTeam: String,
+    val odds: List<Odd>,
+    val selected: MutableState<Int?> = mutableStateOf(null),
+    val date: Date = Date()
 ){
     override fun equals(other: Any?): Boolean {
 
