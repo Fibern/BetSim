@@ -51,7 +51,7 @@ class UserMainViewModel @Inject constructor(
                 _couponCollapsed.value = event.collapsed
             }
             is UserMainEvent.HiddenChange -> {
-                _couponHidden.value = event.hidden
+                if (_games.size != 0) _couponHidden.value = event.hidden
                 _couponCollapsed.value = true
             }
         }

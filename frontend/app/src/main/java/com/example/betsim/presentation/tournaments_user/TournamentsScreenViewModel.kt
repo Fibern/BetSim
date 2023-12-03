@@ -1,6 +1,5 @@
 package com.example.betsim.presentation.tournaments_user
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -36,7 +35,6 @@ class TournamentsScreenViewModel @Inject constructor(
         isToday = checkNotNull(savedStateHandle["today"])
         _route.value = if(isToday) Screen.TodayTournamentDetailScreen.route
                         else Screen.TournamentDetailScreen.route
-        Log.i("jd",route.value)
         getTournaments()
     }
 
