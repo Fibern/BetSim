@@ -1,6 +1,6 @@
 package com.example.betsim.presentation.tournament_details_user
 
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
@@ -9,17 +9,14 @@ import javax.inject.Inject
 
 
 
-data class TournamentGamesState(
-    var games: MutableList<TournamentGame> = mutableListOf()
-)
 
 @HiltViewModel
 class TournamentDetailsViewModel @Inject constructor(
 
 ): ViewModel() {
 
-    private var _state = mutableStateOf(TournamentGamesState())
-    val state = _state
+    private var _games = mutableStateListOf<TournamentGame>()
+    val games = _games
 
 
     init {
@@ -34,7 +31,25 @@ class TournamentDetailsViewModel @Inject constructor(
         val game6 = TournamentGame(6,"Polska", "Estonia", listOf(odd1,odd2,odd3))
         val game7 = TournamentGame(7,"Polska", "Estonia", listOf(odd1,odd2,odd3))
         val game8 = TournamentGame(8,"Polska", "Łotwa", listOf(odd1,odd2))
-        _state.value.games = mutableListOf(game1,game2,game3,game4,game5,game6,game7,game8)
+        _games.add(game1)
+        _games.add(game2)
+        _games.add(game3)
+        _games.add(game4)
+        _games.add(game5)
+        _games.add(game6)
+        _games.add(game7)
+        _games.add(game8)
+    }
+
+    fun onEvent(event: TournamentDetailsEvent){
+        when(event){
+            is TournamentDetailsEvent.LoadList -> {
+                games[event.index] = event.game
+            }
+            is TournamentDetailsEvent.OnSelect -> {
+                event.game.selected.value = event.index
+            }
+        }
     }
 
 }

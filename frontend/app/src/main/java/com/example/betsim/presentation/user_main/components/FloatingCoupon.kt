@@ -24,19 +24,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,7 +69,7 @@ class NoRippleInteractionSource : MutableInteractionSource{
 }
 
 @Composable
-fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, onClick: (TournamentGame) -> Unit) {
+fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, text: String, onClick: (TournamentGame) -> Unit, onValueChange: (String) -> Unit) {
 
     ExtendedFloatingActionButton(
         onClick = {},
@@ -133,17 +138,39 @@ fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, onClick: (Tou
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.Bottom
             ){
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    modifier = Modifier
-                        .fillMaxWidth(0.5f),
-                    singleLine = true,
-                    label = {"jd"}
-                )
+                CompositionLocalProvider(
+                    LocalTextSelectionColors provides
+                    TextSelectionColors(handleColor = MaterialTheme.colorScheme.onPrimary, backgroundColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f))
+                ) {
+                    OutlinedTextField(
+                        value = text,
+                        onValueChange = {
+                            onValueChange(it)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f),
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedLeadingIconColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                            cursorColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedLeadingIconColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        //label = {"jd"}
+                    )
+                }
                 Button(
                     onClick = { /*TODO*/ },
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.padding(bottom = 4.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        contentColor = MaterialTheme.colorScheme.onSecondary
+                    )
                 ) {
                     Text(text = "Postaw", color = MaterialTheme.colorScheme.onPrimary)
                 }
@@ -156,7 +183,7 @@ fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, onClick: (Tou
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FloatAB(onClick: () -> Unit){
+fun FloatAB(onClick: () -> Unit, count: Int){
     FloatingActionButton(
         onClick = {
             /*TODO*/
@@ -168,7 +195,7 @@ fun FloatAB(onClick: () -> Unit){
         BadgedBox(
             badge = {
                 Badge {
-                    Text(text = "0")
+                    Text(text = count.toString())
                 }
             }
         ) {
@@ -208,7 +235,7 @@ fun OpenedCouponFog(padding: PaddingValues, active: Boolean, onActionDown: () ->
 }
 
 @Composable
-fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<TournamentGame>, oddsValue: String, onClick: () -> Unit, onDeleteClick: (TournamentGame) -> Unit){
+fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<TournamentGame>, text: String, oddsValue: String, onClick: () -> Unit, onDeleteClick: (TournamentGame) -> Unit, onValueChange: (String) -> Unit){
     AnimatedVisibility(
         visible = !hidden,
         enter = fadeIn(tween(150)),
@@ -220,11 +247,22 @@ fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<Tournam
             targetState = collapsed ,
             content = {
                 if(it){
-                    FloatAB(onClick = ({ onClick() }))
+                    FloatAB(
+                        onClick = ({ onClick() }),
+                        count = games.size
+                    )
                 }else{
-                    FloatingCoupon(games, oddsValue){ game ->
-                        onDeleteClick(game)
-                    }
+                    FloatingCoupon(
+                        games = games,
+                        oddsValue = oddsValue,
+                        text = text,
+                        onValueChange = {str ->
+                            onValueChange(str)
+                        },
+                        onClick = { game ->
+                            onDeleteClick(game)
+                        }
+                    )
                 }
             },
             transitionSpec = {
@@ -268,6 +306,6 @@ fun FCoupon(){
         TournamentGame(8,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), state),
     )
     FloatingCoupon(
-        games = list, "123"
-    ){}
+        games = list, "123", "jsd", onClick = {}, onValueChange = {}
+    )
 }

@@ -7,4 +7,7 @@ sealed class UserMainEvent {
     data class MakeBet(val value: String): UserMainEvent()
     data class AddGame(val game: TournamentGame): UserMainEvent()
     data class DeleteGame(val game: TournamentGame): UserMainEvent()
+    data class CollapsedChange(val collapsed: Boolean): UserMainEvent()
+    data class HiddenChange(val hidden: Boolean): UserMainEvent()
+
 }

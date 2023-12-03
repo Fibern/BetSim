@@ -26,7 +26,7 @@ import com.example.betsim.domain.model.TournamentGame
 @Composable
 fun TournamentDetailChoice(
     game: TournamentGame,
-    onClick: (TournamentGame) -> Unit
+    onClick: (Int) -> Unit
 ) {
 
     Column(
@@ -55,8 +55,7 @@ fun TournamentDetailChoice(
                 Button(
                     onClick = {
                         /*TODO*/
-                              game.selected.value = index
-                              onClick(game)
+                              onClick(index)
                     },
                     modifier = Modifier
                         .width(80.dp),

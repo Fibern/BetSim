@@ -5,10 +5,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,18 +31,9 @@ import com.example.betsim.presentation.user_main.components.OpenedCouponFog
 fun UserMainScreen(
     viewModel: UserMainViewModel = hiltViewModel()
 ){
-
-    val games = viewModel.games
-
     val navController = rememberNavController()
 
-    var collapsed by remember{
-        mutableStateOf(true)
-    }
 
-    var hidden by remember{
-        mutableStateOf(false)
-    }
 
     Scaffold(
         modifier = Modifier
@@ -54,24 +42,31 @@ fun UserMainScreen(
                 interactionSource = remember {
                     MutableInteractionSource()
                 }
-            ) { collapsed = true },
+            ) {
+              viewModel.onEvent(UserMainEvent.CollapsedChange(true))
+            },
 
         topBar = { BetSimTopAppBar() },
         floatingActionButton = {
             FloatingABAnimation(
-                hidden = hidden,
-                collapsed = collapsed,
-                games = games,
-                oddsValue = viewModel.oddValue.doubleValue.toString(),
-                onClick = {collapsed = false},
+                hidden = viewModel.couponHidden.value,
+                collapsed = viewModel.couponCollapsed.value,
+                games = viewModel.games,
+                oddsValue = "%.2f".format(viewModel.oddValue.doubleValue),
+                text = viewModel.bet.value,
+                onClick = {
+                          viewModel.onEvent(UserMainEvent.CollapsedChange(false))
+                },
                 onDeleteClick = { game ->
                     viewModel.onEvent(UserMainEvent.DeleteGame(game))
+                },
+                onValueChange = {
+                    viewModel.onEvent(UserMainEvent.EnteredValue(it))
                 }
             ) },
         bottomBar = {
             BetSimBottomAppBar(navController){
-            hidden = it
-            collapsed = true
+                viewModel.onEvent(UserMainEvent.HiddenChange(it))
         } }
 
 
@@ -109,8 +104,8 @@ fun UserMainScreen(
 
         }
 
-        OpenedCouponFog(padding = innerPadding, active = !collapsed) {
-            collapsed = true
+        OpenedCouponFog(padding = innerPadding, active = !viewModel.couponCollapsed.value) {
+            viewModel.onEvent(UserMainEvent.CollapsedChange(true))
         }
 
     }
