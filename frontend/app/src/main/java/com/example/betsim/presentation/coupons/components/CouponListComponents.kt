@@ -35,8 +35,7 @@ import com.example.betsim.domain.model.Coupon
 import com.example.betsim.presentation.coupons.Category
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -107,7 +106,7 @@ fun CouponListItem(coupon: Coupon) {
 
     ListItem(
         headlineContent = { Text(text) },
-        supportingContent = { Text(SimpleDateFormat("hh:mm:ss", Locale.GERMAN).format(coupon.date))},
+        supportingContent = { Text(DateTimeFormatter.ofPattern("hh:mm:ss").format(coupon.date),)},
         trailingContent = { Text(winnings) },
         leadingContent = {
             Icon(
@@ -127,7 +126,7 @@ fun CouponHeader(
 ){
     Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.onPrimary).padding(vertical = 8.dp)) {
         Text(
-            text = SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN).format(category.header),
+            text = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(category.header),
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(start = 16.dp)

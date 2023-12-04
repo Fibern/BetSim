@@ -1,6 +1,5 @@
 package com.example.betsim.presentation.tournament_details_user.components
 
-import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
-import java.util.Locale
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun TournamentDetailChoice(
@@ -49,7 +48,7 @@ fun TournamentDetailChoice(
             horizontalArrangement = Arrangement.SpaceBetween,
         ){
             Text(
-                SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN).format(game.date),
+                DateTimeFormatter.ofPattern("yyyy.MM.dd").format(game.date),
                 color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = MaterialTheme.typography.labelSmall.fontSize,
                 fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
@@ -57,7 +56,7 @@ fun TournamentDetailChoice(
                 letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing
             )
             Text(
-                SimpleDateFormat("hh:mm:ss", Locale.GERMAN).format(game.date),
+                DateTimeFormatter.ofPattern("hh:mm:ss").format(game.date),
                 color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = MaterialTheme.typography.labelSmall.fontSize,
                 fontWeight = MaterialTheme.typography.bodySmall.fontWeight,

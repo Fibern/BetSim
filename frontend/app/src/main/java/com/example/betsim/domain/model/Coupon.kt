@@ -1,6 +1,7 @@
 package com.example.betsim.domain.model
 
-import java.util.Date
+import java.time.LocalDateTime
+
 
 data class Coupon(
     val id: Int,
@@ -9,5 +10,5 @@ data class Coupon(
     val odd: Double,
     val betValue: Double,
     val winnings: Double,
-    val date: Date = Date()
+    val date: LocalDateTime = LocalDateTime.now()
 )

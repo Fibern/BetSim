@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
-import java.util.Date
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 data class Category(
-    val header: Date,
+    val header: LocalDate,
     val coupons: List<Coupon>
 )
 class CouponsScreenViewModel @Inject constructor(
@@ -32,42 +33,42 @@ class CouponsScreenViewModel @Inject constructor(
         val game6 = TournamentGame(6,"Polska", "Estonia", listOf(odd1,odd2,odd3), selected = mutableStateOf(0))
         val game7 = TournamentGame(7,"Polska", "Estonia", listOf(odd1,odd2,odd3), selected = mutableStateOf(1))
         val game8 = TournamentGame(8,"Polska", "Łotwa", listOf(odd1,odd2), selected = mutableStateOf(0))
-        val coupon1 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, Date(2001,10,10,12,10,0))
-        val coupon2 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon3 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2002,10,10,12,10,0))
-        val coupon4 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2003,10,10,12,10,0))
-        val coupon5 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2020,10,10,12,10,0))
-        val coupon6 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2060,10,10,12,10,0))
-        val coupon7 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2070,10,10,12,10,0))
-        val coupon8 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon9 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon10 = Coupon(1, listOf(game6,game7),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon11 = Coupon(1, listOf(game8),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon12 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon13 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon14 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon15 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon16 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon17 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon18 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon19 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon20 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon21 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon22 = Coupon(1, listOf(game6,game7),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon23 = Coupon(1, listOf(game8),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon24 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon25 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon26 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon27 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
-        val coupon28 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon29 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon30 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon31 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, Date(2000,10,10,12,10,0))
-        val coupon32 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, Date(2002,10,10,12,10,0))
-        val coupon33 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, Date(2002,10,10,12,10,0))
-        val coupon34 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, Date(2001,10,10,12,10,0))
-        val coupon35 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, Date(2001,10,10,12,10,0))
-        val coupon36 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, Date(2000,10,10,12,10,0))
+        val coupon1 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, LocalDateTime.of(2001,10,10,12,0,0))
+        val coupon2 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon3 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2002,10,10,12,0,0))
+        val coupon4 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2003,10,10,12,0,0))
+        val coupon5 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2020,10,10,12,0,0))
+        val coupon6 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2060,10,10,12,0,0))
+        val coupon7 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2070,10,10,12,0,0))
+        val coupon8 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon9 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon10 = Coupon(1, listOf(game6,game7),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon11 = Coupon(1, listOf(game8),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon12 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon13 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon14 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon15 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,10,0,0))
+        val coupon16 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,11,0,0))
+        val coupon17 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,10,0,0))
+        val coupon18 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,10,0,0))
+        val coupon19 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon20 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon21 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon22 = Coupon(1, listOf(game6,game7),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon23 = Coupon(1, listOf(game8),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon24 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon25 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon26 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon27 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,10,0,0))
+        val coupon28 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,18,0,0))
+        val coupon29 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,16,0,0))
+        val coupon30 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,14,0,0))
+        val coupon31 = Coupon(1, listOf(game1,game2,game3,game4,game5),true,2.54,25.0,0.0, LocalDateTime.of(2000,10,10,12,0,0))
+        val coupon32 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, LocalDateTime.of(2002,10,10,12,0,0))
+        val coupon33 = Coupon(1, listOf(game1,game2,game3,game4,game5),false,2.54,25.0,26.0, LocalDateTime.of(2002,10,10,12,0,0))
+        val coupon34 = Coupon(1, listOf(game6,game7),false,2.54,25.0,26.0, LocalDateTime.of(2001,10,10,12,0,0))
+        val coupon35 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, LocalDateTime.of(2001,10,10,12,0,0))
+        val coupon36 = Coupon(1, listOf(game8),false,2.54,25.0,26.0, LocalDateTime.of(2000,10,10,12,0,0))
 
         val list = listOf(
             coupon1,
@@ -106,8 +107,10 @@ class CouponsScreenViewModel @Inject constructor(
             coupon34,
             coupon35,
             coupon36
-        ).groupBy {
+        ).sortedBy {
             it.date
+        }.groupBy {
+            it.date.toLocalDate()
         }.toSortedMap()
 
         coupons = list.map {

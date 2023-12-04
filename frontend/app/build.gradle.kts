@@ -32,6 +32,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -91,5 +92,7 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-pager:0.32.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.32.0")
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
 }

@@ -2,7 +2,7 @@ package com.example.betsim.domain.model
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import java.util.Date
+import java.time.LocalDateTime
 
 data class TournamentGame(
     val id: Int,
@@ -10,7 +10,7 @@ data class TournamentGame(
     val awayTeam: String,
     val odds: List<Odd>,
     val selected: MutableState<Int?> = mutableStateOf(null),
-    val date: Date = Date()
+    val date: LocalDateTime = LocalDateTime.now()
 ){
     override fun equals(other: Any?): Boolean {
 
