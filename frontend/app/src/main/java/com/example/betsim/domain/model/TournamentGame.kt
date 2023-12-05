@@ -9,8 +9,8 @@ data class TournamentGame(
     val homeTeam: String,
     val awayTeam: String,
     val odds: List<Odd>,
-    val selected: MutableState<Int?> = mutableStateOf(null),
-    val date: LocalDateTime = LocalDateTime.now()
+    val date: LocalDateTime = LocalDateTime.now(),
+    var selected: MutableState<Int?> = mutableStateOf(null),
 ){
     override fun equals(other: Any?): Boolean {
 

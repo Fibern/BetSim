@@ -44,7 +44,8 @@ fun TournamentDetailChoice(
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .padding(horizontal = 8.dp)
+                .padding(top = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ){
             Text(
@@ -56,7 +57,7 @@ fun TournamentDetailChoice(
                 letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing
             )
             Text(
-                DateTimeFormatter.ofPattern("hh:mm:ss").format(game.date),
+                DateTimeFormatter.ofPattern("HH:mm:ss").format(game.date),
                 color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = MaterialTheme.typography.labelSmall.fontSize,
                 fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
@@ -96,11 +97,13 @@ fun TournamentDetailChoice(
                             fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
                             lineHeight = MaterialTheme.typography.labelSmall.lineHeight,
                             letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
                         )
                         Text(
                             text = it.odd.toString(),
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }

@@ -29,6 +29,6 @@ fun TournamentItem(
         ,
         contentAlignment = Alignment.Center
     ) {
-        Text(text = text)
+        Text(text = text, color = MaterialTheme.colorScheme.onSecondary)
     }
 }

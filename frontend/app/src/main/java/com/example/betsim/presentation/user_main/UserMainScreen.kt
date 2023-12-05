@@ -85,7 +85,14 @@ fun UserMainScreen(
                         }
                     )
                 ) { TournamentsUserScreen(navController = navController) }
-                composable(Screen.TodayTournamentDetailScreen.route) { TournamentDetailScreen(mainViewModel = viewModel) }
+                composable(Screen.TodayTournamentDetailScreen.route,
+                    arguments = listOf(
+                        navArgument("today"){
+                            type = NavType.BoolType
+                            defaultValue = true
+                        }
+                    )
+                ) { TournamentDetailScreen(mainViewModel = viewModel) }
             }
             navigation(startDestination = Screen.TournamentsScreen.route, route = "all"){
                 composable(Screen.TournamentsScreen.route,
@@ -96,12 +103,18 @@ fun UserMainScreen(
                         }
                     )
                 ) { TournamentsUserScreen(navController = navController) }
-                composable(Screen.TournamentDetailScreen.route) { TournamentDetailScreen(mainViewModel = viewModel) }
+                composable(Screen.TournamentDetailScreen.route,
+                    arguments = listOf(
+                        navArgument("today"){
+                            type = NavType.BoolType
+                            defaultValue = false
+                        }
+                    )
+                ) { TournamentDetailScreen(mainViewModel = viewModel) }
             }
             composable(Screen.ProfileScreen.route) { Profile() }
-            composable(Screen.CouponsScreen.route) { CouponsScreen() }
+            composable(Screen.CouponsScreen.route) { CouponsScreen(navController) }
             composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
-
         }
 
         OpenedCouponFog(padding = innerPadding, active = !viewModel.couponCollapsed.value) {

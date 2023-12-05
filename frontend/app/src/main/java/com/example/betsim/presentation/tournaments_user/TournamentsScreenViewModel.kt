@@ -41,8 +41,7 @@ class TournamentsScreenViewModel @Inject constructor(
     private fun getTournaments(){
         viewModelScope.launch {
             _state.value = state.value.copy(
-                tournaments = if(isToday) listOf(Tournament("today"))
-                              else listOf(Tournament("aaaa"))
+                listOf(Tournament("Turniej"))
             )
         }
     }

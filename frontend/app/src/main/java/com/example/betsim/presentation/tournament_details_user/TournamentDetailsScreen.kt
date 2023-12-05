@@ -32,7 +32,7 @@ fun TournamentDetailScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ){
 
-            itemsIndexed(viewModel.games){index, game->
+            itemsIndexed(viewModel.games.value){index, game->
                 val i = mainViewModel.games.indexOf(game)
                 if (i != -1) viewModel.onEvent(TournamentDetailsEvent.LoadList(mainViewModel.games[i], index))
 
