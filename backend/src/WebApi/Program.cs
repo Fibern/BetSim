@@ -1,13 +1,8 @@
-using BetSimApi;
-using BetSimApi.Abstracions;
-using BetSimApi.Model;
+using Application;
+using Domain.Entities;
+using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Npgsql;
-using System.Reflection;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -21,6 +21,7 @@
     <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Abstractions\CommandRepositories\" />
     <Folder Include="Commands\Authoryzation\" />
   </ItemGroup>
 </Project>

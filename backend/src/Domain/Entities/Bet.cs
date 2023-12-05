@@ -1,6 +1,6 @@
 ﻿using Domain.Enums;
 
-namespace BetSimApi.Model
+namespace Domain.Entities
 {
     public class Bet
     {

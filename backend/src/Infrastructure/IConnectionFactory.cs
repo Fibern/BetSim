@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace BetSimApi.Abstracions
+namespace Infrastructure
 {
     public interface IConnectionFactory
     {

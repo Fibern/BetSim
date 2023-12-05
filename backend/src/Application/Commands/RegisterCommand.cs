@@ -1,9 +1,9 @@
 ﻿using Application.ViewModel;
 using MediatR;
 
-namespace BetSimApi.Commands
+namespace Application.Commands
 {
-    public class RegisterComannd:IRequest<JwtViewModel>
+    public class RegisterComannd : IRequest<JwtViewModel>
     {
         public required string UserName { get; set; }
         public required string Password { get; set; }

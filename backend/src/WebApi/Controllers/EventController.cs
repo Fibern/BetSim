@@ -1,15 +1,15 @@
-﻿using BetSimApi.Commands;
+﻿using Application.Commands;
+using Application.ViewModel;
 using BetSimApi.Queries;
-using BetSimApi.ViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Tracing;
 
-namespace BetSimApi.Controllers
+namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EventController:ControllerBase
+    public class EventController : ControllerBase
     {
         private readonly IMediator _mediator;
 

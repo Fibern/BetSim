@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace BetSimApi.Model
+namespace Domain.Entities
 {
     public class Offert
     {
@@ -18,5 +18,5 @@ namespace BetSimApi.Model
         public string Score { get; set; }
     }
 
-   
+
 }

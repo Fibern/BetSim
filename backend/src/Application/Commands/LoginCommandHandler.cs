@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BetSimApi.Commands
+namespace Application.Commands
 {
     //public class LoginHandler : IRequestHandler<LoginCommand, JwtInfo>
     //{
