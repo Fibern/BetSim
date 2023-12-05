@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Infrastructure
 {
-    public class DbMainContext : IdentityDbContext<User>        
+    public class DbMainContext : IdentityDbContext<User,IdentityRole<int>,int>        
     {
 
         public DbMainContext(DbContextOptions<DbMainContext> options) : base(options)

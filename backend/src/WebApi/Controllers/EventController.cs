@@ -1,6 +1,6 @@
 ﻿using Application.Commands;
+using Application.Queries;
 using Application.ViewModel;
-using BetSimApi.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Tracing;

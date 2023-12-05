@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions;
 using AutoMapper;
-using BetSimApi.ViewModel;
 using Domain.Entities;
 using MediatR;
 

@@ -1,5 +1,4 @@
-﻿using BetSimApi.Commands;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
