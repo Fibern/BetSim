@@ -1,8 +1,9 @@
 using Application;
 using Domain.Entities;
 using Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +15,21 @@ builder.Services.AddControllers();
 
 //configure identity
 builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<DbMainContext>().AddApiEndpoints();
+    .AddEntityFrameworkStores<DbMainContext>()
+    .AddApiEndpoints();
+
+//configre authorization
+builder.Services.AddAuthentication()
+   .AddBearerToken(IdentityConstants.BearerScheme);
+
+builder.Services.AddAuthorizationBuilder();
+
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Password settings.
+    options.SignIn.RequireConfirmedAccount = false;
+    options.User.RequireUniqueEmail = true;
     options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -31,13 +42,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-
-//configre authorization
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-   .AddJwtBearer(IdentityConstants.BearerScheme);
-
-builder.Services.AddAuthorizationBuilder();
 
 var app = builder.Build();
 
