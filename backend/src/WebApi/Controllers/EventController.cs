@@ -2,6 +2,7 @@
 using Application.Queries;
 using Application.ViewModel;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Tracing;
 
@@ -19,16 +20,16 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<EventViewModel>> GetAllEvents()
+        public async Task<ActionResult<List<EventViewModel>>> GetAllEvents()
         {
             var command = new GetAllEventsQuery();
-            return await _mediator.Send(command);
+            return  Ok(await _mediator.Send(command));
         }
 
         [HttpPost]
-        public async Task<int> PostEvent(PostEventCommand request)
+        public async Task<ActionResult<int>> PostEvent(PostEventCommand request)
         {
-            return await _mediator.Send(request);
+            return  Ok(await _mediator.Send(request));
         }
 
     }

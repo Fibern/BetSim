@@ -54,7 +54,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapIdentityApi<User>();
+app.MapIdentityApi<User>().RequireAuthorization();
 
 app.UseAuthentication();
 app.UseAuthorization();
