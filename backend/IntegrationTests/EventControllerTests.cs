@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace IntegrationTests
 {
-    public class EventControllerTests : IClassFixture<WebApplicationFactory<Program>>
+    public class EventControllerTests : IClassFixture<IntegrationTestsWebApplicationFactory>
     {
    
         private readonly HttpClient _client;
 
-        internal EventControllerTests(WebApplicationFactory<Program> factory)
+        public EventControllerTests(IntegrationTestsWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }

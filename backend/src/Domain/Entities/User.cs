@@ -11,7 +11,6 @@ namespace Domain.Entities
         {
             SecurityStamp = Guid.NewGuid().ToString();
         }
-
         public double Points { get; set; } = 500;
         public List<Event>? EventsCreated { get; set; }
         public List<Coupon>? Coupons { get; set; }

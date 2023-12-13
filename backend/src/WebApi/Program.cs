@@ -59,7 +59,11 @@ app.MapIdentityApi<User>().RequireAuthorization();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 
 app.Run();
+
+
+// set Program class to public for integration tests
+public partial class Program { }
