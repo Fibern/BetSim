@@ -3,7 +3,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Commands
+namespace Application.Commands.EventCommand
 {
     public class PostEventHandler : IRequestHandler<PostEventCommand, int>
     {

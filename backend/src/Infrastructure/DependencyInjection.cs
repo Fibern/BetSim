@@ -13,7 +13,6 @@ public static class DependencyInjection
         builder => builder.EnableRetryOnFailure()));
 
         //app services
-        services.AddScoped<IConnectionFactory, PostgresConnectionFactory>();
         services.AddScoped<IEventRepository, EventRepository>();
 
         //services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));

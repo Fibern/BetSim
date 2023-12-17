@@ -3,7 +3,7 @@ using Npgsql;
 
 namespace Infrastructure
 {
-    public class PostgresConnectionFactory : IConnectionFactory
+    public class PostgresConnectionFactory
     {
         private IConfiguration _configuration;
 

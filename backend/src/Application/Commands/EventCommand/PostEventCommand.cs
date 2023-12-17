@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.Commands
+namespace Application.Commands.EventCommand
 {
     public record PostEventCommand : IRequest<int>
     {

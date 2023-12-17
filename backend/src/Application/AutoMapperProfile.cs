@@ -1,4 +1,4 @@
-﻿using Application.Commands;
+﻿using Application.Commands.EventCommand;
 using Application.ViewModel;
 using AutoMapper;
 using Domain.Entities;

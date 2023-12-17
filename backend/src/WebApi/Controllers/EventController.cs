@@ -1,4 +1,4 @@
-﻿using Application.Commands;
+﻿using Application.Commands.EventCommand;
 using Application.Queries;
 using Application.ViewModel;
 using MediatR;
@@ -27,6 +27,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<int>> PostEvent(PostEventCommand request)
         {
             return  Ok(await _mediator.Send(request));
