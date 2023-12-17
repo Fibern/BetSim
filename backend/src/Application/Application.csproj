@@ -24,6 +24,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstractions\QueryRepositories\" />
-    <Folder Include="Commands\Authoryzation\" />
   </ItemGroup>
 </Project>

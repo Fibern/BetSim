@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands
+namespace Application.Commands.Authoryzation
 {
     //internal class RegisterHandler:IRequestHandler<RegisterComannd,JwtViewModel>
     //{

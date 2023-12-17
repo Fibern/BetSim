@@ -18,8 +18,10 @@ namespace Application.Commands.EventCommand
 
         public async Task<int> Handle(PostEventCommand request, CancellationToken cancellationToken)
         {
-            Event newEvent = _mapper.Map<Event>(request);
+            var validator = new PostEventValidator();
+            var validationResult = await validator.ValidateAsync(request);
 
+            Event newEvent = _mapper.Map<Event>(request);
             await _eventRepo.AddAsync(newEvent);
 
             return newEvent.Id;
