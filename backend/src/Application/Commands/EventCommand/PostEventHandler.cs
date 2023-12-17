@@ -1,10 +1,9 @@
 ﻿using Application.Abstractions;
 using AutoMapper;
-using BetSimApi.Model;
-using BetSimApi.ViewModel;
+using Domain.Entities;
 using MediatR;
 
-namespace BetSimApi.Commands
+namespace Application.Commands.EventCommand
 {
     public class PostEventHandler : IRequestHandler<PostEventCommand, int>
     {

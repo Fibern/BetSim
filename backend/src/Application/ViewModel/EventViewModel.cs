@@ -1,4 +1,4 @@
-﻿namespace BetSimApi.ViewModel
+﻿namespace Application.ViewModel
 {
     public class EventViewModel
     {

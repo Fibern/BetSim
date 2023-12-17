@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BetSimApi.Model
+namespace Domain.Entities
 {
     public class Event
     {
@@ -9,7 +9,7 @@ namespace BetSimApi.Model
         public string Title { get; set; }
         [Required]
         public string Icon { get; set; }
-        public List<Offert>? Offerts  { get; set; }
+        public List<Offert>? Offerts { get; set; }
         public List<User>? Administrators { get; set; }
     }
 }

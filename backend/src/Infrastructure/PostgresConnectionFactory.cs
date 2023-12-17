@@ -1,10 +1,9 @@
-﻿using BetSimApi.Abstracions;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace BetSimApi
+namespace Infrastructure
 {
-    public class PostgresConnectionFactory : IConnectionFactory
+    public class PostgresConnectionFactory
     {
         private IConfiguration _configuration;
 

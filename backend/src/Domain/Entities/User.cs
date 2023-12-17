@@ -1,20 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
-namespace BetSimApi.Model
+namespace Domain.Entities
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-        [Required]
-        public string Login { get; set; }
-        [Required]
-        public string Email { get; set; }
-        public string Role { get; set; }
-        public double Points { get; set; } = 0;
-        [Required]
-        public string Password { get; set; }
-        public byte[] PasswordHash { get; set; } = new byte[0];
-        public byte[] PasswordSalt { get; set; } = new byte[0];
+        public User()
+        {
+            SecurityStamp = Guid.NewGuid().ToString();
+        }
+        public double Points { get; set; } = 500;
         public List<Event>? EventsCreated { get; set; }
         public List<Coupon>? Coupons { get; set; }
 

@@ -1,8 +1,7 @@
-﻿using BetSimApi.Commands;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BetSimApi.Controllers
+namespace WebApi.Controllers
 {
     public class AuthorizationController : ControllerBase
     {

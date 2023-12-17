@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions;
-using BetSimApi;
-using BetSimApi.Model;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

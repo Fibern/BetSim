@@ -1,4 +1,4 @@
-﻿namespace BetSimApi.PiplelineBehaviors
+﻿namespace Application.PiplelineBehaviors
 {
     public class ExamplePipeline
     {

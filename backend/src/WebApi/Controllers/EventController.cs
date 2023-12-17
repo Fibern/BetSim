@@ -1,15 +1,16 @@
-﻿using BetSimApi.Commands;
-using BetSimApi.Queries;
-using BetSimApi.ViewModel;
+﻿using Application.Commands.EventCommand;
+using Application.Queries;
+using Application.ViewModel;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Tracing;
 
-namespace BetSimApi.Controllers
+namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EventController:ControllerBase
+    public class EventController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -19,16 +20,17 @@ namespace BetSimApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<EventViewModel>> GetAllEvents()
+        public async Task<ActionResult<List<EventViewModel>>> GetAllEvents()
         {
             var command = new GetAllEventsQuery();
-            return await _mediator.Send(command);
+            return  Ok(await _mediator.Send(command));
         }
 
         [HttpPost]
-        public async Task<int> PostEvent(PostEventCommand request)
+        [Authorize]
+        public async Task<ActionResult<int>> PostEvent(PostEventCommand request)
         {
-            return await _mediator.Send(request);
+            return  Ok(await _mediator.Send(request));
         }
 
     }

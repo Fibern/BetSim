@@ -1,10 +1,12 @@
-﻿    using BetSimApi.Model;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
 
-namespace BetSimApi
+namespace Infrastructure
 {
-    public class DbMainContext : DbContext
+    public class DbMainContext : IdentityDbContext<User,IdentityRole<int>,int>        
     {
 
         public DbMainContext(DbContextOptions<DbMainContext> options) : base(options)

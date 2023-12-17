@@ -1,4 +1,4 @@
-﻿namespace BetSimApi.Model
+﻿namespace Domain.Entities
 {
     public class Odd
     {
