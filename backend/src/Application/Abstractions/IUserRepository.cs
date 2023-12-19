@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Abstractions
 {
-    internal interface IUserRopository:IAsyncRepository<User>
+    internal interface IUserRepository:IAsyncRepository<User>
     {
         Task DeleteAsync();
     }

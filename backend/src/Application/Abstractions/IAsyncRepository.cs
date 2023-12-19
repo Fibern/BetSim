@@ -9,12 +9,7 @@ namespace Application.Abstractions
     public interface IAsyncRepository<T> where T : class
     {
 
-        Task<IReadOnlyList<T>> GetAllAsync();
-
-        Task<IReadOnlyList<T>> GetAllMyAsync();
-
         Task<int> AddAsync(T entity);
 
-        Task UpdateAsync(T entity);
     }
 }

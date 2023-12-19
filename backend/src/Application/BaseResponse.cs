@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands
+namespace Application
 {
-    public class BaseResponse
+    public class BaseResponse<T>
     {
         public bool Succes { get; set; }
-        public string Message{ get; set; }
-        public Dictionary<string, string> ValidationErrors { get; set; } = new Dictionary<string, string>();
+        public T Message { get; set; }
+        public Dictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
 
         public BaseResponse()
         {
             Succes = true;
         }
 
-        public BaseResponse(string message, bool succes)
+        public BaseResponse(T message, bool succes)
         {
             Succes = succes;
             Message = message;
@@ -26,9 +26,16 @@ namespace Application.Commands
 
         public BaseResponse(ValidationResult result)
         {
-            ValidationErrors = result.Errors.ToDictionary(t => t.PropertyName, t => t.ErrorMessage);
+            Errors = result.Errors.ToDictionary(t => t.PropertyName, t => t.ErrorMessage);
 
             Succes = result.Errors.Count() < 0;
+        }
+
+        public BaseResponse(string ErrorMesage)
+        {
+            Errors.Add("ErrorMessage", ErrorMesage);
+
+            Succes = false;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Application.Abstractions
 {
     public interface IEventRepository:IAsyncRepository<Event>
     {
-        Task<IEnumerable<Event>> GetActiveAsync();
+        Task<IReadOnlyList<Event>> GetAllAsync(bool active = true);
+
+        Task<IReadOnlyList<Event>> GetAllMyAsync(int UserId);
     }
 }

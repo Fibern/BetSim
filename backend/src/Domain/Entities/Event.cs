@@ -9,7 +9,8 @@ namespace Domain.Entities
         public string Title { get; set; }
         [Required]
         public string Icon { get; set; }
+        public bool Active { get; set; } = true;
         public List<Offert>? Offerts { get; set; }
-        public List<User>? Administrators { get; set; }
+        public User Owner{ get; set; }
     }
 }

@@ -18,8 +18,6 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            //Optional configuration
-            modelBuilder.Entity<User>().HasMany(e => e.EventsCreated).WithMany(e => e.Administrators);
         }
 
         public DbSet<User> User { get; set; }

@@ -9,6 +9,7 @@ namespace Domain.Entities
         public List<Bet> Bets { get; set; }
         [Required]
         public double Value { get; set; }
+        public DateTime DateTime { get; set; }
 
     }
 }

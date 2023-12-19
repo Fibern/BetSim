@@ -1,5 +1,7 @@
-﻿using Application.Commands.EventCommand;
+﻿using Application;
+using Application.Commands.EventCommand;
 using Application.Queries;
+using Application.Queries.EventQuery;
 using Application.ViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +30,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<int>> PostEvent(PostEventCommand request)
+        public async Task<ActionResult<BaseResponse<int>>> PostEvent(PostEventCommand request)
         {
             return  Ok(await _mediator.Send(request));
         }

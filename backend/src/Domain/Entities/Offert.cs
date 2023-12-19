@@ -11,7 +11,7 @@ namespace Domain.Entities
         [Required]
         public BetType Type { get; set; }
         [Required]
-        public string Date { get; set; }
+        public DateTime DateTime { get; set; }
         public List<Odd> Odds { get; set; }
         public Event Event { get; set; }
         public string Winner { get; set; }
