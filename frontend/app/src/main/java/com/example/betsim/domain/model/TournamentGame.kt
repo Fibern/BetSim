@@ -11,6 +11,7 @@ data class TournamentGame(
     val odds: List<Odd>,
     val date: LocalDateTime = LocalDateTime.now(),
     var selected: MutableState<Int?> = mutableStateOf(null),
+    var status: String = "awaiting"
 ){
     override fun equals(other: Any?): Boolean {
 

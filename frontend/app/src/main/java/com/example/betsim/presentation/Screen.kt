@@ -18,12 +18,16 @@ sealed class Screen(val route: String) {
     data object RegisterScreen: Screen("register_screen")
     data object UserNav: Screen("user_navigation")
     data object UserMainScreen: Screen("user_main_screen")
+    data object TournamentsNav: Screen("tournaments_navigation")
+    data object TodayTournamentsNav: Screen("today_tournaments_navigation")
     data object TournamentsScreen: Screen("tournaments_screen?today={today}")
     data object TodayTournamentsScreen: Screen("today_tournaments_screen?today={today}")
     data object TournamentDetailScreen: Screen("tournament_detail_screen")
     data object TodayTournamentDetailScreen: Screen("today_tournament_detail_screen")
     data object ProfileScreen: Screen("settings_screen")
+    data object CouponsNav: Screen("coupons_navigation")
     data object CouponsScreen: Screen("coupons_screen")
+    data object CouponDetailsScreen: Screen("coupon_details_screen")
     data object LeaderboardScreen: Screen("leaderboard_screen")
 
 }

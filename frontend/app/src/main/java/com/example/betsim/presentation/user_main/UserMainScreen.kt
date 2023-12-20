@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.user_main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.coupon_details.CouponDetailsScreen
 import com.example.betsim.presentation.coupons.CouponsScreen
 import com.example.betsim.presentation.leaderboard.LeaderboardScreen
 import com.example.betsim.presentation.profile.Profile
@@ -33,8 +35,6 @@ fun UserMainScreen(
 ){
     val navController = rememberNavController()
 
-
-
     Scaffold(
         modifier = Modifier
             .clickable(
@@ -43,10 +43,23 @@ fun UserMainScreen(
                     MutableInteractionSource()
                 }
             ) {
-              viewModel.onEvent(UserMainEvent.CollapsedChange(true))
+                viewModel.onEvent(UserMainEvent.CollapsedChange(true))
             },
 
-        topBar = { BetSimTopAppBar() },
+        topBar = {
+                if (!viewModel.mainAppBarsHidden.value) {
+                    BetSimTopAppBar()
+                }
+            },
+
+        bottomBar = {
+                if (!viewModel.mainAppBarsHidden.value) {
+                    BetSimBottomAppBar(navController) {
+                        viewModel.onEvent(UserMainEvent.HiddenChange(it))
+                    }
+                }
+            },
+
         floatingActionButton = {
             FloatingABAnimation(
                 hidden = viewModel.couponHidden.value,
@@ -55,7 +68,7 @@ fun UserMainScreen(
                 oddsValue = "%.2f".format(viewModel.oddValue.doubleValue),
                 text = viewModel.bet.value,
                 onClick = {
-                          viewModel.onEvent(UserMainEvent.CollapsedChange(false))
+                    viewModel.onEvent(UserMainEvent.CollapsedChange(false))
                 },
                 onDeleteClick = { game ->
                     viewModel.onEvent(UserMainEvent.DeleteGame(game))
@@ -63,20 +76,17 @@ fun UserMainScreen(
                 onValueChange = {
                     viewModel.onEvent(UserMainEvent.EnteredValue(it))
                 }
-            ) },
-        bottomBar = {
-            BetSimBottomAppBar(navController){
-                viewModel.onEvent(UserMainEvent.HiddenChange(it))
-        } }
+            ) }
 
 
     ) { innerPadding ->
+
         NavHost(
             navController = navController,
-            startDestination = "all",
+            startDestination = Screen.TournamentsNav.route,
             Modifier.padding(innerPadding)
         ){
-            navigation(startDestination = Screen.TodayTournamentsScreen.route, route = "today"){
+            navigation(startDestination = Screen.TodayTournamentsScreen.route, route = Screen.TodayTournamentsNav.route){
                 composable(Screen.TodayTournamentsScreen.route,
                     arguments = listOf(
                         navArgument("today"){
@@ -94,7 +104,7 @@ fun UserMainScreen(
                     )
                 ) { TournamentDetailScreen(mainViewModel = viewModel) }
             }
-            navigation(startDestination = Screen.TournamentsScreen.route, route = "all"){
+            navigation(startDestination = Screen.TournamentsScreen.route, route = Screen.TournamentsNav.route){
                 composable(Screen.TournamentsScreen.route,
                     arguments = listOf(
                         navArgument("today"){
@@ -112,13 +122,26 @@ fun UserMainScreen(
                     )
                 ) { TournamentDetailScreen(mainViewModel = viewModel) }
             }
+            navigation(startDestination = Screen.CouponsScreen.route, route = Screen.CouponsNav.route){
+                composable(Screen.CouponsScreen.route) {
+                    CouponsScreen(viewModel, navController)
+                }
+                composable(Screen.CouponDetailsScreen.route) {
+                    CouponDetailsScreen(viewModel, navController)
+                }
+            }
             composable(Screen.ProfileScreen.route) { Profile() }
-            composable(Screen.CouponsScreen.route) { CouponsScreen(navController) }
             composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
         }
 
         OpenedCouponFog(padding = innerPadding, active = !viewModel.couponCollapsed.value) {
             viewModel.onEvent(UserMainEvent.CollapsedChange(true))
+        }
+
+        BackHandler(enabled = true) {
+            navController.navigateUp()
+            viewModel.onEvent(UserMainEvent.HiddenChange(false))
+            viewModel.onEvent(UserMainEvent.AppBarsChange(false))
         }
 
     }

@@ -14,6 +14,9 @@ class UserMainViewModel @Inject constructor(
 
 ) : ViewModel() {
 
+    private val _mainAppBarsHidden = mutableStateOf(false)
+    val mainAppBarsHidden = _mainAppBarsHidden
+
     private val _games = mutableStateListOf<TournamentGame>()
     val games = _games
 
@@ -46,6 +49,7 @@ class UserMainViewModel @Inject constructor(
             is UserMainEvent.AddGame -> {
                 if(event.game !in _games) _games.add(event.game)
                 updateOdds()
+
             }
             is UserMainEvent.CollapsedChange -> {
                 _couponCollapsed.value = event.collapsed
@@ -53,6 +57,9 @@ class UserMainViewModel @Inject constructor(
             is UserMainEvent.HiddenChange -> {
                 if (_games.size != 0) _couponHidden.value = event.hidden
                 _couponCollapsed.value = true
+            }
+            is UserMainEvent.AppBarsChange -> {
+                _mainAppBarsHidden.value = event.hide
             }
         }
     }

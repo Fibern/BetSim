@@ -15,12 +15,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.TabRow
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cancel
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.HourglassTop
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
@@ -29,11 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.betsim.domain.model.Coupon
+import com.example.betsim.presentation.common.components.CouponStatusIcon
 import com.example.betsim.presentation.coupons.Category
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -87,36 +81,24 @@ fun TabContent(items: List<TabItem>, pagerState: PagerState){
 @Composable
 fun CouponListItem(coupon: Coupon, modifier: Modifier) {
 
-    val text = if (coupon.games.size > 1) {
-        "Kupon łączony"
-    } else {
-        coupon.games[0].odds[coupon.games[0].selected.value!!].name
-    }
+    val text =
+        if (coupon.games.size > 1) "Kupon łączony"
+        else coupon.games[0].odds[coupon.games[0].selected.value!!].name
 
-    var icon = Icons.Default.HourglassTop
-    var color = Color.Yellow
-    var winnings = coupon.winnings.toString()
-    if(coupon.finished) {
-        winnings = "+$winnings"
-        if (coupon.winnings == 0.0) {
-            icon = Icons.Default.Cancel
-            color = Color.Red
-        } else {
-            icon = Icons.Default.CheckCircle
-            color = Color.Green
-        }
-    }
+
+    val winnings =
+        if (coupon.finished) "+${coupon.winnings}"
+        else coupon.winnings.toString()
 
     ListItem(
         headlineContent = { Text(text) },
         supportingContent = { Text(DateTimeFormatter.ofPattern("HH:mm:ss").format(coupon.date))},
         trailingContent = { Text(winnings) },
         leadingContent = {
-            Icon(
-                icon,
-                tint = color,
-                contentDescription = ""
-            )
+             if (coupon.finished){
+                 if (coupon.winnings == 0.0) CouponStatusIcon.LoseIcon()
+                 else CouponStatusIcon.WinIcon()
+             } else CouponStatusIcon.AwaitIcon()
         },
         modifier = modifier
     )
@@ -128,7 +110,10 @@ fun CouponListItem(coupon: Coupon, modifier: Modifier) {
 fun CouponHeader(
     category: Category
 ){
-    Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.onPrimary).padding(vertical = 8.dp)) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .background(MaterialTheme.colorScheme.onPrimary)
+        .padding(vertical = 8.dp)) {
         Text(
             text = DateTimeFormatter.ofPattern("yyyy.MM.dd").format(category.header),
             color = MaterialTheme.colorScheme.primary,
@@ -143,7 +128,7 @@ fun CouponHeader(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CouponsList(coupons: MutableStateFlow<List<Category>>, finished: Boolean, navController: NavController){
+fun CouponsList(coupons: MutableStateFlow<List<Category>>, finished: Boolean, onClick: () -> Unit){
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -160,7 +145,7 @@ fun CouponsList(coupons: MutableStateFlow<List<Category>>, finished: Boolean, na
                 items(category.coupons) {
                     if (it.finished == finished) {
                         CouponListItem(it, Modifier.clickable {
-                            //TODO()
+                            onClick()
                         })
                     }
                 }
@@ -174,18 +159,22 @@ fun CouponsList(coupons: MutableStateFlow<List<Category>>, finished: Boolean, na
 
 sealed class TabItem(val title:String, val screens: @Composable ()->Unit) {
 
-    class InGame(coupons: MutableStateFlow<List<Category>>, navController: NavController) : TabItem(
+    class InGame(coupons: MutableStateFlow<List<Category>>, onClick: () -> Unit) : TabItem(
         title = "Oczekujące",
         screens = {
-            CouponsList(coupons, false, navController)
+            CouponsList(coupons, false){
+                onClick()
+            }
         }
     )
 
 
-    class Finished(coupons: MutableStateFlow<List<Category>>, navController: NavController): TabItem(
+    class Finished(coupons: MutableStateFlow<List<Category>>, onClick: () -> Unit): TabItem(
         title = "Zakończone",
         screens = {
-            CouponsList(coupons, true, navController)
+            CouponsList(coupons, true){
+                onClick()
+            }
         }
     )
 
