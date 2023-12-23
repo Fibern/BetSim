@@ -8,9 +8,9 @@ namespace Application.Commands.EventCommand.Post
     public class PostEventHandler : IRequestHandler<PostEventCommand, BaseResponse<int>>
     {
         private IEventRepository _eventRepo;
-        private IMapper _mapper;
 
-        public PostEventHandler(IEventRepository dbMainContext, IMapper mapper)
+
+        public PostEventHandler(IEventRepository dbMainContext)
         {
             _eventRepo = dbMainContext;
         }

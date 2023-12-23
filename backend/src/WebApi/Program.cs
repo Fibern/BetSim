@@ -18,10 +18,12 @@ builder.Services.AddApplication();
 builder.Services.AddInfraStucture(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers(cfg =>
-{
-    cfg.Filters.Add(typeof(ExceptionFilter));
-});
+builder.Services.AddControllers(
+//    cfg =>
+//{
+//    cfg.Filters.Add(typeof(ExceptionFilter))
+//}
+);
 
 //configure identity
 builder.Services.AddIdentityCore<User>()

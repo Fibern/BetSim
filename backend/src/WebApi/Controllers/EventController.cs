@@ -52,7 +52,7 @@ namespace WebApi.Controllers
 
             if (response.Succes == true) return Ok(response);
 
-            return BadRequest(await _mediator.Send(response));
+            return BadRequest(response);
         }
 
         [HttpPut("{id}")]
