@@ -9,12 +9,6 @@ namespace UnitTests
 {
     public class EventTests
     {
-        [Fact]
-        public void EventConstructor_CreateOwnerWithId()
-        { 
-            var eventTmp = new Event("title","icon",1);
 
-            Assert.Equal(eventTmp.Owner.Id, 1);
-        }
     }
 }

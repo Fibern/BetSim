@@ -7,21 +7,11 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public string Icon { get; set; }
-        public bool Active { get; set; } = true;
+        public bool Active { get; set; } = true;           
         public List<Offert>? Offerts { get; set; }
+        public int OwnerId { get; set; }
         public User Owner{ get; set; }
 
-        public Event()
-        {
-
-        }
-
-        public Event(string title, string icon, int userId)
-        {
-            Title = title;
-            Icon = icon;
-            Owner = new User() { Id = userId };
-        }
 
         public void Update(string title, string icon)
         {

@@ -23,7 +23,13 @@ namespace Application.Commands.EventCommand.Post
 
             if (!validationResult.IsValid) return response;
 
-            Event newEvent = new Event(request.Title,request.Icon,request.OwnerId);
+            Event newEvent = new Event()
+            {
+                Icon = request.Icon,
+                Title = request.Title,
+                OwnerId = request.OwnerId
+            };
+
             await _eventRepo.AddAsync(newEvent);
             response.Message = newEvent.Id;
 

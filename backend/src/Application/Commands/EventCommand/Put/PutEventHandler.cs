@@ -28,7 +28,7 @@ namespace Application.Commands.EventCommand.Put
             if (!validationResult.IsValid) return new BaseResponse<int>(validationResult);
 
             //if not exist
-            Event eventToEdit = await _eventRepo.GetById(request.Id);
+            Event eventToEdit = await _eventRepo.GetUserEvent(request.Id, request.UserId);
             if (eventToEdit is null) return new BaseResponse<int>("Event not found");
 
             //update

@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Commands.EventCommand.Delete;
 using Application.Commands.EventCommand.Post;
+using Application.Commands.EventCommand.Put;
 using Application.Queries;
 using Application.Queries.EventQuery;
 using Application.ViewModel;
@@ -32,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<EventViewModel>>> GetAllEvents(GetAllEventsQuery request)
+        public async Task<ActionResult<IReadOnlyList<EventViewModel>>> GetAllEvents([FromQuery] GetAllEventsQuery request)
         {
             var response = await _mediator.Send(request);
 
@@ -46,18 +47,31 @@ namespace WebApi.Controllers
         public async Task<ActionResult<BaseResponse<int>>> PostEvent(string title, string icon)
         {
 
-            var command = new PostEventCommand(title,icon, _userId);
+            PostEventCommand command = new PostEventCommand( title, icon, _userId);
             var response = await _mediator.Send(command);
 
             if (response.Succes == true) return Ok(response);
 
-            return  BadRequest(await _mediator.Send(response));
+            return BadRequest(await _mediator.Send(response));
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<BaseResponse<int>>> PutEvent(string title, string icon, [FromRoute] int id)
+        {
+
+            var command = new PutEventCommand(id,_userId, title,icon);
+            var response = await _mediator.Send(command);
+
+            if (response.Succes == true) return Ok(response);
+
+            return BadRequest(await _mediator.Send(response));
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<string>>> Delete(int id)
+        public async Task<ActionResult<BaseResponse<string>>> Delete([FromRoute] int id)
         {
             var command = new DeleteEventCommand(id,_userId);
             var response = await _mediator.Send(command);

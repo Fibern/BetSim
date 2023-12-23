@@ -13,6 +13,7 @@ namespace Domain.Entities
         [Required]
         public DateTime DateTime { get; set; }
         public List<Odd> Odds { get; set; }
+        public int EventId { get; set; }    
         public Event Event { get; set; }
         public string Winner { get; set; }
         public string Score { get; set; }
