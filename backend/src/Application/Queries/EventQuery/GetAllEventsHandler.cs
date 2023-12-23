@@ -18,7 +18,7 @@ namespace Application.Queries.EventQuery
 
         public async Task<BaseResponse<List<EventViewModel>>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
         {
-            var all = await _eventRepository.GetAllAsync(request.active);
+            var all = await _eventRepository.GetAllAsync(request.Active);
             var allViewModel = _mapper.Map<List<EventViewModel>>(all);
 
             var response = new BaseResponse<List<EventViewModel>>(allViewModel, true);

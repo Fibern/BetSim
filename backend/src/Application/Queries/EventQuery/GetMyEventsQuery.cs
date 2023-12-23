@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.EventQuery
 {
-    public class GetMyEventsQuery: IRequest<BaseResponse<IReadOnlyCollection<EventViewModel>>>
+    public class GetMyEventsQuery: IRequest<BaseResponse<IReadOnlyList<EventViewModel>>>
     {
         public int UserId { get; set; }
     }

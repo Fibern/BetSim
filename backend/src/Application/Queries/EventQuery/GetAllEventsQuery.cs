@@ -5,6 +5,6 @@ namespace Application.Queries.EventQuery
 {
     public record GetAllEventsQuery() : IRequest<BaseResponse<List<EventViewModel>>>
     {
-        public bool active { get; set; } = true;
+        public bool Active { get; set; } = true;
     }
 }

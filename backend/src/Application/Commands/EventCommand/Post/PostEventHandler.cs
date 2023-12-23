@@ -3,7 +3,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Commands.EventCommand
+namespace Application.Commands.EventCommand.Post
 {
     public class PostEventHandler : IRequestHandler<PostEventCommand, BaseResponse<int>>
     {
@@ -22,7 +22,7 @@ namespace Application.Commands.EventCommand
             var validationResult = await validator.ValidateAsync(request);
             var response = new BaseResponse<int>(validationResult);
 
-            if(!validationResult.IsValid)return response;
+            if (!validationResult.IsValid) return response;
 
             Event newEvent = _mapper.Map<Event>(request);
             await _eventRepo.AddAsync(newEvent);

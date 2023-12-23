@@ -1,5 +1,5 @@
 ﻿using Application;
-using Application.Commands.EventCommand;
+using Application.Commands.EventCommand.Post;
 using Application.Queries;
 using Application.Queries.EventQuery;
 using Application.ViewModel;

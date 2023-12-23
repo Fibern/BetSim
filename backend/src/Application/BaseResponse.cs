@@ -18,6 +18,11 @@ namespace Application
             Succes = true;
         }
 
+        public BaseResponse(bool succes)
+        {
+            Succes = succes;
+        }
+
         public BaseResponse(T message, bool succes)
         {
             Succes = succes;
