@@ -13,7 +13,6 @@ namespace Application.Commands.EventCommand.Post
         public PostEventHandler(IEventRepository dbMainContext, IMapper mapper)
         {
             _eventRepo = dbMainContext;
-            _mapper = mapper;
         }
 
         public async Task<BaseResponse<int>> Handle(PostEventCommand request, CancellationToken cancellationToken)
@@ -24,7 +23,7 @@ namespace Application.Commands.EventCommand.Post
 
             if (!validationResult.IsValid) return response;
 
-            Event newEvent = _mapper.Map<Event>(request);
+            Event newEvent = new Event(request.Title,request.Icon,request.OwnerId);
             await _eventRepo.AddAsync(newEvent);
             response.Message = newEvent.Id;
 

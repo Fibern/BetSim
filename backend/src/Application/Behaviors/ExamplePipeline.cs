@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Application.PiplelineBehaviors
+namespace Application.Behaviors
 {
-    public class ExamplePipeline 
+    public class ExamplePipeline
     {
     }
 }

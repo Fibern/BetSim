@@ -21,7 +21,7 @@ namespace Application.Commands.EventCommand.Delete
         public async Task<BaseResponse<string>> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
         {
             //if not exist
-            Event eventToEdit = await _eventRepo.GetById(request.Id);
+            Event eventToEdit = await _eventRepo.GetUserEvent(request.id,request.userId);
             if (eventToEdit is null) return new BaseResponse<string>("Event not found");
 
             //update

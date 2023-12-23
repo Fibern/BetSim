@@ -11,6 +11,18 @@ namespace Domain.Entities
         public List<Offert>? Offerts { get; set; }
         public User Owner{ get; set; }
 
+        public Event()
+        {
+
+        }
+
+        public Event(string title, string icon, int userId)
+        {
+            Title = title;
+            Icon = icon;
+            Owner = new User() { Id = userId };
+        }
+
         public void Update(string title, string icon)
         {
             Title = title;

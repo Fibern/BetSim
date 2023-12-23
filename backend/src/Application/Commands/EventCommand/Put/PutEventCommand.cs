@@ -7,10 +7,5 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.EventCommand.Put
 {
-    public class PutEventCommand : IRequest<BaseResponse<int>>
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Icon { get; set; }
-    }
+    public record PutEventCommand(int Id, string Title, string Icon) : IRequest<BaseResponse<int>>;
 }

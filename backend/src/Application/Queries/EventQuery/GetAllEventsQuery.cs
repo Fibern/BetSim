@@ -3,8 +3,6 @@ using MediatR;
 
 namespace Application.Queries.EventQuery
 {
-    public record GetAllEventsQuery() : IRequest<BaseResponse<List<EventViewModel>>>
-    {
-        public bool Active { get; set; } = true;
-    }
+    public record GetAllEventsQuery(bool Active = true) : IRequest<BaseResponse<List<EventViewModel>>>;
+
 }

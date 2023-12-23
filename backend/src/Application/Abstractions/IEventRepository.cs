@@ -9,10 +9,11 @@ namespace Application.Abstractions
 {
     public interface IEventRepository:IAsyncRepository<Event>
     {
-        Task<Event> GetById(int Id);
+        Task<Event> GetById(int id);
+        Task<Event> GetUserEvent(int id, int userId);
         Task<IReadOnlyList<Event>> GetAllAsync(bool active = true);
 
-        Task<IReadOnlyList<Event>> GetAllMyAsync(int UserId);
+        Task<IReadOnlyList<Event>> GetAllMyAsync(int userId);
 
         Task<bool> UpdateAsync(Event entity);
     }
