@@ -12,13 +12,14 @@ namespace UnitTests
         [Theory]
         [InlineData(2,50)]
         [InlineData(2.50,40)]
-        [InlineData(1.50,60.66)]
-        [InlineData(1.66,60)]
+        [InlineData(1.50,66.67)]
+        [InlineData(1.66,60.24)]
         public void courseToPercent_returnPercent(double course, double score)
         {
             var offert = new Offert();
 
             double percent = offert.courseToPercent(course);
+            percent = Math.Round(percent, 2);
 
             Assert.Equal(percent, score);
         }

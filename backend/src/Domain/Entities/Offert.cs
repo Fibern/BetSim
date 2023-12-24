@@ -20,7 +20,10 @@ namespace Domain.Entities
 
         public bool ValidateOdds()
         {
+            var sum = Odds.Sum(e => this.courseToPercent(e.OddValue));
+            if (Math.Abs(sum - 100) > 1) return false;
             return true;
+
         }
 
         public double courseToPercent(double course)
