@@ -17,7 +17,16 @@ namespace Domain.Entities
         public Event Event { get; set; }
         public string Winner { get; set; }
         public string Score { get; set; }
+
+        public bool ValidateOdds()
+        {
+            return true;
+        }
+
+        public double courseToPercent(double course)
+        {
+            return (1 / course * 100);
+        } 
+
     }
-
-
 }

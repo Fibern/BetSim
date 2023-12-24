@@ -18,6 +18,7 @@ namespace Domain.Entities
             Title = title;
             Icon = icon;
         }
+
         public void TogleActive()
         {
             Active = !Active;

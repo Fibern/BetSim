@@ -13,9 +13,8 @@ namespace Application.Commands.EventCommand.Post
         {
             RuleFor(p => p.Title)
                     .NotEmpty()
-                    .WithMessage("{PropertyName} is required")
-                    .MaximumLength(80)
-                    .WithMessage("{PropertyName} must not exceed 80 characters");
+                    .MaximumLength(30)
+                    .MinimumLength(3);
         }
 
 
