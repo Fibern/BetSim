@@ -25,7 +25,7 @@ namespace Application
             Succes = succes;
         }
 
-        public BaseResponse(T message, bool succes)
+        public BaseResponse(T message, bool succes = true)
         {
             Succes = succes;
             Message = message;

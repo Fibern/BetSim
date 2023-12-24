@@ -25,7 +25,7 @@ namespace Application.Commands.EventCommand.Delete
             if (eventToEdit is null) return new BaseResponse<string>("Event not found");
 
             //update
-            eventToEdit.TogleActive();
+            eventToEdit.Archive();
             bool sucess = await _eventRepo.UpdateAsync(eventToEdit);
 
 

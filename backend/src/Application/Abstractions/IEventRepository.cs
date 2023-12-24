@@ -15,6 +15,6 @@ namespace Application.Abstractions
 
         Task<IReadOnlyList<Event>> GetAllMyAsync(int userId);
 
-        Task<bool> UpdateAsync(Event entity);
+       
     }
 }

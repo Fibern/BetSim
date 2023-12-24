@@ -29,7 +29,7 @@ namespace Application.Commands.EventCommand.Put
 
             //if not exist
             Event eventToEdit = await _eventRepo.GetUserEvent(request.Id, request.UserId);
-            if (eventToEdit is null) return new BaseResponse<int>("Event not found");
+            if (eventToEdit is null) return new BaseResponse<int>("Event not found in yours events");
 
             //update
             eventToEdit.Update(request.Title, request.Icon);

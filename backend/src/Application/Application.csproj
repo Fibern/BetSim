@@ -24,6 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstractions\QueryRepositories\" />
-    <Folder Include="Queries\OffertQuery\" />
+    <Folder Include="Commands\OffertCommand\Delete\" />
   </ItemGroup>
 </Project>

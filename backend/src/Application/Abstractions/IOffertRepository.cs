@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.ViewModel;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.Abstractions
 {
-    internal interface IOffertRepository:IAsyncRepository<Offert>
+    public interface IOffertRepository:IAsyncRepository<Offert>
     {
-        Task<Offert> GetByIdAsync(int id);
-        Task<IReadOnlyList<Offert>> GetActiveByIdAsync(int id);
-        Task<IReadOnlyList<Offert>> GetTodayAsync(int id);
+        Task<Offert> GetUserOffert(int id, int userId);
+        Task<IReadOnlyList<OffertViewModel>> GetAllAsync(DateTime? dateTime = null);
     }
 }

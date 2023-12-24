@@ -23,7 +23,7 @@ namespace Application.Queries.EventQuery
         public async Task<BaseResponse<IReadOnlyList<EventViewModel>>> Handle(GetMyEventsQuery request, CancellationToken cancellationToken)
         {
             var my = await _eventRepository.GetAllMyAsync(request.UserId);
-            var myView = _mapper.Map<List<EventViewModel>>(my);
+            var myView = _mapper.Map<IReadOnlyList<EventViewModel>>(my);
             var response = new BaseResponse<IReadOnlyList<EventViewModel>>(myView,true);
 
             return response;
