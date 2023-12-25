@@ -20,22 +20,33 @@ namespace Domain.Entities
 
         public bool ValidateOdds()
         {
-            var sum = Odds.Sum(e => this.courseToPercent(e.OddValue));
+            var sum = Odds.Sum(e => this.CourseToPercent(e.OddValue));
             if (Math.Abs(sum - 100) > 1) return false;
             return true;
 
         }
 
-        public double courseToPercent(double course)
+        public bool ValidateWinner()
+        {
+            return (Winner < Odds.Count);
+        }
+
+        public double CourseToPercent(double course)
         {
             return (1 / course * 100);
         }
 
-        public void update(string title,DateTime time, List<Odd> odds)
+        public void Update(string title,DateTime time, List<Odd> odds)
         {
             Title = title;
             DateTime = time;
             Odds = odds;
+        }
+
+        public void AddScore(int winner, string score)
+        {
+            Winner = winner;
+            Score = score;
         }
 
         public void Archive()

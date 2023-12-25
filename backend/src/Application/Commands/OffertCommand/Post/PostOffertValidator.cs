@@ -10,14 +10,14 @@ namespace Application.Commands.OffertCommand.Post
 {
     public class PostOffertValidator : AbstractValidator<PostOffertCommand>
     {
-        public PostOffertValidator(Func<bool> ValidateOdds)
+        public PostOffertValidator(Func<bool> validateOdds)
         {
             RuleFor(p => p.Title).NotEmpty()
                 .MaximumLength(30)
                 .MinimumLength(3);
             RuleFor(p => p.Date).GreaterThan(DateTime.Now);
             RuleFor(p => p.Type).IsInEnum();
-            RuleFor(p => p).Must(p => ValidateOdds() == true)
+            RuleFor(p => p).Must(p => validateOdds() == true)
                 .WithMessage("All courses schould be equal to 100%");
         }
     }
