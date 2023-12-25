@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
@@ -49,6 +50,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -56,6 +58,7 @@ import com.example.betsim.common.components.bottomBorder
 import com.example.betsim.common.components.topBorder
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
+import com.example.betsim.presentation.user_main.CouponState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
@@ -69,7 +72,7 @@ class NoRippleInteractionSource : MutableInteractionSource{
 }
 
 @Composable
-fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, text: String, onClick: (TournamentGame) -> Unit, onValueChange: (String) -> Unit) {
+fun FloatingCoupon(games: List<TournamentGame>, couponState: CouponState, onClick: (TournamentGame) -> Unit, onValueChange: (String) -> Unit) {
 
     ExtendedFloatingActionButton(
         onClick = {},
@@ -123,7 +126,7 @@ fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, text: String,
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
                 Text(
-                    text = oddsValue,
+                    text = "%.2f".format(couponState.oddValue),
                     color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.padding(end = 40.dp)
                 )
@@ -143,12 +146,13 @@ fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, text: String,
                     TextSelectionColors(handleColor = MaterialTheme.colorScheme.onPrimary, backgroundColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f))
                 ) {
                     OutlinedTextField(
-                        value = text,
+                        value = couponState.value,
                         onValueChange = {
                             onValueChange(it)
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.5f),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
@@ -161,7 +165,9 @@ fun FloatingCoupon(games: List<TournamentGame>, oddsValue: String, text: String,
                             unfocusedLeadingIconColor = MaterialTheme.colorScheme.onPrimary,
                             unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
                         ),
-                        //label = {"jd"}
+                        label = {
+                            Text("Stawka")
+                        }
                     )
                 }
                 Button(
@@ -235,7 +241,15 @@ fun OpenedCouponFog(padding: PaddingValues, active: Boolean, onActionDown: () ->
 }
 
 @Composable
-fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<TournamentGame>, text: String, oddsValue: String, onClick: () -> Unit, onDeleteClick: (TournamentGame) -> Unit, onValueChange: (String) -> Unit){
+fun FloatingABAnimation(
+    hidden: Boolean,
+    collapsed: Boolean,
+    games: List<TournamentGame>,
+    couponState: CouponState,
+    onClick: () -> Unit,
+    onDeleteClick: (TournamentGame) -> Unit,
+    onValueChange: (String) -> Unit,
+){
     AnimatedVisibility(
         visible = !hidden,
         enter = fadeIn(tween(150)),
@@ -254,8 +268,7 @@ fun FloatingABAnimation(hidden: Boolean, collapsed: Boolean, games: List<Tournam
                 }else{
                     FloatingCoupon(
                         games = games,
-                        oddsValue = oddsValue,
-                        text = text,
+                        couponState = couponState,
                         onValueChange = {str ->
                             onValueChange(str)
                         },
@@ -306,6 +319,6 @@ fun FCoupon(){
         TournamentGame(8,"asd","asdd", listOf(Odd(1,"1",1.2), Odd(2,"2",1.4)), selected = state),
     )
     FloatingCoupon(
-        games = list, "123", "jsd", onClick = {}, onValueChange = {}
+        games = list, CouponState(), onClick = {}, onValueChange = {}
     )
 }

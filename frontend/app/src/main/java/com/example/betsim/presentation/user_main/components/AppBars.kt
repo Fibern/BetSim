@@ -76,7 +76,7 @@ fun BetSimBottomAppBar(navController: NavController, onClick: (Boolean) -> Unit)
             hasNews = false,
             badgeCount = null,
             hide = false,
-            route = Screen.CouponsNav.route
+            route = Screen.CouponsScreen.route
         ),
         BottomNavigationItem(
             title = "Ranking",

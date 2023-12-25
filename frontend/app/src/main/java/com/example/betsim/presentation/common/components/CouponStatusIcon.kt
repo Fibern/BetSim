@@ -15,7 +15,7 @@ class CouponStatusIcon {
             Icon(
                 imageVector = Icons.Filled.HourglassTop,
                 contentDescription = "",
-                tint = Color.Yellow
+                tint = Color(0xFFDF8500)
             )
         }
 

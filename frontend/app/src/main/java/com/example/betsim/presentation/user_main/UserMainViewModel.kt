@@ -1,6 +1,5 @@
 package com.example.betsim.presentation.user_main
 
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -20,11 +19,8 @@ class UserMainViewModel @Inject constructor(
     private val _games = mutableStateListOf<TournamentGame>()
     val games = _games
 
-    private val _oddValue = mutableDoubleStateOf(0.0)
-    val oddValue = _oddValue
-
-    private val _bet = mutableStateOf("0")
-    val bet = _bet
+    private val _couponState = mutableStateOf(CouponState())
+    val couponState = _couponState
 
     private val _couponCollapsed = mutableStateOf(true)
     val couponCollapsed = _couponCollapsed
@@ -35,8 +31,10 @@ class UserMainViewModel @Inject constructor(
     fun onEvent(event: UserMainEvent){
         when(event){
             is UserMainEvent.EnteredValue -> {
-                _bet.value = event.value
-            //TODO()
+                val value = validateBetValue(event.value) ?: return
+
+                val winnings = value.replace(',','.').toDouble() * _couponState.value.oddValue
+                _couponState.value = _couponState.value.copy(value = value, winnings = winnings)
             }
             is UserMainEvent.MakeBet -> {
                 TODO()
@@ -64,11 +62,45 @@ class UserMainViewModel @Inject constructor(
         }
     }
 
+    private fun validateBetValue(value: String) : String?{
+
+        var new = value.trim()
+        if (new.isEmpty()) return "0"
+        new = new.replace(',', '.')
+        val num = new.toDoubleOrNull() ?: return null
+        if (num < 0) return null
+
+        val split = new.split(".")
+
+        if (split.size > 2) return null
+
+        if (split.size == 2){
+            val left = split[0]
+            val right = split[1]
+
+            if (right.length > 2 || left.length > 5) return null
+
+            if (left.isEmpty() && right.isEmpty()) return "0,"
+
+            if (left.isEmpty()) return "0,$right"
+
+            if (right.isEmpty()) return "${left.toInt()},"
+
+            return "${left.toInt()},$right"
+
+        }
+
+        if (new.length > 5) return null
+        return new.toInt().toString()
+
+    }
+
+
     private fun updateOdds(){
         if (_games.isEmpty()){
             _couponCollapsed.value = true
             _couponHidden.value = true
-            _oddValue.doubleValue = 0.0
+            _couponState.value = _couponState.value.copy(oddValue = 0.0)
         }
         else {
             couponHidden.value = false
@@ -77,7 +109,7 @@ class UserMainViewModel @Inject constructor(
                 odd *= it.odds[it.selected.value!!].odd
             }
             odd = (odd * 100).roundToInt() / 100.0
-            _oddValue.doubleValue = odd
+            _couponState.value = _couponState.value.copy(oddValue = odd)
         }
     }
 

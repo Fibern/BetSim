@@ -22,10 +22,10 @@ fun CouponsScreen(
     viewModel: CouponsScreenViewModel = hiltViewModel()
 ) {
 
-    mainViewModel.onEvent(UserMainEvent.HiddenChange(true))
     val onClick: () -> Unit = {
         navController.navigate(Screen.CouponDetailsScreen.route)
         mainViewModel.onEvent(UserMainEvent.AppBarsChange(true))
+        mainViewModel.onEvent(UserMainEvent.HiddenChange(true))
     }
 
     val items = listOf(

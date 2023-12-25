@@ -65,8 +65,7 @@ fun UserMainScreen(
                 hidden = viewModel.couponHidden.value,
                 collapsed = viewModel.couponCollapsed.value,
                 games = viewModel.games,
-                oddsValue = "%.2f".format(viewModel.oddValue.doubleValue),
-                text = viewModel.bet.value,
+                couponState = viewModel.couponState.value,
                 onClick = {
                     viewModel.onEvent(UserMainEvent.CollapsedChange(false))
                 },
@@ -139,6 +138,10 @@ fun UserMainScreen(
         }
 
         BackHandler(enabled = true) {
+            if (!viewModel.couponCollapsed.value){
+                viewModel.onEvent(UserMainEvent.CollapsedChange(true))
+                return@BackHandler
+            }
             navController.navigateUp()
             viewModel.onEvent(UserMainEvent.HiddenChange(false))
             viewModel.onEvent(UserMainEvent.AppBarsChange(false))
