@@ -15,8 +15,6 @@ namespace Application.Commands.OffertCommand.Put
               .MaximumLength(30)
               .MinimumLength(3);
             RuleFor(p => p.Date).GreaterThan(DateTime.Now);
-            RuleFor(p => p).Must(p => ValidateOdds() == true)
-                    .WithMessage("All courses schould be equal to 100%");
         }
   
     }

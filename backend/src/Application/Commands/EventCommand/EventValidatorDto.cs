@@ -1,15 +1,16 @@
-﻿using FluentValidation;
+﻿using Application.Dto;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.EventCommand.Post
+namespace Application.Commands.EventCommand
 {
-    public class PostEventValidator : AbstractValidator<PostEventCommand>
+    public class EventValidatorDto : AbstractValidator<EventDto>
     {
-        public PostEventValidator()
+        public EventValidatorDto()
         {
             RuleFor(p => p.Title)
                     .NotEmpty()

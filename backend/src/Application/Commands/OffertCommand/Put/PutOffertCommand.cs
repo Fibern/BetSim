@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.OffertCommand.Put
 {
-    public record PutOffertCommand(int userId, int id,string Title, DateTime Date, List<Odd> Odds) : IRequest<BaseResponse<int>>;
+    public record PutOffertCommand(int userId, int id,string Title, DateTime Date) : IRequest<BaseResponse<int>>;
 
 }

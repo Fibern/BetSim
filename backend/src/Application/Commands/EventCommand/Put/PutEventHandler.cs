@@ -21,8 +21,8 @@ namespace Application.Commands.EventCommand.Put
 
         public async Task<BaseResponse<int>> Handle(PutEventCommand request, CancellationToken cancellationToken)
         {
-            var validator = new PutEventValidator();
-            var validationResult = await validator.ValidateAsync(request);
+            var validator = new EventValidatorDto();
+            var validationResult = await validator.ValidateAsync(request.EventPut);
 
             //if not valid
             if (!validationResult.IsValid) return new BaseResponse<int>(validationResult);
@@ -32,7 +32,7 @@ namespace Application.Commands.EventCommand.Put
             if (eventToEdit is null) return new BaseResponse<int>("Event not found in yours events");
 
             //update
-            eventToEdit.Update(request.Title, request.Icon);
+            eventToEdit.Update(request.EventPut.Title, request.EventPut.Icon);
             bool sucess = await _eventRepo.UpdateAsync(eventToEdit);
 
 

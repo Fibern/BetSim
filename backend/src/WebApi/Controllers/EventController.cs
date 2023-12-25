@@ -2,9 +2,10 @@
 using Application.Commands.EventCommand.Delete;
 using Application.Commands.EventCommand.Post;
 using Application.Commands.EventCommand.Put;
+using Application.Dto;
+using Application.Dto.ViewModel;
 using Application.Queries;
 using Application.Queries.EventQuery;
-using Application.ViewModel;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -44,10 +45,10 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<int>>> PostEvent(string title, string icon)
+        public async Task<ActionResult<BaseResponse<int>>> PostEvent(EventDto eventDto)
         {
 
-            PostEventCommand command = new PostEventCommand( title, icon, _userId);
+            PostEventCommand command = new PostEventCommand( eventDto, _userId);
             var response = await _mediator.Send(command);
 
             if (response.Succes == true) return Ok(response);
@@ -57,10 +58,10 @@ namespace WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<int>>> PutEvent(string title, string icon, [FromRoute] int id)
+        public async Task<ActionResult<BaseResponse<int>>> PutEvent(EventDto eventDto, [FromRoute] int id)
         {
 
-            var command = new PutEventCommand(id,_userId, title,icon);
+            var command = new PutEventCommand(eventDto, id, _userId);
             var response = await _mediator.Send(command);
 
             if (response.Succes == true) return Ok(response);

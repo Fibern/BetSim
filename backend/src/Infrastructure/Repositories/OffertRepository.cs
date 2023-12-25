@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Application.ViewModel;
+using Application.Dto.ViewModel;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;

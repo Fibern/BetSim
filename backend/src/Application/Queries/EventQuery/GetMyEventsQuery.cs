@@ -1,4 +1,4 @@
-﻿using Application.ViewModel;
+﻿using Application.Dto.ViewModel;
 using MediatR;
 using System;
 using System.Collections.Generic;

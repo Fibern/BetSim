@@ -1,4 +1,4 @@
-﻿using Application.ViewModel;
+﻿using Application.Dto.ViewModel;
 using Domain.Entities;
 using MediatR;
 using System;

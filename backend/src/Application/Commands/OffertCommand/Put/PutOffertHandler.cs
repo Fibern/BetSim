@@ -35,7 +35,7 @@ namespace Application.Commands.OffertCommand.Put
             if(!validationResult.IsValid)return new BaseResponse<int>(validationResult);
 
             //update
-            offert.Update(request.Title, request.Date, request.Odds);
+            offert.Update(request.Title, request.Date);
             bool succes = await _oferRepo.UpdateAsync(offert);
 
 

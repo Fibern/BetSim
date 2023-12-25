@@ -1,6 +1,6 @@
 ﻿using Application.Commands.EventCommand.Post;
 using Application.Commands.OffertCommand.Post;
-using Application.ViewModel;
+using Application.Dto.ViewModel;
 using AutoMapper;
 using Domain.Entities;
 

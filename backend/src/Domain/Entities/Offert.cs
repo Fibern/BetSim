@@ -12,7 +12,7 @@ namespace Domain.Entities
         public BetType Type { get; set; }
         public bool Active { get; set; } = true;
         public DateTime DateTime { get; set; }
-        public List<Odd> Odds { get; set; }
+        public List<Odd> Odds { get; private set; }
         public int EventId { get; set; }    
         public Event Event { get; set; }
         public int Winner { get; set; }
@@ -36,11 +36,10 @@ namespace Domain.Entities
             return (1 / course * 100);
         }
 
-        public void Update(string title,DateTime time, List<Odd> odds)
+        public void Update(string title,DateTime time)
         {
             Title = title;
             DateTime = time;
-            Odds = odds;
         }
 
         public void AddScore(int winner, string score)

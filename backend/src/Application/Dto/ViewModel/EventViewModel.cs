@@ -1,4 +1,4 @@
-﻿namespace Application.ViewModel
+﻿namespace Application.Dto.ViewModel
 {
     public class EventViewModel
     {

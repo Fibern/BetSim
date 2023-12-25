@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.ViewModel
+namespace Application.Dto.ViewModel
 {
     public class OffertViewModel
     {
