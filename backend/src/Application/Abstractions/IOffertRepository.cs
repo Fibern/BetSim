@@ -11,6 +11,6 @@ namespace Application.Abstractions
     public interface IOffertRepository:IAsyncRepository<Offert>
     {
         Task<Offert> GetUserOffert(int id, int userId);
-        Task<IReadOnlyList<OffertViewModel>> GetAllAsync(DateTime? dateTime = null);
+        Task<IReadOnlyList<Offert>> GetAllAsync(DateTime? dateTime = null);
     }
 }

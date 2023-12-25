@@ -22,7 +22,7 @@ namespace Application.Commands.EventCommand.Delete
         {
             //if not exist
             Event eventToEdit = await _eventRepo.GetUserEvent(request.id,request.userId);
-            if (eventToEdit is null) return new BaseResponse<string>("Event not found");
+            if (eventToEdit is null) return new BaseResponse<string>("Event not found in yours events");
 
             //update
             eventToEdit.Archive();
