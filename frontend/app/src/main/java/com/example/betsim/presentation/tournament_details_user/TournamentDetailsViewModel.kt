@@ -1,28 +1,29 @@
 package com.example.betsim.presentation.tournament_details_user
 
-import androidx.compose.runtime.toMutableStateList
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-
+data class GamesState(
+    val games: List<TournamentGame> = emptyList()
+)
 
 @HiltViewModel
 class TournamentDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private var _games = MutableStateFlow(mutableListOf<TournamentGame>())
-    val games = _games
+    private val _state = mutableStateOf(GamesState())
+    val state = _state
 
     private val isToday: Boolean
 
@@ -34,7 +35,7 @@ class TournamentDetailsViewModel @Inject constructor(
     fun onEvent(event: TournamentDetailsEvent){
         when(event){
             is TournamentDetailsEvent.LoadList -> {
-                games.value[event.index].selected = event.game.selected
+                state.value.games[event.index].selected = event.game.selected
             }
             is TournamentDetailsEvent.OnSelect -> {
                 event.game.selected.value = event.index
@@ -58,19 +59,17 @@ class TournamentDetailsViewModel @Inject constructor(
             val game6 = TournamentGame(6, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time2)
             val game7 = TournamentGame(7, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time2)
             val game8 = TournamentGame(8, "tmp1", "tmp2", listOf(odd1, odd3), time2)
-            _games.value.add(game1)
-            _games.value.add(game2)
-            _games.value.add(game3)
-            _games.value.add(game4)
-            _games.value.add(game5)
-            _games.value.add(game6)
-            _games.value.add(game7)
-            _games.value.add(game8)
-
+            val games = listOf(game1,game2,game3,game4,game5,game6,game7,game8)
             if (isToday) {
-                val jd = _games.value.filter { it.date.toLocalDate() == LocalDate.now() }
-                _games.value = jd.toMutableStateList()
+                val jd = games.filter { it.date.toLocalDate() == LocalDate.now() }
+                _state.value = _state.value.copy(
+                    games = jd
+                )
             }
+            _state.value = _state.value.copy(
+                games = games
+            )
+
         }
     }
 }

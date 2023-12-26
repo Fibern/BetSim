@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
-import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -18,8 +17,8 @@ class CouponsScreenViewModel @Inject constructor(
 
 ): ViewModel(){
 
-    private val _coupons = MutableStateFlow(listOf<Category>())
-    var coupons = _coupons
+    private val _coupons = mutableStateOf(listOf<Category>())
+    val coupons = _coupons
 
 
     init {

@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.user_main.components
+package com.example.betsim.presentation.main.components.coupon
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

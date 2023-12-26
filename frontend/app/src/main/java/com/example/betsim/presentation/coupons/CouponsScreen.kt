@@ -4,39 +4,43 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.coupons.components.CouponTabItem
+import com.example.betsim.presentation.coupons.components.CouponTabs
 import com.example.betsim.presentation.coupons.components.TabContent
-import com.example.betsim.presentation.coupons.components.TabItem
-import com.example.betsim.presentation.coupons.components.Tabs
-import com.example.betsim.presentation.user_main.UserMainEvent
-import com.example.betsim.presentation.user_main.UserMainViewModel
+import com.example.betsim.presentation.main.MainEvent
+import com.example.betsim.presentation.main.MainViewModel
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CouponsScreen(
-    mainViewModel: UserMainViewModel,
+    mainViewModel: MainViewModel,
     navController: NavController,
     viewModel: CouponsScreenViewModel = hiltViewModel()
 ) {
 
+    val coupons by remember { viewModel.coupons }
+
     val onClick: () -> Unit = {
         navController.navigate(Screen.CouponDetailsScreen.route)
-        mainViewModel.onEvent(UserMainEvent.AppBarsChange(true))
-        mainViewModel.onEvent(UserMainEvent.HiddenChange(true))
+        mainViewModel.onEvent(MainEvent.AppBarsChange(true))
+        mainViewModel.onEvent(MainEvent.HiddenChange(true))
     }
 
     val items = listOf(
-        TabItem.InGame(viewModel.coupons, onClick),
-        TabItem.Finished(viewModel.coupons, onClick)
+        CouponTabItem.InGame(coupons, onClick),
+        CouponTabItem.Finished(coupons, onClick)
     )
     val pagerState = rememberPagerState( pageCount={items.size}, initialPage = 0 )
 
 
     Column{
-        Tabs(pagerState, items)
+        CouponTabs(items, pagerState)
         TabContent(items, pagerState)
     }
 

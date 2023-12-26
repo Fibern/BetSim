@@ -1,62 +1,70 @@
-package com.example.betsim.presentation.user_main
+package com.example.betsim.presentation.main
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.betsim.domain.model.TournamentGame
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @HiltViewModel
-class UserMainViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
 
 ) : ViewModel() {
+
+    private val _modEnabled = mutableStateOf(true)
+    val modEnabled = _modEnabled
 
     private val _mainAppBarsHidden = mutableStateOf(false)
     val mainAppBarsHidden = _mainAppBarsHidden
 
-    private val _games = mutableStateListOf<TournamentGame>()
-    val games = _games
-
-    private val _couponState = mutableStateOf(CouponState())
+    private val _couponState = mutableStateOf(MainCouponState())
     val couponState = _couponState
 
-    private val _couponCollapsed = mutableStateOf(true)
-    val couponCollapsed = _couponCollapsed
-
-    private val _couponHidden = mutableStateOf(true)
-    val couponHidden = _couponHidden
-
-    fun onEvent(event: UserMainEvent){
+    fun onEvent(event: MainEvent){
         when(event){
-            is UserMainEvent.EnteredValue -> {
+            is MainEvent.EnteredValue -> {
                 val value = validateBetValue(event.value) ?: return
 
                 val winnings = value.replace(',','.').toDouble() * _couponState.value.oddValue
                 _couponState.value = _couponState.value.copy(value = value, winnings = winnings)
             }
-            is UserMainEvent.MakeBet -> {
+            is MainEvent.MakeBet -> {
                 TODO()
             }
-            is UserMainEvent.DeleteGame -> {
-                _games.remove(event.game)
+            is MainEvent.DeleteGame -> {
+                val tmp = _couponState.value.games - event.game
+                _couponState.value = _couponState.value.copy(
+                    games = tmp
+                )
                 event.game.selected.value = null
                 updateOdds()
             }
-            is UserMainEvent.AddGame -> {
-                if(event.game !in _games) _games.add(event.game)
+            is MainEvent.AddGame -> {
+                if (event.game in _couponState.value.games) return
+                val tmp = _couponState.value.games + event.game
+                _couponState.value = _couponState.value.copy(
+                    games = tmp
+                )
                 updateOdds()
 
             }
-            is UserMainEvent.CollapsedChange -> {
-                _couponCollapsed.value = event.collapsed
+            is MainEvent.CollapsedChange -> {
+                _couponState.value = _couponState.value.copy(
+                    collapsed = event.collapsed
+                )
             }
-            is UserMainEvent.HiddenChange -> {
-                if (_games.size != 0) _couponHidden.value = event.hidden
-                _couponCollapsed.value = true
+            is MainEvent.HiddenChange -> {
+                val hidden = if (_couponState.value.games.isNotEmpty()){
+                    event.hidden
+                }else{
+                    _couponState.value.hidden
+                }
+                _couponState.value = _couponState.value.copy(
+                    hidden = hidden,
+                    collapsed = true
+                )
             }
-            is UserMainEvent.AppBarsChange -> {
+            is MainEvent.AppBarsChange -> {
                 _mainAppBarsHidden.value = event.hide
             }
         }
@@ -97,19 +105,23 @@ class UserMainViewModel @Inject constructor(
 
 
     private fun updateOdds(){
-        if (_games.isEmpty()){
-            _couponCollapsed.value = true
-            _couponHidden.value = true
-            _couponState.value = _couponState.value.copy(oddValue = 0.0)
+        if (_couponState.value.games.isEmpty()){
+            _couponState.value = _couponState.value.copy(
+                oddValue = 0.0,
+                collapsed = true,
+                hidden = true
+            )
         }
         else {
-            couponHidden.value = false
             var odd = 1.0
-            _games.onEach {
+            _couponState.value.games.onEach {
                 odd *= it.odds[it.selected.value!!].odd
             }
             odd = (odd * 100).roundToInt() / 100.0
-            _couponState.value = _couponState.value.copy(oddValue = odd)
+            _couponState.value = _couponState.value.copy(
+                oddValue = odd,
+                hidden = false
+            )
         }
     }
 

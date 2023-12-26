@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 
-fun Modifier.topBorder(strokeWidth: Dp, color: Color) = composed(
+fun Modifier.topBorder(strokeWidth: Dp, color: Color): Modifier = composed(
     factory = {
         val density = LocalDensity.current
         val strokeWidthPx = density.run { strokeWidth.toPx() }
@@ -23,5 +23,6 @@ fun Modifier.topBorder(strokeWidth: Dp, color: Color) = composed(
                 strokeWidth = strokeWidthPx
             )
         }
+        return@composed this
     }
 )

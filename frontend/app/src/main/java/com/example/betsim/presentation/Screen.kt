@@ -10,7 +10,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.auth.LoginScreen
 import com.example.betsim.presentation.auth.RegisterScreen
-import com.example.betsim.presentation.user_main.UserMainScreen
+import com.example.betsim.presentation.main.UserMainScreen
 
 sealed class Screen(val route: String) {
     data object AuthNav: Screen("auth_navigation")
@@ -29,6 +29,14 @@ sealed class Screen(val route: String) {
     data object CouponsScreen: Screen("coupons_screen")
     data object CouponDetailsScreen: Screen("coupon_details_screen")
     data object LeaderboardScreen: Screen("leaderboard_screen")
+    data object EventsNav: Screen("event_navigation")
+    data object EventScreen: Screen("event_screen")
+    data object AddEventScreen: Screen("add_event_screen")
+    data object EventDetailScreen: Screen("event_detail_screen")
+    data object AddEventGameScreen: Screen("add_event_game_screen")
+    data object StartedGamesNav: Screen("started_games_nav")
+    data object StartedGamesScreen: Screen("started_games_screen")
+    data object ModifyGameScreen: Screen("modify_game_screen")
 
 }
 

@@ -19,13 +19,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.auth.components.AuthInput
 import com.example.betsim.presentation.auth.components.AuthTextField
@@ -36,10 +40,10 @@ fun RegisterScreen(
     viewModel: RegisterScreenViewModel = hiltViewModel()
 ){
 
-    val loginState = viewModel.login.value
-    val emailState = viewModel.email.value
-    val passwordState = viewModel.password.value
-    val password2State = viewModel.password2.value
+    val login by remember { viewModel.login }
+    val email by remember { viewModel.email }
+    val password by remember { viewModel.password }
+    val password2 by remember { viewModel.password2 }
 
 
     Surface(
@@ -57,7 +61,7 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             AuthInput(
-                text = loginState,
+                text = login,
                 label = "Login",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
                 icon = Icons.Rounded.Person
@@ -65,7 +69,7 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
             AuthInput(
-                text = emailState,
+                text = email,
                 label = "Email",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
                 icon = Icons.Rounded.Email
@@ -73,7 +77,7 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
             AuthInput(
-                text = passwordState,
+                text = password,
                 label = "Hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
                 icon = Icons.Rounded.Lock,
@@ -82,7 +86,7 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
             AuthInput(
-                text = password2State,
+                text = password2,
                 label = "Powtórz hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword2(it)) },
                 icon = Icons.Rounded.Lock,
@@ -135,4 +139,10 @@ fun RegisterScreen(
         }
     }
 
+}
+
+@Preview
+@Composable
+fun RegisterPreview(){
+    RegisterScreen(navController = rememberNavController())
 }

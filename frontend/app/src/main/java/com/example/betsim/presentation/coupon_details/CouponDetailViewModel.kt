@@ -13,8 +13,8 @@ class CouponDetailViewModel @Inject constructor(
 
 ): ViewModel(){
 
-    private val _coupon = mutableStateOf<CouponState>(CouponState())
-    val coupon : MutableState<CouponState> = _coupon
+    private val _coupon = mutableStateOf(CouponDetailsState())
+    val coupon : MutableState<CouponDetailsState> = _coupon
 
 
     init {
@@ -71,7 +71,7 @@ class CouponDetailViewModel @Inject constructor(
             26.0,
             LocalDateTime.of(2023, 12, 12, 12, 0, 0),
         )
-        _coupon.value = CouponState(coupon1, true)
+        _coupon.value = CouponDetailsState(coupon1, true)
     }
 
 }

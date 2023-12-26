@@ -25,10 +25,10 @@ class TournamentsScreenViewModel @Inject constructor(
 
     private val isToday: Boolean
 
-    private var _state = mutableStateOf<TournamentsState>(TournamentsState())
+    private var _state = mutableStateOf(TournamentsState())
     val state = _state
 
-    private var _route = mutableStateOf<String>("")
+    private var _route = mutableStateOf("")
     val route = _route
 
     init {
@@ -40,8 +40,8 @@ class TournamentsScreenViewModel @Inject constructor(
 
     private fun getTournaments(){
         viewModelScope.launch {
-            _state.value = state.value.copy(
-                listOf(Tournament("Turniej"))
+            _state.value = _state.value.copy(
+                tournaments = listOf(Tournament("Turniej"))
             )
         }
     }
