@@ -23,13 +23,14 @@ namespace Application.Commands.OffertCommand.Post
 
         public async Task<BaseResponse<int>> Handle(PostOffertCommand request, CancellationToken cancellationToken)
         {
-            Offert newOffert = _mapper.Map<Offert>(request);
+            Offert newOffert = _mapper.Map<Offert>(request.offertDto);
             var validator = new PostOffertValidator(newOffert.ValidateOdds);
-            var validationResult = validator.Validate(request);
+            var validationResult = validator.Validate(request.offertDto);
 
-            //if not valid
+            //if not valioddd
             if (validationResult.IsValid == false) return new BaseResponse<int>(validationResult);
 
+            newOffert.EventId = request.EventId;
             int offertId = await _ofertRepo.AddAsync(newOffert);
 
             return new BaseResponse<int>(offertId);

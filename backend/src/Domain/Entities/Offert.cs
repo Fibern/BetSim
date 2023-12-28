@@ -7,7 +7,6 @@ namespace Domain.Entities
     public class Offert
     {
         public int Id { get; set; }
-        [Required]
         public string Title { get; set; }
         public BetType Type { get; set; }
         public bool Active { get; set; } = true;
@@ -15,8 +14,8 @@ namespace Domain.Entities
         public List<Odd> Odds { get; private set; }
         public int EventId { get; set; }    
         public Event Event { get; set; }
-        public int Winner { get; set; }
-        public string Score { get; set; }
+        public int? Winner { get; set; } = -1;
+        public string? Score { get; set; } = "";
 
         public bool ValidateOdds()
         {
@@ -46,6 +45,7 @@ namespace Domain.Entities
         {
             Winner = winner;
             Score = score;
+            Active = false;
         }
 
         public void Archive()

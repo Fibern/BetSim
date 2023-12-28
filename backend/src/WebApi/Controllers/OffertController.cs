@@ -4,11 +4,13 @@ using Application.Commands.OffertCommand.Delete;
 using Application.Commands.OffertCommand.Patch;
 using Application.Commands.OffertCommand.Post;
 using Application.Commands.OffertCommand.Put;
+using Application.Dto;
 using Application.Dto.ViewModel;
 using Application.Queries.OffertQuery;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Security.Claims;
 
 namespace WebApi.Controllers
@@ -24,13 +26,13 @@ namespace WebApi.Controllers
         public OffertController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _userId = int.Parse(userId);
+            var userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null) _userId = int.Parse(userId);
             _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertGet(DateTime dateTime)
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertGet(DateTime? dateTime = null)
         {
             var command = new GetOffertQuery(dateTime);
             var response = await _mediator.Send(command);
@@ -38,16 +40,17 @@ namespace WebApi.Controllers
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
         }
 
-        [HttpPost]
+        [HttpPost("{eventId}")]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<int>>> OffertPost(PostOffertCommand request)
+        public async Task<ActionResult<BaseResponse<int>>> OffertPost([FromRoute] int eventId,OffertDto offert)
         {
-            var response = await _mediator.Send(request);
+            var command = new PostOffertCommand(offert, eventId);
+            var response = await _mediator.Send(command);
 
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         [Authorize]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertPut([FromRoute] int offertId, string title, DateTime datetime)
         {

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addidentity : Migration
+    public partial class addactivetooffert : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,20 +52,6 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Event",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Icon = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Event", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,7 +167,8 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    Value = table.Column<double>(type: "double precision", nullable: false)
+                    Value = table.Column<double>(type: "double precision", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,25 +182,23 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventUser",
+                name: "Event",
                 columns: table => new
                 {
-                    AdministratorsId = table.Column<int>(type: "integer", nullable: false),
-                    EventsCreatedId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Icon = table.Column<string>(type: "text", nullable: false),
+                    Active = table.Column<bool>(type: "boolean", nullable: false),
+                    OwnerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventUser", x => new { x.AdministratorsId, x.EventsCreatedId });
+                    table.PrimaryKey("PK_Event", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EventUser_AspNetUsers_AdministratorsId",
-                        column: x => x.AdministratorsId,
+                        name: "FK_Event_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EventUser_Event_EventsCreatedId",
-                        column: x => x.EventsCreatedId,
-                        principalTable: "Event",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -226,9 +211,10 @@ namespace Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false),
-                    Date = table.Column<string>(type: "text", nullable: false),
+                    Active = table.Column<bool>(type: "boolean", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EventId = table.Column<int>(type: "integer", nullable: false),
-                    Winner = table.Column<string>(type: "text", nullable: false),
+                    Winner = table.Column<int>(type: "integer", nullable: false),
                     Score = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -271,7 +257,7 @@ namespace Infrastructure.Migrations
                     Status = table.Column<int>(type: "integer", nullable: false),
                     OffertId = table.Column<int>(type: "integer", nullable: false),
                     PredictedWinnerId = table.Column<int>(type: "integer", nullable: false),
-                    CouponId = table.Column<int>(type: "integer", nullable: true)
+                    CouponId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,7 +266,8 @@ namespace Infrastructure.Migrations
                         name: "FK_Bet_Coupon_CouponId",
                         column: x => x.CouponId,
                         principalTable: "Coupon",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bet_Odd_PredictedWinnerId",
                         column: x => x.PredictedWinnerId,
@@ -353,9 +340,9 @@ namespace Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventUser_EventsCreatedId",
-                table: "EventUser",
-                column: "EventsCreatedId");
+                name: "IX_Event_OwnerId",
+                table: "Event",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Odd_OffertId",
@@ -390,9 +377,6 @@ namespace Infrastructure.Migrations
                 name: "Bet");
 
             migrationBuilder.DropTable(
-                name: "EventUser");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -402,13 +386,13 @@ namespace Infrastructure.Migrations
                 name: "Odd");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Offert");
 
             migrationBuilder.DropTable(
                 name: "Event");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

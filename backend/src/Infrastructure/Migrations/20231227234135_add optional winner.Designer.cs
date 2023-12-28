@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DbMainContext))]
-    [Migration("20231223203328_add id to one to one")]
-    partial class addidtoonetoone
+    [Migration("20231227234135_add optional winner")]
+    partial class addoptionalwinner
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,6 +142,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -149,7 +152,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Score")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
@@ -159,9 +161,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Winner")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int?>("Winner")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

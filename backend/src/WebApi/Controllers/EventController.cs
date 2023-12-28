@@ -28,8 +28,8 @@ namespace WebApi.Controllers
         public EventController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _userId = int.Parse(userId);
+            var userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+             if(userId != null)_userId = int.Parse(userId);
             _httpContextAccessor = httpContextAccessor;
         }
 
