@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Application.Dto.ViewModel;
+using Application.Dto.OffertDto;
 using AutoMapper;
 using MediatR;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.OffertQuery
 {
-    public class GetOffertHandler : IRequestHandler<GetOffertQuery, BaseResponse<IReadOnlyList<OffertViewModel>>>
+    public class GetOffertHandler : IRequestHandler<GetOffertQuery, BaseResponse<IReadOnlyList<GetOffertDto>>>
     {
         private IOffertRepository _ofertRepo;
         private IMapper _mapper;
@@ -21,12 +21,12 @@ namespace Application.Queries.OffertQuery
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<IReadOnlyList<OffertViewModel>>> Handle(GetOffertQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<IReadOnlyList<GetOffertDto>>> Handle(GetOffertQuery request, CancellationToken cancellationToken)
         {
             var offerts = await _ofertRepo.GetAllAsync(request.dateTime);
-            var offertView = _mapper.Map<IReadOnlyList<OffertViewModel>>(offerts);
+            var offertView = _mapper.Map<IReadOnlyList<GetOffertDto>>(offerts);
 
-            return new BaseResponse<IReadOnlyList<OffertViewModel>>(offertView,true);
+            return new BaseResponse<IReadOnlyList<GetOffertDto>>(offertView,true);
         }
     }
 }

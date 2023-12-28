@@ -24,5 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstractions\QueryRepositories\" />
+    <Folder Include="Dto\BetDto\" />
+    <Folder Include="Dto\CouponDto\" />
   </ItemGroup>
 </Project>

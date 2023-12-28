@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.OffertDto;
 using Domain.Enums;
 using FluentValidation;
 using System;

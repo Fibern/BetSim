@@ -1,7 +1,8 @@
 ﻿using Application.Commands.EventCommand.Post;
 using Application.Commands.OffertCommand.Post;
-using Application.Dto;
-using Application.Dto.ViewModel;
+using Application.Dto.EventDto;
+using Application.Dto.OddDto;
+using Application.Dto.OffertDto;
 using AutoMapper;
 using Domain.Entities;
 
@@ -11,11 +12,11 @@ namespace Application
     {
         public AutoMapperProfile()
         {
-            CreateMap<Event, EventViewModel>().ReverseMap();
+            CreateMap<Event, GetEventDto>().ReverseMap();
             CreateMap<PostOddDto, Odd>();
             CreateMap<OffertDto, Offert>().ReverseMap();
-            CreateMap<Offert, OffertViewModel>();
-            CreateMap<Odd, OddViewModel>();
+            CreateMap<Offert, GetOffertDto>();
+            CreateMap<Odd, GetOddDto>();
         }
     }
 }

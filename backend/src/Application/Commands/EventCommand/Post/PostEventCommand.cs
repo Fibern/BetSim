@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.EventDto;
 using Domain.Entities;
 using MediatR;
 using System.ComponentModel.DataAnnotations;

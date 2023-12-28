@@ -1,6 +1,6 @@
-﻿namespace Application.Dto.ViewModel
+﻿namespace Application.Dto.EventDto
 {
-    public class EventViewModel
+    public class GetEventDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

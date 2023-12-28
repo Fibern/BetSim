@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.EventDto;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using Application;
-using Application.Dto;
+using Application.Dto.OffertDto;
 using Application.Dto.ViewModel;
 using Domain.Entities;
 using Domain.Enums;

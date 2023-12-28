@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto
+namespace Application.Dto.EventDto
 {
-    public record EventDto(string Title,string Icon);
+    public record EventDto(string Title, string Icon);
 }

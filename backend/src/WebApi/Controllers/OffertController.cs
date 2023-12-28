@@ -4,8 +4,7 @@ using Application.Commands.OffertCommand.Delete;
 using Application.Commands.OffertCommand.Patch;
 using Application.Commands.OffertCommand.Post;
 using Application.Commands.OffertCommand.Put;
-using Application.Dto;
-using Application.Dto.ViewModel;
+using Application.Dto.OffertDto;
 using Application.Queries.OffertQuery;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +31,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertGet(DateTime? dateTime = null)
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertGet(DateTime? dateTime = null)
         {
             var command = new GetOffertQuery(dateTime);
             var response = await _mediator.Send(command);
@@ -52,9 +51,9 @@ namespace WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertPut([FromRoute] int offertId, string title, DateTime datetime)
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPut([FromRoute] int id, PutOffertDto request)
         {
-            var command = new PutOffertCommand(_userId, offertId,title, datetime);
+            var command = new PutOffertCommand(_userId, id, request.Title, request.Datetime);
             var response = await _mediator.Send(command);
 
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
@@ -62,9 +61,9 @@ namespace WebApi.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertDelete([FromRoute] int offertId)
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertDelete([FromRoute] int id)
         {
-            var command = new DeleteOffertCommand(offertId, _userId);
+            var command = new DeleteOffertCommand(id, _userId);
             var response = await _mediator.Send(command);
 
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
@@ -72,9 +71,9 @@ namespace WebApi.Controllers
 
         [HttpPatch("{id}")]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<OffertViewModel>>>> OffertPatch([FromRoute] int offertId,int winner,string score)
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPatch([FromRoute] int offertId, ScorePatchOffertDto request)
         {
-            var command = new PatchOffertScoreCommand(offertId, _userId, winner, score);
+            var command = new PatchOffertScoreCommand(offertId, _userId, request.winner, request.score);
             var response = await _mediator.Send(command);
 
             return (response.Succes == true) ? Ok(response) : BadRequest(response);

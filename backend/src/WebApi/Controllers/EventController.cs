@@ -2,8 +2,7 @@
 using Application.Commands.EventCommand.Delete;
 using Application.Commands.EventCommand.Post;
 using Application.Commands.EventCommand.Put;
-using Application.Dto;
-using Application.Dto.ViewModel;
+using Application.Dto.EventDto;
 using Application.Queries;
 using Application.Queries.EventQuery;
 using Domain.Entities;
@@ -34,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<EventViewModel>>> GetAllEvents([FromQuery] GetAllEventsQuery request)
+        public async Task<ActionResult<IReadOnlyList<GetEventDto>>> GetAllEvents([FromQuery] GetAllEventsQuery request)
         {
             var response = await _mediator.Send(request);
 

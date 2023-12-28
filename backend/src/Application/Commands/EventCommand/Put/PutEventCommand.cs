@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.EventDto;
 using MediatR;
 using System;
 using System.Collections.Generic;

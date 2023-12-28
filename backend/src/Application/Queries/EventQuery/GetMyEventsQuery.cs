@@ -1,4 +1,4 @@
-﻿using Application.Dto.ViewModel;
+﻿using Application.Dto.EventDto;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.EventQuery
 {
-    public record GetMyEventsQuery(int UserId) : IRequest<BaseResponse<IReadOnlyList<EventViewModel>>>;
+    public record GetMyEventsQuery(int UserId) : IRequest<BaseResponse<IReadOnlyList<GetEventDto>>>;
 
 }

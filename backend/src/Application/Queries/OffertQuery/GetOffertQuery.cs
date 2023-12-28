@@ -1,4 +1,4 @@
-﻿using Application.Dto.ViewModel;
+﻿using Application.Dto.OffertDto;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.OffertQuery
 {
-    public record GetOffertQuery(DateTime? dateTime = null) : IRequest<BaseResponse<IReadOnlyList<OffertViewModel>>>;
+    public record GetOffertQuery(DateTime? dateTime = null) : IRequest<BaseResponse<IReadOnlyList<GetOffertDto>>>;
 }
