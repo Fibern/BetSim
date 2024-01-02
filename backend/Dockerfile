@@ -14,10 +14,10 @@ RUN dotnet restore "/src/WebApi/WebApi.csproj"
 COPY /src .
 WORKDIR /src/WebApi
 
-RUN dotnet build "WebApi.csproj" -c Debug -o /app/build
+RUN dotnet build "WebApi.csproj" -c Relase -o /app/build
 
 FROM build as publish
-RUN dotnet publish "WebApi.csproj" -c Debug -o /app/publish /p:UseAppHost=false /p:EnvironmentName=Development
+RUN dotnet publish "WebApi.csproj" -c Relase -o /app/publish /p:UseAppHost=false
 
 FROM base as final
 WORKDIR /app

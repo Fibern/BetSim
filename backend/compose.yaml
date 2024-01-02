@@ -6,10 +6,15 @@ services:
       dockerfile: ./Dockerfile
     container_name: webapi
     working_dir: /app
+    depends_on:
+      - postgres
     ports:
-      - "5277:80"
+      - "80:8080"
+    command: ["dotnet", "ef", "database update"]
     environment:
-      ASPNETCORE_ENVIRONMENT: "ConnectionStrings:Dbconnect = postgresql://localhost/${DB_NAME}?user=${DB_USER}&password=${DB_PASSWORD}" 
+      ASPNETCORE_ENVIRONMENT: "ConnectionStrings:Dbconnect = postgresql://localhost/${DB_NAME}?user=${DB_USER}&password=${DB_PASSWORD}"
+    networks:
+      - dbNetwork 
 
 
   postgres:
@@ -19,5 +24,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5432:5432"
+    networks:
+      - dbNetwork 
+
+networks:
+  dbNetwork:
