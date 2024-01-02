@@ -3,17 +3,23 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute> 
   </PropertyGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <None Remove="NLog.config" />
-  </ItemGroup>
-  <ItemGroup>
+  </ItemGroup> -->
+  <!-- <ItemGroup>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
+  </ItemGroup> -->
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
@@ -24,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstractions\QueryRepositories\" />
-    <Folder Include="Commands\Authoryzation\" />
+    <Folder Include="Dto\BetDto\" />
+    <Folder Include="Dto\CouponDto\" />
   </ItemGroup>
 </Project>

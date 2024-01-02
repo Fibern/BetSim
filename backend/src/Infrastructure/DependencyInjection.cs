@@ -14,6 +14,7 @@ public static class DependencyInjection
 
         //app services
         services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<IOffertRepository, OffertRepository>();
 
         //services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 

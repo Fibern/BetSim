@@ -30,7 +30,7 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CouponId")
+                    b.Property<int>("CouponId")
                         .HasColumnType("integer");
 
                     b.Property<int>("OffertId")
@@ -61,6 +61,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
@@ -82,15 +85,23 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Icon")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Event");
                 });
@@ -128,15 +139,16 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EventId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Score")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
@@ -146,9 +158,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Winner")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int?>("Winner")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -225,21 +236,6 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("EventUser", b =>
-                {
-                    b.Property<int>("AdministratorsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EventsCreatedId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AdministratorsId", "EventsCreatedId");
-
-                    b.HasIndex("EventsCreatedId");
-
-                    b.ToTable("EventUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -378,7 +374,9 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Coupon", "Coupon")
                         .WithMany("Bets")
-                        .HasForeignKey("CouponId");
+                        .HasForeignKey("CouponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Offert", "Offert")
                         .WithMany()
@@ -410,6 +408,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Event", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "Owner")
+                        .WithMany("EventsCreated")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("Domain.Entities.Odd", b =>
                 {
                     b.HasOne("Domain.Entities.Offert", "Offert")
@@ -428,21 +437,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("EventUser", b =>
-                {
-                    b.HasOne("Domain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("AdministratorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Event", null)
-                        .WithMany()
-                        .HasForeignKey("EventsCreatedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -514,6 +508,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("Coupons");
+
+                    b.Navigation("EventsCreated");
                 });
 #pragma warning restore 612, 618
         }

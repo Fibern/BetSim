@@ -5,11 +5,25 @@ namespace Domain.Entities
     public class Event
     {
         public int Id { get; set; }
-        [Required]
         public string Title { get; set; }
-        [Required]
         public string Icon { get; set; }
+        public bool Active { get; private set; } = true;           
         public List<Offert>? Offerts { get; set; }
-        public List<User>? Administrators { get; set; }
+        public int OwnerId { get; set; }
+        public User Owner{ get; set; }
+
+
+        public void Update(string title, string icon)
+        {
+            Title = title;
+            Icon = icon;
+        }
+
+        public void Archive()
+        {
+            Active = false;
+        }
+
+
     }
 }

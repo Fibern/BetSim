@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -27,24 +28,34 @@ namespace Infrastructure.Repositories
             return entity.Id;
         }
 
-        public Task<IEnumerable<Event>> GetActiveAsync()
+        public async Task<IReadOnlyList<Event>> GetAllAsync(bool active = true)
         {
-            throw new NotImplementedException();
+            return _context.Event.AsNoTracking().Where(o => o.Active == active).ToImmutableList();
         }
 
-        public async Task<IReadOnlyList<Event>> GetAllAsync()
+
+        public async Task<IReadOnlyList<Event>> GetAllMyAsync(int UserId)
         {
-            return _context.Event.AsNoTracking().ToImmutableList();
+            return _context.Event.AsNoTracking().Where(o => o.Owner.Id == UserId).ToImmutableList();
         }
 
-        public Task<IReadOnlyList<Event>> GetAllMyAsync()
+        public async Task<Event> GetById(int Id)
         {
-            throw new NotImplementedException();
+            return _context.Event.FirstOrDefault(o => o.Id == Id);
         }
 
-        public Task UpdateAsync(Event entity)
+        public async Task<Event> GetUserEvent(int id, int userId)
         {
-            throw new NotImplementedException();
+             return await _context.Event.Where(e => e.Id == id && e.OwnerId == userId).FirstOrDefaultAsync();
         }
+
+        public async Task<bool> UpdateAsync(Event entity)
+        {
+            _context.Event.Update(entity);
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
+
+
     }
 }
