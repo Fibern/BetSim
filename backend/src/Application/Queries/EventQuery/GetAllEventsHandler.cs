@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Dto.EventDto;
 using AutoMapper;
 using MediatR;
 

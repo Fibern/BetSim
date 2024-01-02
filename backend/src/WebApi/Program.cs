@@ -19,10 +19,12 @@ builder.Services.AddInfraStucture(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers(
-//    cfg =>
-//{
-//    cfg.Filters.Add(typeof(ExceptionFilter))
-//}
+   cfg =>
+{
+    if(builder.Environment.IsProduction()){
+        cfg.Filters.Add(typeof(ExceptionFilter));
+    }
+}
 );
 
 //configure identity
@@ -85,11 +87,12 @@ builder.Services.AddSwaggerGen(option =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Configure swagger
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(
+    );
 }
 
 app.UseHttpsRedirection();

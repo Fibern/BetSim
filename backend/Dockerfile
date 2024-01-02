@@ -1,0 +1,29 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
+
+WORKDIR /app
+
+WORKDIR /src
+COPY ["src/WebApi/WebApi.csproj", "WebApi/"]
+COPY ["src/Application/Application.csproj", "Application/"]
+COPY ["src/Domain/Domain.csproj", "Domain/"]
+COPY ["src/Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+
+RUN dotnet restore "/src/WebApi/WebApi.csproj"
+
+COPY /src .
+WORKDIR /src/WebApi
+
+RUN dotnet build "WebApi.csproj" -c Debug -o /app/build
+
+FROM build as publish
+RUN dotnet publish "WebApi.csproj" -c Debug -o /app/publish /p:UseAppHost=false /p:EnvironmentName=Development
+
+FROM base as final
+WORKDIR /app
+EXPOSE 8080
+
+COPY --from=publish /app/publish .
+ENTRYPOINT [ "dotnet", "WebApi.dll" ]
+
+

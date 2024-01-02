@@ -1,6 +1,5 @@
 ﻿using Application;
 using Application.Dto.OffertDto;
-using Application.Dto.ViewModel;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
