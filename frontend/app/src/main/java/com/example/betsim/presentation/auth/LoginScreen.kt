@@ -24,8 +24,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.auth.components.AuthButton
 import com.example.betsim.presentation.auth.components.AuthClickableText
-import com.example.betsim.presentation.auth.components.AuthInput
 import com.example.betsim.presentation.auth.components.AuthTextField
+import com.example.betsim.presentation.auth.components.AuthText
 
 @Composable
 fun LoginScreen(
@@ -46,10 +46,10 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            AuthTextField(text = "Logowanie")
+            AuthText(text = "Logowanie")
             Spacer(modifier = Modifier.height(10.dp))
 
-            AuthInput(
+            AuthTextField(
                 text = login,
                 label = "Login",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
@@ -57,7 +57,7 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
 
-            AuthInput(
+            AuthTextField(
                 text = password,
                 label = "Hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },

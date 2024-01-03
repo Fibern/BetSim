@@ -31,8 +31,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.Screen
-import com.example.betsim.presentation.auth.components.AuthInput
 import com.example.betsim.presentation.auth.components.AuthTextField
+import com.example.betsim.presentation.auth.components.AuthText
 
 @Composable
 fun RegisterScreen(
@@ -57,10 +57,10 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            AuthTextField(text = "Rejestracja")
+            AuthText(text = "Rejestracja")
             Spacer(modifier = Modifier.height(10.dp))
 
-            AuthInput(
+            AuthTextField(
                 text = login,
                 label = "Login",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
@@ -68,7 +68,7 @@ fun RegisterScreen(
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            AuthInput(
+            AuthTextField(
                 text = email,
                 label = "Email",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
@@ -76,7 +76,7 @@ fun RegisterScreen(
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            AuthInput(
+            AuthTextField(
                 text = password,
                 label = "Hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
@@ -85,7 +85,7 @@ fun RegisterScreen(
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            AuthInput(
+            AuthTextField(
                 text = password2,
                 label = "Powtórz hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword2(it)) },
