@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.coupon_details.components
+package com.example.betsim.presentation.common.components
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CouponDetailsTopBar(onClick: () -> Unit){
+fun BetSimSubsidiaryTopBar(text: String, onClick: () -> Unit){
 
     TopAppBar(
         navigationIcon = {
@@ -25,7 +25,7 @@ fun CouponDetailsTopBar(onClick: () -> Unit){
                 )
             }
         },
-        title = { Text("Twój kupon") },
+        title = { Text(text) },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary

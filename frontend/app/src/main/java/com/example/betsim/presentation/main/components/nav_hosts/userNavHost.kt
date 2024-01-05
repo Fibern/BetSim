@@ -22,8 +22,8 @@ import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.main.components.coupon.CouponFog
 import com.example.betsim.presentation.profile.Profile
-import com.example.betsim.presentation.tournament_details_user.TournamentDetailScreen
-import com.example.betsim.presentation.tournaments_user.TournamentsUserScreen
+import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
+import com.example.betsim.presentation.tournaments.TournamentsScreen
 
 @Composable
 fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, paddingValues: PaddingValues) {
@@ -44,18 +44,26 @@ fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, padd
                     navArgument("today"){
                         type = NavType.BoolType
                         defaultValue = true
+                    },
+                    navArgument("mod"){
+                        type = NavType.BoolType
+                        defaultValue = false
                     }
                 )
-            ) { TournamentsUserScreen(navController = navController) }
+            ) { TournamentsScreen(navController = navController) }
             composable(
                 Screen.TodayTournamentDetailScreen.route,
                 arguments = listOf(
                     navArgument("today"){
                         type = NavType.BoolType
                         defaultValue = true
+                    },
+                    navArgument("mod"){
+                        type = NavType.BoolType
+                        defaultValue = false
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel) }
+            ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
         }
 
         navigation(startDestination = Screen.TournamentsScreen.route, route = Screen.TournamentsNav.route){
@@ -65,18 +73,26 @@ fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, padd
                     navArgument("today"){
                         type = NavType.BoolType
                         defaultValue = false
+                    },
+                    navArgument("mod"){
+                        type = NavType.BoolType
+                        defaultValue = false
                     }
                 )
-            ) { TournamentsUserScreen(navController = navController) }
+            ) { TournamentsScreen(navController = navController) }
             composable(
                 Screen.TournamentDetailScreen.route,
                 arguments = listOf(
                     navArgument("today"){
                         type = NavType.BoolType
                         defaultValue = false
+                    },
+                    navArgument("mod"){
+                        type = NavType.BoolType
+                        defaultValue = false
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel) }
+            ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
         }
 
         navigation(startDestination = Screen.CouponsScreen.route, route = Screen.CouponsNav.route){

@@ -1,4 +1,4 @@
-package com.example.betsim.common.components
+package com.example.betsim.presentation.common.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
@@ -15,9 +15,11 @@ fun BetSimOutlinedTextField(
     modifier: Modifier = Modifier,
     label: @Composable() (() -> Unit)? = null,
     leadingIcon: @Composable() (() -> Unit)? = null,
+    trailingIcon: @Composable() (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = false,
+    readonly: Boolean = false
 ){
 
     OutlinedTextField(
@@ -26,7 +28,9 @@ fun BetSimOutlinedTextField(
         modifier = modifier,
         label = label,
         singleLine = singleLine,
+        readOnly = readonly,
         leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         colors = OutlinedTextFieldDefaults.colors(

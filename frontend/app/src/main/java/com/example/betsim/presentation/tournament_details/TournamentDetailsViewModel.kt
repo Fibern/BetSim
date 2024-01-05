@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details_user
+package com.example.betsim.presentation.tournament_details
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -27,8 +27,11 @@ class TournamentDetailsViewModel @Inject constructor(
 
     private val isToday: Boolean
 
+    val isMod: Boolean
+
     init {
         isToday = checkNotNull(savedStateHandle["today"])
+        isMod = checkNotNull(savedStateHandle["mod"])
         getGames()
     }
 

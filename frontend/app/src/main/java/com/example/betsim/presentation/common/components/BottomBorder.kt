@@ -1,4 +1,4 @@
-package com.example.betsim.common.components
+package com.example.betsim.presentation.common.components
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed

@@ -164,7 +164,7 @@ private val modDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.EventScreen.route
+        route = Screen.EventsNav.route
     ),
     BottomNavigationItem(
         title = "Rozpoczęte",

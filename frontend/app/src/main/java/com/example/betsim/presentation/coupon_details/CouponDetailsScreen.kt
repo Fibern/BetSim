@@ -18,7 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.CouponStatusIcon
 import com.example.betsim.presentation.coupon_details.components.CouponDetailsBottomBar
-import com.example.betsim.presentation.coupon_details.components.CouponDetailsTopBar
+import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import java.time.format.DateTimeFormatter
@@ -35,7 +35,9 @@ fun CouponDetailsScreen(
     }
 
     Scaffold(
-        topBar = { CouponDetailsTopBar{
+        topBar = { BetSimSubsidiaryTopBar(
+            "Twój kupon"
+        ){
             mainViewModel.onEvent(MainEvent.AppBarsChange(false))
             navController.navigateUp()
         } },

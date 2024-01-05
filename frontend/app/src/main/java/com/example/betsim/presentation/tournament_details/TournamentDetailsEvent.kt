@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details_user
+package com.example.betsim.presentation.tournament_details
 
 import com.example.betsim.domain.model.TournamentGame
 

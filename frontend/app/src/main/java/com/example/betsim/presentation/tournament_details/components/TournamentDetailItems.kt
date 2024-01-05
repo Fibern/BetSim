@@ -1,6 +1,7 @@
-package com.example.betsim.presentation.tournament_details_user.components
+package com.example.betsim.presentation.tournament_details.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun TournamentDetailChoice(
     game: TournamentGame,
+    isMod: Boolean,
     onClick: (Int) -> Unit
 ) {
 
@@ -37,7 +39,8 @@ fun TournamentDetailChoice(
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.secondary)
-            .padding(bottom = 16.dp),
+            .padding(bottom = 16.dp)
+            .clickable(isMod){ onClick(game.id) },
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
@@ -82,7 +85,9 @@ fun TournamentDetailChoice(
             game.odds.forEachIndexed{ index: Int, it: Odd ->
                 Button(
                     onClick = {
-                        onClick(index)
+                        if (!isMod) {
+                            onClick(index)
+                        }
                     },
                     modifier = Modifier
                         .width(90.dp),
@@ -126,6 +131,7 @@ fun TournamentDetailItemPreview(){
             "bsd",
             listOf(Odd(1,"asd",1.23),Odd(2,"asd2",1.53),Odd(3,"as3d",1.33))
         ),
+        false,
         onClick = {}
     )
 }

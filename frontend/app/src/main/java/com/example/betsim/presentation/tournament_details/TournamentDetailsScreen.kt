@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details_user
+package com.example.betsim.presentation.tournament_details
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,18 +12,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
-import com.example.betsim.presentation.tournament_details_user.components.TournamentDetailChoice
+import com.example.betsim.presentation.tournament_details.components.TournamentDetailChoice
 
 @Composable
 fun TournamentDetailScreen(
     viewModel: TournamentDetailsViewModel = hiltViewModel(),
+    navController: NavController,
     mainViewModel: MainViewModel,
 ){
 
     val state by remember { viewModel.state }
     val coupon by remember { mainViewModel.couponState }
+    val isMod = viewModel.isMod
 
     Surface(
         modifier = Modifier
@@ -40,9 +44,13 @@ fun TournamentDetailScreen(
                 val i = coupon.games.indexOf(game)
                 if (i != -1) viewModel.onEvent(TournamentDetailsEvent.LoadList(coupon.games[i], index))
 
-                TournamentDetailChoice(game){oddIndex ->
-                    viewModel.onEvent(TournamentDetailsEvent.OnSelect(game, oddIndex))
-                    mainViewModel.onEvent(MainEvent.AddGame(game))
+                TournamentDetailChoice(game, isMod) { onClickIndex ->
+                    if (isMod) {
+                        navController.navigate(Screen.ModifyGameScreen.route)
+                    } else {
+                        viewModel.onEvent(TournamentDetailsEvent.OnSelect(game, onClickIndex))
+                        mainViewModel.onEvent(MainEvent.AddGame(game))
+                    }
                 }
             }
 

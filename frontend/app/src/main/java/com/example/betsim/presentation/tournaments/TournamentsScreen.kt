@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournaments_user
+package com.example.betsim.presentation.tournaments
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,11 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.betsim.presentation.tournaments_user.components.TournamentItem
+import com.example.betsim.presentation.tournaments.components.TournamentItem
 
 
 @Composable
-fun TournamentsUserScreen(
+fun TournamentsScreen(
     viewModel: TournamentsScreenViewModel = hiltViewModel(),
     navController: NavController
 

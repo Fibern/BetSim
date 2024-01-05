@@ -14,7 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.betsim.common.components.BetSimOutlinedTextField
+import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 
 @Composable
 fun AuthTextField(text: String, label: String, onValChange: (String) -> Unit, icon: ImageVector, isPassword: Boolean = false) {

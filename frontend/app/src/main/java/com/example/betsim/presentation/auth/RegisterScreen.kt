@@ -13,8 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.Screen
 import com.example.betsim.presentation.auth.components.AuthTextField
 import com.example.betsim.presentation.auth.components.AuthText
+import com.example.betsim.presentation.common.components.BetSimButton
 
 @Composable
 fun RegisterScreen(
@@ -99,18 +98,11 @@ fun RegisterScreen(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Button(
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 100.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
-                ) {
-                    Text(text = "Zarejestruj")
+
+                BetSimButton(text = "Zarejestruj") {
+                    
                 }
+
             }
             Spacer(modifier = Modifier.height(10.dp))
 

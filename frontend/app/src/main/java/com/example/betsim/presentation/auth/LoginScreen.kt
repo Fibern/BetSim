@@ -22,10 +22,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.Screen
-import com.example.betsim.presentation.auth.components.AuthButton
 import com.example.betsim.presentation.auth.components.AuthClickableText
 import com.example.betsim.presentation.auth.components.AuthTextField
 import com.example.betsim.presentation.auth.components.AuthText
+import com.example.betsim.presentation.common.components.BetSimButton
 
 @Composable
 fun LoginScreen(
@@ -71,7 +71,7 @@ fun LoginScreen(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                AuthButton("Zaloguj"){
+                BetSimButton("Zaloguj"){
                     navController.navigate(Screen.UserNav.route){
                         popUpTo(Screen.AuthNav.route){
                             inclusive = true

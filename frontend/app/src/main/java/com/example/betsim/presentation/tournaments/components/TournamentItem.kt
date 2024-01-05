@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournaments_user.components
+package com.example.betsim.presentation.tournaments.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

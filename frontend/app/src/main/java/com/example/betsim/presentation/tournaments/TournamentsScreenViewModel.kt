@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournaments_user
+package com.example.betsim.presentation.tournaments
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -24,6 +24,7 @@ class TournamentsScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val isToday: Boolean
+    private val isMod: Boolean
 
     private var _state = mutableStateOf(TournamentsState())
     val state = _state
@@ -33,8 +34,8 @@ class TournamentsScreenViewModel @Inject constructor(
 
     init {
         isToday = checkNotNull(savedStateHandle["today"])
-        _route.value = if(isToday) Screen.TodayTournamentDetailScreen.route
-                        else Screen.TournamentDetailScreen.route
+        isMod = checkNotNull(savedStateHandle["mod"])
+        _route.value = Screen.TournamentDetailScreen.route
         getTournaments()
     }
 
