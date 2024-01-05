@@ -39,6 +39,15 @@ namespace WebApi.Controllers
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
         }
 
+        [HttpGet("{eventId}")]
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertGetByEvent([FromRoute] int eventId)
+        {
+            var command = new GetOffertByEventQuery(eventId);
+            var response = await _mediator.Send(command);
+
+            return (response.Succes == true) ? Ok(response) : BadRequest(response);
+        }
+
         [HttpPost("{eventId}")]
         [Authorize]
         public async Task<ActionResult<BaseResponse<int>>> OffertPost([FromRoute] int eventId,OffertDto offert)
