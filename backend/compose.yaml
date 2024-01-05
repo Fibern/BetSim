@@ -12,7 +12,7 @@ services:
       - "80:8080"
     command: ["dotnet", "ef", "database update"]
     environment:
-      ASPNETCORE_ENVIRONMENT: "ConnectionStrings:Dbconnect = postgresql://localhost/${DB_NAME}?user=${DB_USER}&password=${DB_PASSWORD}"
+      ASPNETCORE_ENVIRONMENT: "ConnectionStrings:Dbconnect = User ID=${DB_USER};Host=localhost;Port=5432;Database=${DB_NAME};Password=${DB_PASSWORD};"
     networks:
       - dbNetwork 
 
