@@ -11,6 +11,7 @@ COPY ["src/Infrastructure/Infrastructure.csproj", "Infrastructure/"]
 
 RUN dotnet restore "/src/WebApi/WebApi.csproj"
 
+ENV ConnectionStrings:Dbconnect = "User ID=${DB_USER};Host=${host};Port=5432;Database=${DB_NAME};Password=${DB_PASSWORD};TrustServerCertificate=True;"
 COPY /src .
 WORKDIR /src/WebApi
 

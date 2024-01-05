@@ -12,7 +12,9 @@ using System.Text;
 using WebApi.Filtres;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var configuration = builder.Configuration;
+
 
 builder.Services.AddApplication();
 builder.Services.AddInfraStucture(builder.Configuration);

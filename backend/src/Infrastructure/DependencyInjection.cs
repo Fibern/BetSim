@@ -9,9 +9,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfraStucture(this IServiceCollection services, IConfiguration configuration)
     {
+        var connection = configuration.GetConnectionString("Dbconnect");
         services.AddDbContext<DbMainContext>(o => o.UseNpgsql(configuration.GetConnectionString("Dbconnect"),
         builder => builder.EnableRetryOnFailure()));
-
+        
         //app services
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IOffertRepository, OffertRepository>();
