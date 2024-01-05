@@ -12,6 +12,7 @@
     <UserSecretsId>07ea2ed1-0784-4735-afab-028dcbb23f71</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.3.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />

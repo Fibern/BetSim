@@ -3,6 +3,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,11 @@ namespace Infrastructure.Repositories
             }
 
             return offerts;
+        }
+
+        public async Task<IReadOnlyList<Offert>> GetEventOffert(int eventId)
+        {
+            return _context.Offert.AsNoTracking().Where(e => e.EventId == eventId).ToImmutableList();
         }
 
         public async Task<Offert> GetUserOffert(int id, int userId)

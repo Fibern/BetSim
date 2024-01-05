@@ -10,6 +10,7 @@ namespace Application.Abstractions
     public interface IOffertRepository:IAsyncRepository<Offert>
     {
         Task<Offert> GetUserOffert(int id, int userId);
+        Task<IReadOnlyList<Offert>> GetEventOffert(int eventId);
         Task<IReadOnlyList<Offert>> GetAllAsync(DateTime? dateTime = null);
     }
 }
