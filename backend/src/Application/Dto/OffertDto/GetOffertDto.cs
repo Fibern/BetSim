@@ -13,7 +13,6 @@ namespace Application.Dto.OffertDto
     public class GetOffertDto
     {
         public int Id { get; set; }
-        public string Title { get; set; }
         public BetType Type { get; set; }
         public bool Active { get; set; }
         public DateTime DateTime { get; set; }

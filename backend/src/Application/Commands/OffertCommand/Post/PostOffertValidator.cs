@@ -13,9 +13,6 @@ namespace Application.Commands.OffertCommand.Post
     {
         public PostOffertValidator(Func<bool> validateOdds)
         {
-            RuleFor(p => p.Title).NotEmpty()
-                .MaximumLength(30)
-                .MinimumLength(3);
             RuleFor(p => p.DateTime).GreaterThan(DateTime.Now);
             RuleFor(p => p.Type).IsInEnum();
             RuleFor(p => p).Must(p => validateOdds() == true)

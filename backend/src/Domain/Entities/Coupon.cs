@@ -8,8 +8,8 @@ namespace Domain.Entities
         public int UserId { get; set; }
         public User User { get; set; }
         public List<Bet> Bets { get; set; }
-        [Required]
         public double Value { get; set; }
+        public int OddSum { get; set; }
         public DateTime DateTime { get; set; }
 
     }
