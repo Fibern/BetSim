@@ -14,18 +14,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 
 @Composable
-fun ModifyScreen(){
+fun ModifyScreen(
+    navController: NavHostController
+){
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             BetSimSubsidiaryTopBar(text = "Wprowadzanie wyniku") {
-
+                navController.navigateUp()
             }
         }
     ) {paddingValues ->
@@ -79,5 +83,5 @@ fun ModifyScreen(){
 @Preview
 @Composable
 fun ModifyScreenPreview(){
-    ModifyScreen()
+    ModifyScreen(rememberNavController())
 }

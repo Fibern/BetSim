@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.common.components.FormText
@@ -26,6 +29,7 @@ import com.example.betsim.presentation.create_feature.components.IconDropdown
 
 @Composable
 fun CreateEventScreen(
+    navController: NavHostController,
     viewModel: CreateEventViewModel = hiltViewModel()
 ) {
 
@@ -38,7 +42,7 @@ fun CreateEventScreen(
             BetSimSubsidiaryTopBar(
                 "Tworzenie wydarzenia"
             ) {
-
+                navController.navigateUp()
             }
         }
     ) { paddingValues ->
@@ -92,5 +96,5 @@ fun CreateEventScreen(
 @Preview
 @Composable
 fun CreateEventScreenPreview(){
-    CreateEventScreen()
+    CreateEventScreen(rememberNavController())
 }

@@ -60,8 +60,8 @@ fun ModNavHost(viewModel: MainViewModel, navController: NavHostController, paddi
                 )
             ) { TournamentDetailScreen(mainViewModel = viewModel , navController = navController) }
 
-            composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen() }
-            composable(route = Screen.AddGameScreen.route){ CreateGameScreen() }
+            composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen(navController) }
+            composable(route = Screen.AddGameScreen.route){ CreateGameScreen(navController) }
         }
         composable(
             Screen.StartedGamesScreen.route,
@@ -76,7 +76,7 @@ fun ModNavHost(viewModel: MainViewModel, navController: NavHostController, paddi
                 }
             )
         ){ TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
-        composable(route = Screen.ModifyGameScreen.route){ ModifyScreen() }
+        composable(route = Screen.ModifyGameScreen.route){ ModifyScreen(navController) }
         composable(route = Screen.ProfileScreen.route){ Profile() }
 
     }
