@@ -78,7 +78,7 @@ namespace WebApi.Controllers
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{offertId}")]
         [Authorize]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPatch([FromRoute] int offertId, ScorePatchOffertDto request)
         {
