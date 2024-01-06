@@ -9,6 +9,6 @@ sealed class MainEvent {
     data class DeleteGame(val game: TournamentGame): MainEvent()
     data class CollapsedChange(val collapsed: Boolean): MainEvent()
     data class HiddenChange(val hidden: Boolean): MainEvent()
-    data class AppBarsChange(val hide: Boolean): MainEvent()
+    data class DestinationChange(val destination: String?): MainEvent()
 
 }

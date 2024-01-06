@@ -2,6 +2,7 @@ package com.example.betsim.presentation.main
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.betsim.presentation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -19,6 +20,7 @@ class MainViewModel @Inject constructor(
 
     private val _couponState = mutableStateOf(MainCouponState())
     val couponState = _couponState
+
 
     fun onEvent(event: MainEvent){
         when(event){
@@ -64,8 +66,26 @@ class MainViewModel @Inject constructor(
                     collapsed = true
                 )
             }
-            is MainEvent.AppBarsChange -> {
-                _mainAppBarsHidden.value = event.hide
+
+            is MainEvent.DestinationChange -> {
+                _mainAppBarsHidden.value = when (event.destination) {
+                    Screen.CouponDetailsScreen.route -> {
+                        true
+                    }
+                    Screen.ModifyGameScreen.route -> {
+                        true
+                    }
+                    Screen.AddGameScreen.route -> {
+                        true
+                    }
+                    Screen.AddTournamentScreen.route -> {
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+
             }
         }
     }

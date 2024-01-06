@@ -28,7 +28,6 @@ fun CouponsScreen(
 
     val onClick: () -> Unit = {
         navController.navigate(Screen.CouponDetailsScreen.route)
-        mainViewModel.onEvent(MainEvent.AppBarsChange(true))
         mainViewModel.onEvent(MainEvent.HiddenChange(true))
     }
 

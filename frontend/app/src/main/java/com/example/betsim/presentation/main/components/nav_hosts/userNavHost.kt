@@ -100,7 +100,7 @@ fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, padd
                 CouponsScreen(viewModel, navController)
             }
             composable(Screen.CouponDetailsScreen.route) {
-                CouponDetailsScreen(viewModel, navController)
+                CouponDetailsScreen(navController)
             }
         }
 
@@ -120,7 +120,6 @@ fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, padd
         }
         navController.navigateUp()
         viewModel.onEvent(MainEvent.HiddenChange(false))
-        viewModel.onEvent(MainEvent.AppBarsChange(false))
     }
 
 }

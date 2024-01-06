@@ -25,7 +25,6 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun CouponDetailsScreen(
-    mainViewModel: MainViewModel,
     navController: NavHostController,
     viewModel: CouponDetailViewModel = hiltViewModel()
 ){
@@ -38,7 +37,6 @@ fun CouponDetailsScreen(
         topBar = { BetSimSubsidiaryTopBar(
             "Twój kupon"
         ){
-            mainViewModel.onEvent(MainEvent.AppBarsChange(false))
             navController.navigateUp()
         } },
         bottomBar = {
@@ -97,7 +95,6 @@ fun CouponDetailsScreen(
 fun ScreenCouponDetailsScreenPreview(){
 
     val navController = rememberNavController()
-    val viewModel = MainViewModel()
-    CouponDetailsScreen(viewModel, navController)
+    CouponDetailsScreen(navController)
 
 }

@@ -2,18 +2,18 @@ package com.example.betsim.presentation.main.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.EventAvailable
 import androidx.compose.material.icons.filled.Leaderboard
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Receipt
 import androidx.compose.material.icons.filled.Stadium
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Today
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.Leaderboard
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Receipt
 import androidx.compose.material.icons.outlined.Stadium
+import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.Today
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -168,8 +168,8 @@ private val modDestinations = listOf(
     ),
     BottomNavigationItem(
         title = "Rozpoczęte",
-        selectedIcon = Icons.Filled.EventAvailable,
-        unselectedIcon = Icons.Outlined.EventAvailable,
+        selectedIcon = Icons.Filled.Timer,
+        unselectedIcon = Icons.Outlined.Timer,
         hasNews = false,
         badgeCount = null,
         hide = true,
