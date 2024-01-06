@@ -33,8 +33,6 @@ fun CreateGameScreen(
 ) {
 
 
-
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -107,7 +105,7 @@ fun CreateGameScreen(
                 }
 
                 Dropdown(
-                    value = selected,
+                    value = "",
                     options = options
                 ) { selected = it }
 

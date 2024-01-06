@@ -36,6 +36,7 @@ fun Dropdown(
         BetSimOutlinedTextField(
             value = value,
             readonly = true,
+            singleLine = true,
             trailingIcon = {
                 if (expanded){
                     IconButton(onClick = { expanded = false }) {
@@ -49,7 +50,8 @@ fun Dropdown(
             },
             onValueChange = {},
             modifier = Modifier
-                .menuAnchor()
+                .menuAnchor(),
+            placeholder = { Text(text = "ASDDSA")}
         )
 
         ExposedDropdownMenu(

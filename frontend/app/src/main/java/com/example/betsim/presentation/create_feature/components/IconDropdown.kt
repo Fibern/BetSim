@@ -1,14 +1,17 @@
 package com.example.betsim.presentation.create_feature.components
 
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.outlined.CropSquare
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,7 +26,8 @@ import com.example.betsim.presentation.common.data.EventIcons
 fun IconDropdown(
     value: EventIcons?,
     options: Array<EventIcons>,
-    onClick: (EventIcons) -> Unit
+    onClick: (EventIcons) -> Unit,
+    hint: @Composable (() -> Unit)? = null
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -36,7 +40,16 @@ fun IconDropdown(
 
         BetSimOutlinedTextField(
             value = value?.iconName ?: "",
-            leadingIcon = { if (value != null) Icon(value.icon, value.name)},
+            leadingIcon = {
+                if (value != null) Icon(value.icon, value.name)
+                else {
+                    Icon(
+                        Icons.Outlined.CropSquare,
+                        "",
+                        tint = MaterialTheme.colorScheme.onSurface.copy(ContentAlpha.medium)
+                    )
+                }
+            },
             readonly = true,
             trailingIcon = {
                 if (expanded){
@@ -50,8 +63,10 @@ fun IconDropdown(
                 }
             },
             onValueChange = {},
+            singleLine = true,
             modifier = Modifier
-                .menuAnchor()
+                .menuAnchor(),
+            placeholder = hint
         )
 
 

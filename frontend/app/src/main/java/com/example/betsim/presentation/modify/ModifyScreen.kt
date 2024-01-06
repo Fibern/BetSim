@@ -44,7 +44,7 @@ fun ModifyScreen(){
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Absolute.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ){
 
                     Text(text = "team 1")

@@ -7,14 +7,15 @@ import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 fun CreationTextField(
     value: String,
     onValueChange: (String) -> Unit = {},
-    label: @Composable() (() -> Unit)? = null,
+    hint: @Composable() (() -> Unit)? = null
 ){
 
 
     BetSimOutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = label
+        placeholder = hint,
+        singleLine = true
     )
 
 }
