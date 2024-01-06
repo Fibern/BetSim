@@ -13,9 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.tournaments.components.TournamentItem
 
 
@@ -23,7 +25,6 @@ import com.example.betsim.presentation.tournaments.components.TournamentItem
 fun TournamentsScreen(
     viewModel: TournamentsScreenViewModel = hiltViewModel(),
     navController: NavController
-
 ){
 
     val state by remember { viewModel.state }
@@ -41,7 +42,7 @@ fun TournamentsScreen(
         ){
             items(state.tournaments){tournament ->
                     TournamentItem(
-                        text = tournament.name,
+                        tournament,
                         Modifier.clickable(onClick = {
                             navController.navigate(route)
                         })
@@ -51,4 +52,10 @@ fun TournamentsScreen(
 
     }
 
+}
+
+@Preview
+@Composable
+fun TournamentsScreenPreview(){
+    TournamentsScreen(navController = rememberNavController())
 }

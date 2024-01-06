@@ -36,7 +36,7 @@ fun IconDropdown(
 
         BetSimOutlinedTextField(
             value = value?.iconName ?: "",
-            leadingIcon = {value?.GetIcon()},
+            leadingIcon = { if (value != null) Icon(value.icon, value.name)},
             readonly = true,
             trailingIcon = {
                 if (expanded){
@@ -63,7 +63,7 @@ fun IconDropdown(
             options.forEach {
 
                 DropdownMenuItem(
-                    leadingIcon = {it.GetIcon()},
+                    leadingIcon = {Icon(it.icon, it.name)},
                     text = { Text(text = it.iconName) },
                     onClick = {
                         onClick(it)
