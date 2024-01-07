@@ -3,9 +3,7 @@ package com.example.betsim.presentation.create_feature
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.betsim.domain.model.Odd
-import com.example.betsim.domain.model.TournamentGame
 import com.example.betsim.domain.util.OfferType
-import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate
 import java.time.LocalTime
 
