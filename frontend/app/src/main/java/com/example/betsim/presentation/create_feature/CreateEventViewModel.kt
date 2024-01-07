@@ -25,6 +25,8 @@ class CreateEventViewModel @Inject constructor(
             CreationEvent.CreateClick -> {
                 //TODO()
             }
+
+            else -> {}
         }
 
     }

@@ -1,4 +1,4 @@
-package com.example.betsim.presentation
+package com.example.betsim.presentation.util
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
@@ -31,7 +31,9 @@ sealed class Screen(val route: String) {
     data object LeaderboardScreen: Screen("leaderboard_screen")
     data object EventsNav: Screen("event_navigation")
     data object AddTournamentScreen: Screen("add_event_screen")
-    data object AddGameScreen: Screen("add_event_game_screen")
+    data object AddGameMainScreen: Screen("add_game_main_screen")
+    data object AddGameScreen: Screen("add_game_screen")
+    data object AddGameTeamsScreen: Screen("add_game_teams_screen?")
     data object StartedGamesScreen: Screen("started_games_screen?today={today}mod={mod}")
     data object ModifyGameScreen: Screen("modify_game_screen")
 

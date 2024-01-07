@@ -1,9 +1,19 @@
 package com.example.betsim.presentation.create_feature
 
+import com.example.betsim.domain.util.OfferType
 import com.example.betsim.presentation.common.data.EventIcons
+import java.time.LocalDate
+import java.time.LocalTime
 
 sealed class CreationEvent {
     data class EnteredName(val value: String): CreationEvent()
-    data class SelectDropdown(val icon: EventIcons? = null, val text: String? = null): CreationEvent()
+    data class SelectDropdown(val icon: EventIcons? = null, val offerType: OfferType? = null): CreationEvent()
     data object CreateClick : CreationEvent()
+    data class EnteredDate(val date: LocalDate): CreationEvent()
+    data class EnteredTime(val time: LocalTime): CreationEvent()
+    data class EnteredTeamName(val name: String, val id: Int): CreationEvent()
+    data class EnteredWinChance(val odd: String, val id: Int): CreationEvent()
+    data object AddTeam: CreationEvent()
+    data class RemoveTeam(val id: Int): CreationEvent()
+    data class CheckBoxChange(val checked: Boolean): CreationEvent()
 }

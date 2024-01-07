@@ -15,14 +15,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.betsim.domain.util.OfferType
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun Dropdown(
-    value: String,
-    options: List<String>,
-    onClick: (String) -> Unit
+    value: OfferType,
+    options: List<OfferType>,
+    onClick: (OfferType) -> Unit
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -34,7 +35,7 @@ fun Dropdown(
     ) {
 
         BetSimOutlinedTextField(
-            value = value,
+            value = value.value,
             readonly = true,
             singleLine = true,
             trailingIcon = {
@@ -50,8 +51,7 @@ fun Dropdown(
             },
             onValueChange = {},
             modifier = Modifier
-                .menuAnchor(),
-            placeholder = { Text(text = "ASDDSA")}
+                .menuAnchor()
         )
 
         ExposedDropdownMenu(
@@ -62,7 +62,7 @@ fun Dropdown(
             options.forEach {
 
                 DropdownMenuItem(
-                    text = { Text(text = it) },
+                    text = { Text(text = it.value) },
                     onClick = {
                         onClick(it)
                         expanded = false

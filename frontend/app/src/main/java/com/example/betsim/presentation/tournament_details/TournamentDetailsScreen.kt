@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.tournament_details.components.TournamentDetailChoice

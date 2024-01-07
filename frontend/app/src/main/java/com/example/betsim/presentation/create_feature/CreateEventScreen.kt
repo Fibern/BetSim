@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BetSimButton
@@ -66,7 +65,7 @@ fun CreateEventScreen(
                     onValueChange = { viewModel.onEvent(CreationEvent.EnteredName(it)) },
                     hint = { Text(text = "Nazwa wydarzenia") }
                 )
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 FormText(text = "Wybierz ikonę")
                 IconDropdown(

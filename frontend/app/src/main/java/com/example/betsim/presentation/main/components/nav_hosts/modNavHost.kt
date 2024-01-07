@@ -10,9 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.create_feature.CreateEventScreen
-import com.example.betsim.presentation.create_feature.CreateGameScreen
+import com.example.betsim.presentation.create_feature.CreateGameMainScreen
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile
@@ -61,7 +61,7 @@ fun ModNavHost(viewModel: MainViewModel, navController: NavHostController, paddi
             ) { TournamentDetailScreen(mainViewModel = viewModel , navController = navController) }
 
             composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen(navController) }
-            composable(route = Screen.AddGameScreen.route){ CreateGameScreen(navController) }
+            composable(route = Screen.AddGameMainScreen.route){ CreateGameMainScreen(navController) }
         }
         composable(
             Screen.StartedGamesScreen.route,

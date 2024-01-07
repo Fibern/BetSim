@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.betsim.presentation.ui.theme.BetSimTheme
+import com.example.betsim.presentation.util.BetSimSurface
 import dagger.hilt.android.AndroidEntryPoint
 
 /*

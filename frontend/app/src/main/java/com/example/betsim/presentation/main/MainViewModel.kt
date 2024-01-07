@@ -2,7 +2,7 @@ package com.example.betsim.presentation.main
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -75,7 +75,7 @@ class MainViewModel @Inject constructor(
                     Screen.ModifyGameScreen.route -> {
                         true
                     }
-                    Screen.AddGameScreen.route -> {
+                    Screen.AddGameMainScreen.route -> {
                         true
                     }
                     Screen.AddTournamentScreen.route -> {

@@ -1,11 +1,13 @@
 package com.example.betsim.presentation.common.components
 
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
@@ -19,7 +21,8 @@ fun BetSimOutlinedTextField(
     trailingIcon: @Composable() (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    singleLine: Boolean = false,
+    textStyle: TextStyle = LocalTextStyle.current,
+    singleLine: Boolean = true,
     readonly: Boolean = false
 ){
 
@@ -35,6 +38,7 @@ fun BetSimOutlinedTextField(
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
+        textStyle = textStyle,
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             focusedTextColor = MaterialTheme.colorScheme.primary,

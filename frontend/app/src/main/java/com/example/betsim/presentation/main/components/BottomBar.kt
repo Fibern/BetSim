@@ -32,7 +32,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

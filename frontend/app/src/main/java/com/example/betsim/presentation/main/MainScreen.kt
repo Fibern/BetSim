@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.main.components.BetSimBottomAppBar
 import com.example.betsim.presentation.main.components.BetSimTopAppBar
 import com.example.betsim.presentation.main.components.FloatingActionAnimation
@@ -88,7 +88,7 @@ fun UserMainScreen(
                             if (navStackEntry?.destination?.route == Screen.TournamentsScreen.route)
                                 Screen.AddTournamentScreen.route
                             else
-                                Screen.AddGameScreen.route
+                                Screen.AddGameMainScreen.route
                         )
                     },
                     containerColor = MaterialTheme.colorScheme.primary,

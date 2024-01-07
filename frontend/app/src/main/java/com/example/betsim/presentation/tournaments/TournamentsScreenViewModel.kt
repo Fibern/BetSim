@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.domain.model.Tournament
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.common.data.EventIcons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

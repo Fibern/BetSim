@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.betsim.presentation.Screen
+import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.coupons.components.CouponTabItem
 import com.example.betsim.presentation.coupons.components.CouponTabs
 import com.example.betsim.presentation.coupons.components.TabContent
