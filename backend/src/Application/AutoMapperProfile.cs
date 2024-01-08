@@ -1,5 +1,7 @@
 ﻿using Application.Commands.EventCommand.Post;
 using Application.Commands.OffertCommand.Post;
+using Application.Dto.BetDto;
+using Application.Dto.CouponDto;
 using Application.Dto.EventDto;
 using Application.Dto.OddDto;
 using Application.Dto.OffertDto;
@@ -17,6 +19,8 @@ namespace Application
             CreateMap<OffertDto, Offert>().ReverseMap();
             CreateMap<Offert, GetOffertDto>();
             CreateMap<Odd, GetOddDto>();
+            CreateMap<Coupon, GetCouponDto>();
+            CreateMap<Bet, GetBetDto>();
         }
     }
 }

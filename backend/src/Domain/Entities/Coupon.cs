@@ -12,5 +12,11 @@ namespace Domain.Entities
         public int OddSum { get; set; }
         public DateTime DateTime { get; set; }
 
+
+            public Double CalculateOddSum()
+            {
+               return Bets.Sum(e => e.Offert.Odds.Select(z => z.OddValue).FirstOrDefault(e.PredictedWinnerId) );
+            }
+
     }
 }

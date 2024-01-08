@@ -1,22 +1,28 @@
-namespace Application.Queries.EventQuery
+using Application.Abstractions;
+using Application.Dto.CouponDto;
+using Application.Queries.CouponQuery;
+using AutoMapper;
+using MediatR;
+
+namespace Application.Queries.CouponQuery
 {
-    public class GetUserCouponHandler : IRequestHandler<GetUserCouponHandler, BaseResponse<List<GetEventDto>>>
+    public class GetUserCouponHandler : IRequestHandler<GetUserCouponQuery, BaseResponse<IReadOnlyList<GetCouponDto>>>
     {
-        private IEventRepository _eventRepository;
+        private ICouponRepository _CouponRepository;
         private IMapper _mapper;
 
-        public GetAllEventsHandler(IMapper mapper, IEventRepository eventRepository)
+        public GetUserCouponHandler(IMapper mapper, ICouponRepository eventRepository)
         {
             _mapper = mapper;
-            _eventRepository = eventRepository;
+            _CouponRepository = eventRepository;
         }
 
-        public async Task<BaseResponse<List<GetEventDto>>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<IReadOnlyList<GetCouponDto>>> Handle(GetUserCouponQuery request, CancellationToken cancellationToken)
         {
-            var all = await _eventRepository.GetAllAsync(request.Active);
-            var allViewModel = _mapper.Map<List<GetEventDto>>(all);
+            var all = await _CouponRepository.GetAsync(request.UserId);
+            var allViewModel = _mapper.Map<IReadOnlyList<GetCouponDto>>(all);
 
-            var response = new BaseResponse<List<GetEventDto>>(allViewModel, true);
+            var response = new BaseResponse<IReadOnlyList<GetCouponDto>>(allViewModel, true);
 
             return response;
         }

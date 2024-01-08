@@ -47,7 +47,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Offert>> GetEventOffert(int eventId)
         {
-            return _context.Offert.AsNoTracking().Where(e => e.EventId == eventId).ToImmutableList();
+            return await _context.Offert.AsNoTracking().Where(e => e.EventId == eventId).ToListAsync();
         }
 
         public async Task<Offert> GetUserOffert(int id, int userId)

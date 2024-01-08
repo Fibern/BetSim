@@ -1,3 +1,5 @@
+using Application.Dto.BetDto;
+
 namespace Application.Dto.CouponDto
 {
     public class PostCouponDto
