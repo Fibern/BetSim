@@ -25,11 +25,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.domain.util.OfferType
-import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.FormText
+import com.example.betsim.presentation.create_feature.components.CreationDropdown
 import com.example.betsim.presentation.create_feature.components.CreationTextField
-import com.example.betsim.presentation.create_feature.components.Dropdown
+import com.example.betsim.presentation.util.Screen
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -117,7 +117,7 @@ fun CreateGameScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             FormText(text = "Rodzaj zakładu")
-            Dropdown(
+            CreationDropdown(
                 value = state.type,
                 options = OfferType.entries
             ) {
