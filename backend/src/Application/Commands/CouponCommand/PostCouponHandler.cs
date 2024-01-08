@@ -27,16 +27,26 @@ namespace Application.Commands.CouponCommand
             var offertsIds = request.CouponDto.Bets.Select(e => e.PredictedWinnerId).ToList();
             var odds = await _OddsRepo.GetOddsByListOfIdAsync(offertsIds);
 
-            var validator = new PostCouponValidatorDto(odds.Sum(e => e.OddValue));
+            // calculate correct oddSum 
+            double oddSum = 1; 
+            foreach (var item in odds)
+            {
+                oddSum *= item.OddValue;
+            }
+
+            //validation
+            var validator = new PostCouponValidatorDto(oddSum);
             var validationResult = await validator.ValidateAsync(request.CouponDto);
             var response = new BaseResponse<int>(validationResult);
 
             if (!validationResult.IsValid) return response;
 
             Coupon newCoupon =  _mapper.Map<Coupon>(request.CouponDto);
+            newCoupon.UserId = request.UserId;
 
             await _CouponRepo.AddAsync(newCoupon);
             response.Message = newCoupon.Id;
+            response.Succes = true;
 
             return response;
         }

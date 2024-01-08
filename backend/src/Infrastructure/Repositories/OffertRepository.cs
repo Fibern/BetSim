@@ -45,14 +45,14 @@ namespace Infrastructure.Repositories
             return offerts;
         }
 
-        public async Task<IReadOnlyList<Offert>> GetEventOffert(int eventId)
+        public async Task<IReadOnlyList<Offert>> GetEventOffertAsync(int eventId)
         {
-            return await _context.Offert.AsNoTracking().Where(e => e.EventId == eventId).ToListAsync();
+            return await _context.Offert.AsNoTracking().Include(e => e.Odds).Where(e => e.EventId == eventId).ToListAsync();
         }
 
         public async Task<Offert> GetUserOffert(int id, int userId)
         {
-            return await _context.Offert.Where(e => e.Id == id).Include(e => e.Event).FirstOrDefaultAsync(e => e.Event.OwnerId == userId);
+            return await _context.Offert.Where(e => e.Id == id).Include(e => e.Odds).FirstOrDefaultAsync(e => e.Event.OwnerId == userId);
         }
 
         public async Task<bool> UpdateAsync(Offert entity)

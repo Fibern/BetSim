@@ -4,11 +4,14 @@ using Application.Commands.CouponCommand;
 using Application.Dto.CouponDto;
 using Application.Queries.CouponQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    class CouponController : ControllerBase
+    [ApiController]
+    [Route("[controller]")]
+    public class CouponController : ControllerBase
     {
         private int _userId;
         private readonly IMediator _mediator;
@@ -20,7 +23,7 @@ namespace WebApi.Controllers
              if(userId != null)_userId = int.Parse(userId);
         }
 
-        [HttpGet]
+        [HttpGet]    
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetCouponDto>>>> GetAsync()
         {
             var command = new GetUserCouponQuery(_userId);
@@ -32,6 +35,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<BaseResponse<int>>> PostAsync(PostCouponDto coupon)
         {
             var command = new PostCouponCommand(_userId, coupon);

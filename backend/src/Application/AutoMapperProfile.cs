@@ -19,6 +19,8 @@ namespace Application
             CreateMap<OffertDto, Offert>().ReverseMap();
             CreateMap<Offert, GetOffertDto>();
             CreateMap<Odd, GetOddDto>();
+            CreateMap<PostCouponDto, Coupon>();
+            CreateMap<PostBetDto, Bet>();
             CreateMap<Coupon, GetCouponDto>();
             CreateMap<Bet, GetBetDto>();
         }

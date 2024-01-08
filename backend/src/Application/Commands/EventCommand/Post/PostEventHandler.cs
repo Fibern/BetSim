@@ -19,9 +19,8 @@ namespace Application.Commands.EventCommand.Post
         {
             var validator = new EventValidatorDto();
             var validationResult = await validator.ValidateAsync(request.eventDto);
-            var response = new BaseResponse<int>(validationResult);
 
-            if (!validationResult.IsValid) return response;
+            if (!validationResult.IsValid) return new BaseResponse<int>(validationResult);
 
             Event newEvent = new Event()
             {
@@ -31,7 +30,7 @@ namespace Application.Commands.EventCommand.Post
             };
 
             await _eventRepo.AddAsync(newEvent);
-            response.Message = newEvent.Id;
+            var response = new BaseResponse<int>(newEvent.Id);
 
             return response;
         }
