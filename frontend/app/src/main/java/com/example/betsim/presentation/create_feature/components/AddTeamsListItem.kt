@@ -59,7 +59,6 @@ fun AddTeamsListItem(
         )
         if (offerType == OfferType.Winner){
             Box(
-                //onClick = onRemove,
                 modifier = Modifier
                     .width(40.dp)
                     .height(40.dp),

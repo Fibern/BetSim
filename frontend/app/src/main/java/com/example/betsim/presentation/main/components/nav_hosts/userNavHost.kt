@@ -104,7 +104,7 @@ fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, padd
             }
         }
 
-        composable(Screen.ProfileScreen.route) { Profile() }
+        composable(Screen.ProfileScreen.route) { Profile(viewModel, navController) }
 
         composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
     }

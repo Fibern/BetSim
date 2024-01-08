@@ -77,7 +77,7 @@ fun ModNavHost(viewModel: MainViewModel, navController: NavHostController, paddi
             )
         ){ TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
         composable(route = Screen.ModifyGameScreen.route){ ModifyScreen(navController) }
-        composable(route = Screen.ProfileScreen.route){ Profile() }
+        composable(route = Screen.ProfileScreen.route){ Profile(viewModel, navController) }
 
     }
 }
