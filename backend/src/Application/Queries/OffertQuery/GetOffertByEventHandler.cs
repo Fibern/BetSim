@@ -18,7 +18,7 @@ namespace Application.Queries.OffertQuery
 
         public async Task<BaseResponse<IReadOnlyList<GetOffertDto>>> Handle(GetOffertByEventQuery request, CancellationToken cancellationToken)
         {
-            var offerts = await _ofertRepo.GetEventOffert(request.EventId);
+            var offerts = await _ofertRepo.GetEventOffertAsync(request.EventId);
             var offertView = _mapper.Map<IReadOnlyList<GetOffertDto>>(offerts);
 
             return new BaseResponse<IReadOnlyList<GetOffertDto>>(offertView,true);
