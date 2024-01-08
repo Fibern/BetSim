@@ -9,7 +9,7 @@ namespace Domain.Entities
         public User User { get; set; }
         public List<Bet> Bets { get; set; }
         public double Value { get; set; }
-        public int OddSum { get; set; }
+        public double OddSum { get; set; }
         public DateTime DateTime { get; set; }
 
 

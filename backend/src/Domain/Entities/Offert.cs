@@ -10,7 +10,7 @@ namespace Domain.Entities
         public BetType Type { get; set; }
         public bool Active { get; set; } = true;
         public DateTime DateTime { get; set; }
-        public List<Odd> Odds { get; private set; }
+        public List<Odd> Odds { get; set; }
         public int EventId { get; set; }    
         public Event Event { get; set; }
         public int? Winner { get; set; } = -1;
@@ -36,7 +36,6 @@ namespace Domain.Entities
 
         public void Update(DateTime time)
         {
-            Title = title;
             DateTime = time;
         }
 

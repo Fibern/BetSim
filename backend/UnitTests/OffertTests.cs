@@ -18,7 +18,7 @@ namespace UnitTests
         {
             var offert = new Offert();
 
-            double percent = offert.courseToPercent(course);
+            double percent = offert.CourseToPercent(course);
             percent = Math.Round(percent, 2);
 
             Assert.Equal(percent, score);
