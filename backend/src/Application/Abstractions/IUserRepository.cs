@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dto.OffertDto;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.Abstractions
 {
-    internal interface IUserRepository:IAsyncRepository<User>
+    public interface IUserRepository : IAsyncRepository<User>
     {
+        Task<User> GetUserInfoAsync(int userId);
         Task DeleteAsync();
     }
 }
