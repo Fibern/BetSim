@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.Abstractions
 {
-    public interface IUserRepository : IAsyncRepository<User>
+    public interface IUserRepository 
     {
         Task<User> GetUserInfoAsync(int userId);
-        Task DeleteAsync();
+        void Delete(int userId);
     }
 }
