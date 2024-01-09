@@ -11,9 +11,6 @@ namespace Application.Commands.OffertCommand.Put
     {
         public PutOffertValidator(Func<bool> ValidateOdds)
         {
-            RuleFor(p => p.Title).NotEmpty()
-              .MaximumLength(30)
-              .MinimumLength(3);
             RuleFor(p => p.Date).GreaterThan(DateTime.Now);
         }
   

@@ -5,7 +5,7 @@ namespace Domain.Entities
     public class Bet
     {
         public int Id { get; set; }
-        public BetStatus Status { get; set; }
+        public BetStatus Status { get; set; } = BetStatus.InProgress;
         public int OffertId { get; set; }
         public Offert Offert { get; set; }
         public int PredictedWinnerId { get; set; }

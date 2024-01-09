@@ -13,15 +13,12 @@ public static class DependencyInjection
         services.AddDbContext<DbMainContext>(o => o.UseNpgsql(configuration.GetConnectionString("Dbconnect"),
         builder => builder.EnableRetryOnFailure()));
         
-        //app services
+        //app repository
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IOffertRepository, OffertRepository>();
 
-        //services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
-
-        //services.AddScoped<ICategoryRepository, CategoryRepository>();
-        //services.AddScoped<IWebinaryRepository, WebinaryRepository>();
-        //services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<ICouponRepository, CouponRepository>();
+        services.AddScoped<IOddsRepository , OddRepository>();
 
         return services;
     }

@@ -8,7 +8,6 @@ namespace Application.Dto.OffertDto
 {
     public class PutOffertDto
     {
-        public string Title { get; set; }
         public DateTime Datetime { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Application.Queries.EventQuery
             var all = await _eventRepository.GetAllAsync(request.Active);
             var allViewModel = _mapper.Map<List<GetEventDto>>(all);
 
-            var response = new BaseResponse<List<GetEventDto>>(allViewModel, true);
+            var response = new BaseResponse<List<GetEventDto>>(allViewModel);
 
             return response;
         }

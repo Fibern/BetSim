@@ -12,7 +12,6 @@ namespace Application.Dto.OffertDto
 {
     public class OffertDto
     {
-        public string Title { get; set; }
         public BetType Type { get; set; }
         public DateTime DateTime { get; set; }
         public List<PostOddDto> Odds { get; set; }

@@ -62,7 +62,7 @@ namespace WebApi.Controllers
         [Authorize]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPut([FromRoute] int id, PutOffertDto request)
         {
-            var command = new PutOffertCommand(_userId, id, request.Title, request.Datetime);
+            var command = new PutOffertCommand(_userId, id, request.Datetime);
             var response = await _mediator.Send(command);
 
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{offertId}")]
         [Authorize]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPatch([FromRoute] int offertId, ScorePatchOffertDto request)
         {

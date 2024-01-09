@@ -8,9 +8,15 @@ namespace Domain.Entities
         public int UserId { get; set; }
         public User User { get; set; }
         public List<Bet> Bets { get; set; }
-        [Required]
         public double Value { get; set; }
+        public double OddSum { get; set; }
         public DateTime DateTime { get; set; }
+
+
+            public Double CalculateOddSum()
+            {
+               return Bets.Sum(e => e.Offert.Odds.Select(z => z.OddValue).FirstOrDefault(e.PredictedWinnerId) );
+            }
 
     }
 }

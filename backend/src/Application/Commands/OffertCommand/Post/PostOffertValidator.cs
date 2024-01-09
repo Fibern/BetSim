@@ -13,12 +13,11 @@ namespace Application.Commands.OffertCommand.Post
     {
         public PostOffertValidator(Func<bool> validateOdds)
         {
-            RuleFor(p => p.Title).NotEmpty()
-                .MaximumLength(30)
-                .MinimumLength(3);
             RuleFor(p => p.DateTime).GreaterThan(DateTime.Now);
             RuleFor(p => p.Type).IsInEnum();
-            RuleFor(p => p).Must(p => validateOdds() == true)
+            RuleFor(p => p.Odds).Must(p => p.Count() > 1)
+                .WithMessage("Offert must have at least two odds");
+            RuleFor(p => p.Odds).Must(p => validateOdds() == true)
                 .WithMessage("All odds values schould be equal to 100%");
         }
     }
