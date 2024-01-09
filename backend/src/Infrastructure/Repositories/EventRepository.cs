@@ -30,23 +30,32 @@ namespace Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Event>> GetAllAsync(bool active = true)
         {
-            return await _context.Event.AsNoTracking().Where(o => o.Active == active).ToListAsync();
+            return await _context.Event
+            .AsNoTracking()
+            .Where(o => o.Active == active)
+            .ToListAsync();
         }
 
 
         public async Task<IReadOnlyList<Event>> GetAllMyAsync(int UserId)
         {
-            return await _context.Event.AsNoTracking().Where(o => o.Owner.Id == UserId).ToListAsync();
+            return await _context.Event
+            .AsNoTracking()
+            .Where(o => o.Owner.Id == UserId)
+            .ToListAsync();
         }
 
         public async Task<Event> GetById(int Id)
         {
-            return await _context.Event.FirstOrDefaultAsync(o => o.Id == Id);
+            return await _context.Event
+            .FirstOrDefaultAsync(o => o.Id == Id);
         }
 
         public async Task<Event> GetUserEvent(int id, int userId)
         {
-             return await _context.Event.Where(e => e.Id == id && e.OwnerId == userId).FirstOrDefaultAsync();
+             return await _context.Event
+             .Where(e => e.Id == id && e.OwnerId == userId)
+             .FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateAsync(Event entity)

@@ -1,5 +1,3 @@
-
-
 using System.Collections.Immutable;
 using Application.Abstractions;
 using Application.Dto.CouponDto;
@@ -13,7 +11,7 @@ namespace Infrastructure.Repositories
         private DbMainContext _context;
 
         public CouponRepository(DbMainContext context)
-        {
+        {  
             _context = context;
         }
 
@@ -27,7 +25,13 @@ namespace Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Coupon>> GetAsync(int userId)
         {
-            IReadOnlyList<Coupon> allCoupons =  await _context.Coupon.AsNoTracking().Include(e=> e.Bets).Where(e => e.UserId == userId).ToListAsync();
+            IReadOnlyList<Coupon> allCoupons =  await _context.Coupon
+            .AsNoTracking()
+            .Include(e=> e.Bets)
+            .ThenInclude(e => e.Offert)
+            .ThenInclude(e=> e.Odds)
+            .Where(e => e.UserId == userId)
+            .ToListAsync();
             return allCoupons;
         }
     }

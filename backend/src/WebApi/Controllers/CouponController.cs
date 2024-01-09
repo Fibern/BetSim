@@ -23,7 +23,8 @@ namespace WebApi.Controllers
              if(userId != null)_userId = int.Parse(userId);
         }
 
-        [HttpGet]    
+        [HttpGet]
+        [Authorize]    
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetCouponDto>>>> GetAsync()
         {
             var command = new GetUserCouponQuery(_userId);
