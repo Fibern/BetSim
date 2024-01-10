@@ -23,18 +23,6 @@ namespace WebApi.Controllers
              if(userId != null)_userId = int.Parse(userId);
         }
 
-        [HttpGet]
-        [Authorize]    
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetCouponDto>>>> GetAsync()
-        {
-            var command = new GetUserCouponQuery(_userId);
-            var response = await _mediator.Send(command);
-
-            if (response.Succes == true) return Ok(response);
-
-            return BadRequest(response);
-        }
-
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<BaseResponse<int>>> PostAsync(PostCouponDto coupon)
