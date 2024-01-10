@@ -28,8 +28,7 @@ namespace Infrastructure.Repositories
             IReadOnlyList<Coupon> allCoupons =  await _context.Coupon
             .AsNoTracking()
             .Include(e=> e.Bets)
-            .ThenInclude(e => e.Offert)
-            .ThenInclude(e=> e.Odds)
+            .ThenInclude(e => e.PredictedWinner)
             .Where(e => e.UserId == userId)
             .ToListAsync();
             return allCoupons;

@@ -51,7 +51,7 @@ namespace Infrastructure.Repositories
             .FirstOrDefaultAsync(o => o.Id == Id);
         }
 
-        public async Task<Event> GetUserEvent(int id, int userId)
+        public async Task<Event> GetUserEventAsync(int id, int userId)
         {
              return await _context.Event
              .Where(e => e.Id == id && e.OwnerId == userId)

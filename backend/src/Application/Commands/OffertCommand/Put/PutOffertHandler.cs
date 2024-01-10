@@ -22,7 +22,7 @@ namespace Application.Commands.OffertCommand.Put
 
         public async Task<BaseResponse<int>> Handle(PutOffertCommand request, CancellationToken cancellationToken)
         {
-            var offert = await _oferRepo.GetUserOffert(request.id,request.userId);
+            var offert = await _oferRepo.GetUserOffert(request.Id,request.UserId);
 
             //if not exist
             if (offert == null) return new BaseResponse<int>("Ofert not found in yours oferts");
@@ -35,7 +35,7 @@ namespace Application.Commands.OffertCommand.Put
             if(!validationResult.IsValid)return new BaseResponse<int>(validationResult);
 
             //update
-            offert.Update(request.Date);
+            offert.Update(request.OfertDto.Datetime, request.OfertDto.Title);
             bool succes = await _oferRepo.UpdateAsync(offert);
 
 

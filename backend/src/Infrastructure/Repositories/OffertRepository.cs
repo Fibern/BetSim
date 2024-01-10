@@ -26,7 +26,7 @@ namespace Infrastructure.Repositories
             return entity.Id;
         }
 
-        public async Task<IReadOnlyList<Offert>> GetAllAsync(DateTime? dateTime = null)
+        public async Task<IReadOnlyList<Offert>> GetAllAsync(DateTimeOffset? dateTime = null)
         {
             IReadOnlyList<Offert> offerts = null;
             if(dateTime == null)

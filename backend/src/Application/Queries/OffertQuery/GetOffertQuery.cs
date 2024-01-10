@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.OffertQuery
 {
-    public record GetOffertQuery(DateTime? dateTime = null) : IRequest<BaseResponse<IReadOnlyList<GetOffertDto>>>;
+    public record GetOffertQuery(DateTimeOffset? dateTime = null) : IRequest<BaseResponse<IReadOnlyList<GetOffertDto>>>;
 }

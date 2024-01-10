@@ -5,10 +5,10 @@ namespace Application.Dto.CouponDto
 {
     public class GetCouponDto
     {
-        public List<GetBetDto> Bets { get; set; }
+        public List<CouponGetBet> Bets { get; set; }
         public double Value { get; set; }
         public int OddSum { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
 
     }
 }

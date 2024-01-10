@@ -2,8 +2,7 @@
 {
     public enum BetType
     {
-        Duel,
-        DuelDraw,
+        Match,
         MultipleSelect
     }
 }

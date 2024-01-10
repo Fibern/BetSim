@@ -19,6 +19,7 @@ public static class DependencyInjection
 
         services.AddScoped<ICouponRepository, CouponRepository>();
         services.AddScoped<IOddsRepository , OddRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

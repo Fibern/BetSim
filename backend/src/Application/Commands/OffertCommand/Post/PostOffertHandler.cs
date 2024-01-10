@@ -24,6 +24,8 @@ namespace Application.Commands.OffertCommand.Post
         public async Task<BaseResponse<int>> Handle(PostOffertCommand request, CancellationToken cancellationToken)
         {
             Offert newOffert = _mapper.Map<Offert>(request.offertDto);
+            
+            newOffert.CreateTilteIfMatch();
             var validator = new PostOffertValidator(newOffert.ValidateOdds);
             var validationResult = validator.Validate(request.offertDto);
 

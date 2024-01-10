@@ -15,7 +15,7 @@ namespace Application.Dto.OffertDto
         public int Id { get; set; }
         public BetType Type { get; set; }
         public bool Active { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
         public List<GetOddDto> Odds { get; set; }
         public int Winner { get; set; }
         public string Score { get; set; }

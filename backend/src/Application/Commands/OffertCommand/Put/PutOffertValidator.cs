@@ -11,7 +11,7 @@ namespace Application.Commands.OffertCommand.Put
     {
         public PutOffertValidator(Func<bool> ValidateOdds)
         {
-            RuleFor(p => p.Date).GreaterThan(DateTime.Now);
+            RuleFor(p => p.OfertDto.Datetime).GreaterThan(DateTimeOffset.Now);
         }
   
     }

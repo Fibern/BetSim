@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dto.OffertDto;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,6 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.OffertCommand.Put
 {
-    public record PutOffertCommand(int userId, int id, DateTime Date) : IRequest<BaseResponse<int>>;
+    public record PutOffertCommand(int UserId, int Id, PutOffertDto OfertDto) : IRequest<BaseResponse<int>>;
 
 }
