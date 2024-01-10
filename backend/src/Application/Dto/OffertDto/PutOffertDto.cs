@@ -9,5 +9,6 @@ namespace Application.Dto.OffertDto
     public class PutOffertDto
     {
         public DateTimeOffset Datetime { get; set; }
+        public string Title { get; set;}
     }
 }

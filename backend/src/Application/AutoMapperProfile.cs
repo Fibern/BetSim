@@ -21,8 +21,9 @@ namespace Application
             CreateMap<Odd, GetOddDto>();
             CreateMap<PostCouponDto, Coupon>();
             CreateMap<PostBetDto, Bet>();
+            CreateMap<Bet, CouponGetBet>(); 
             CreateMap<Coupon, GetCouponDto>();
-            CreateMap<Bet, GetBetDto>();
+            CreateMap<Bet, GetBetDto>(); 
         }
     }
 }
