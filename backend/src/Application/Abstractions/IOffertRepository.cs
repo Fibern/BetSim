@@ -11,6 +11,6 @@ namespace Application.Abstractions
     {
         Task<Offert> GetUserOffert(int id, int userId);
         Task<IReadOnlyList<Offert>> GetEventOffertAsync(int eventId);
-        Task<IReadOnlyList<Offert>> GetAllAsync(DateTime? dateTime = null);
+        Task<IReadOnlyList<Offert>> GetAllAsync(DateTimeOffset? dateTime = null);
     }
 }

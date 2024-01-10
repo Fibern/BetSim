@@ -13,7 +13,7 @@ namespace Application.Dto.OffertDto
     public class OffertDto
     {
         public BetType Type { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
         public List<PostOddDto> Odds { get; set; }
     }
 }

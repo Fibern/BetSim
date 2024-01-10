@@ -9,7 +9,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public BetType Type { get; set; }
         public bool Active { get; set; } = true;
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
         public List<Odd> Odds { get; set; }
         public int EventId { get; set; }    
         public Event Event { get; set; }
@@ -34,7 +34,7 @@ namespace Domain.Entities
             return (1 / course * 100);
         }
 
-        public void Update(DateTime time)
+        public void Update(DateTimeOffset time)
         {
             DateTime = time;
         }

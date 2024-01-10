@@ -15,7 +15,7 @@ namespace Application.Commands.UserCommand
 
         public async Task<BaseResponse<string>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-           await _userRepo.DeleteAsync();
+            _userRepo.Delete(request.UserId);
 
            return new BaseResponse<string>("");
         }
