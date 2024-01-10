@@ -7,6 +7,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
@@ -28,11 +30,12 @@ fun ModifyMatchType(options: List<Odd>) {
                     .padding(horizontal = 32.dp)
             )
             BetSimOutlinedTextField(
-                value = options[i].odd.toString(),
+                value = options[i].odd,
                 onValueChange = {},
                 modifier = Modifier
                     .weight(1f)
-                    .padding(horizontal = 32.dp)
+                    .padding(horizontal = 32.dp),
+                textStyle = TextStyle(textAlign = TextAlign.Center)
             )
 
         }

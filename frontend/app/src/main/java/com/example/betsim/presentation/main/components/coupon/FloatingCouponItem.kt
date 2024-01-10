@@ -65,7 +65,7 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = odd.odd.toString(),
+                    text = odd.odd,
                     color = MaterialTheme.colorScheme.onPrimary)
             }
 
@@ -91,7 +91,7 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
 @Composable
 fun FlIt(){
     FloatingCouponItem(game = TournamentGame(
-        1, "aaa", "bbb", listOf(Odd(1,"Team 1", 1.2), Odd(2, "Team 3", 1.5)), selected = mutableStateOf(1)
+        1, "aaa", "bbb", listOf(Odd(1,"Team 1", "1.2"), Odd(2, "Team 3", "1.5")), selected = mutableStateOf(1)
     )){
 
     }

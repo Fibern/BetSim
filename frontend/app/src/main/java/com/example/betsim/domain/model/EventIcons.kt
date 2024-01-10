@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.common.data
+package com.example.betsim.domain.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.SportsBasketball

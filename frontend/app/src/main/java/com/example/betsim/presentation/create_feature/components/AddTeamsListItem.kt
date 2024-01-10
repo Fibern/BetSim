@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.material3.Icon
@@ -17,9 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.betsim.domain.util.OfferType
+import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 
 @Composable
@@ -55,7 +57,8 @@ fun AddTeamsListItem(
             onValueChange = onChanceChange,
             modifier = Modifier.width(60.dp),
             singleLine = true,
-            textStyle = TextStyle(textAlign = TextAlign.Center)
+            textStyle = TextStyle(textAlign = TextAlign.Center),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         if (offerType == OfferType.Winner){
             Box(

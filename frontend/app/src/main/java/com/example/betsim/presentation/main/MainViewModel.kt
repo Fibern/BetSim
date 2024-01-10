@@ -2,6 +2,7 @@ package com.example.betsim.presentation.main
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -25,8 +26,7 @@ class MainViewModel @Inject constructor(
     fun onEvent(event: MainEvent){
         when(event){
             is MainEvent.EnteredValue -> {
-                val value = validateBetValue(event.value) ?: return
-
+                val value = validateDoubleInput(event.value, 10000.0) ?: return
                 val winnings = value.replace(',','.').toDouble() * _couponState.value.oddValue
                 _couponState.value = _couponState.value.copy(value = value, winnings = winnings)
             }
@@ -90,39 +90,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun validateBetValue(value: String) : String?{
-
-        var new = value.trim()
-        if (new.isEmpty()) return "0"
-        new = new.replace(',', '.')
-        val num = new.toDoubleOrNull() ?: return null
-        if (num < 0) return null
-
-        val split = new.split(".")
-
-        if (split.size > 2) return null
-
-        if (split.size == 2){
-            val left = split[0]
-            val right = split[1]
-
-            if (right.length > 2 || left.length > 5) return null
-
-            if (left.isEmpty() && right.isEmpty()) return "0,"
-
-            if (left.isEmpty()) return "0,$right"
-
-            if (right.isEmpty()) return "${left.toInt()},"
-
-            return "${left.toInt()},$right"
-
-        }
-
-        if (new.length > 5) return null
-        return new.toInt().toString()
-
-    }
-
 
     private fun updateOdds(){
         if (_couponState.value.games.isEmpty()){
@@ -135,7 +102,7 @@ class MainViewModel @Inject constructor(
         else {
             var odd = 1.0
             _couponState.value.games.onEach {
-                odd *= it.odds[it.selected.value!!].odd
+                odd *= it.odds[it.selected.value!!].odd.toDouble()
             }
             odd = (odd * 100).roundToInt() / 100.0
             _couponState.value = _couponState.value.copy(

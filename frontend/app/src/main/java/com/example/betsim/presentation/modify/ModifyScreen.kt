@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.domain.model.Odd
-import com.example.betsim.domain.util.OfferType
+import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.modify.components.ModifyMatchType
@@ -79,8 +79,8 @@ fun ModifyScreenPreview(){
     val viewModel = ModifyViewModel()
     viewModel.state.value.odds.removeFirst()
     viewModel.state.value.odds.removeFirst()
-    viewModel.state.value.odds.add(Odd(0, "team 1", 0.0))
-    viewModel.state.value.odds.add(Odd(1, "team 2", 0.0))
+    viewModel.state.value.odds.add(Odd(0, "team 1", "0.0"))
+    viewModel.state.value.odds.add(Odd(1, "team 2", "0.0"))
     ModifyScreen(rememberNavController(), viewModel)
 }
 

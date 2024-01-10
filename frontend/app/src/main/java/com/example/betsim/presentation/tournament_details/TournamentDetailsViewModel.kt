@@ -51,9 +51,9 @@ class TournamentDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             val time = LocalDateTime.now()
             val time2 = LocalDateTime.of(2023, 12, 10, 12, 20, 0)
-            val odd1 = Odd(1, "tmp1", 1.8)
-            val odd2 = Odd(2, "remis", 2.3)
-            val odd3 = Odd(3, "tmp2", 1.7)
+            val odd1 = Odd(1, "tmp1", "1.8")
+            val odd2 = Odd(2, "remis", "2.3")
+            val odd3 = Odd(3, "tmp2", "1.7")
             val game1 = TournamentGame(1, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)
             val game2 = TournamentGame(2, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)
             val game3 = TournamentGame(3, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)

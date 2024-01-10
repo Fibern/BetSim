@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.domain.util.OfferType
+import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
+import com.example.betsim.presentation.common.components.BetSimDropdown
 import com.example.betsim.presentation.common.components.FormText
-import com.example.betsim.presentation.create_feature.components.CreationDropdown
 import com.example.betsim.presentation.create_feature.components.CreationTextField
 import com.example.betsim.presentation.util.Screen
 import java.time.LocalDate
@@ -117,11 +117,11 @@ fun CreateGameScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             FormText(text = "Rodzaj zakładu")
-            CreationDropdown(
-                value = state.type,
-                options = OfferType.entries
+            BetSimDropdown(
+                value = state.type.value,
+                options = OfferType.entries.map { it.value }
             ) {
-                viewModel.onEvent(CreationEvent.SelectDropdown(offerType = it))
+                viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.entries[it] ))
             }
 
             Spacer(modifier = Modifier.height(24.dp))

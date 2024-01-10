@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 fun BetSimDropdown(
     value: String,
     options: List<String>,
-    onClick: (String) -> Unit
+    onClick: (Int) -> Unit
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -57,12 +57,12 @@ fun BetSimDropdown(
             onDismissRequest = { expanded = false }
         ) {
 
-            options.forEach {
+            options.forEachIndexed { i, it ->
 
                 DropdownMenuItem(
                     text = { Text(text = it) },
                     onClick = {
-                        onClick(it)
+                        onClick(i)
                         expanded = false
                     }
                 )

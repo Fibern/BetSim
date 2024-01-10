@@ -4,7 +4,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Odd
+import com.example.betsim.presentation.common.util.validateDoubleInput
 import javax.inject.Inject
+import kotlin.math.max
 
 class CreateGameViewModel @Inject constructor(
 
@@ -24,7 +26,7 @@ class CreateGameViewModel @Inject constructor(
                         id = _state.value.odds.size + 1,
                         name = if (_state.value.drawable) "remis"
                                else "",
-                        odd = 0.0
+                        odd = "0.0"
                     )
                 )
             }
@@ -48,7 +50,9 @@ class CreateGameViewModel @Inject constructor(
                 _state.value.odds[event.id] = _state.value.odds[event.id].copy(name = event.name)
             }
             is CreationEvent.EnteredWinChance -> {
-                _state.value.odds[event.id] = _state.value.odds[event.id].copy(odd = event.odd.toDouble())
+                val odd = validateDoubleInput(event.odd, max(100.0, _state.value.remaining)) ?: return
+                _state.value.odds[event.id] = _state.value.odds[event.id].copy(odd = odd)
+                updateRemaining()
             }
             is CreationEvent.CheckBoxChange -> {
                 _state.value = _state.value.copy(drawable = event.checked)
@@ -61,6 +65,14 @@ class CreateGameViewModel @Inject constructor(
             }
             else -> {}
         }
+    }
+
+    private fun updateRemaining(){
+        var base = 100.0
+        for (odd in _state.value.odds){
+            base -= odd.odd.replace(',','.').toDouble()
+        }
+        _state.value = _state.value.copy(remaining = base)
     }
 
 }

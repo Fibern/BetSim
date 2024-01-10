@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.betsim.domain.model.Tournament
-import com.example.betsim.presentation.common.data.EventIcons
+import com.example.betsim.domain.model.EventIcons
 
 @Composable
 fun TournamentItem(

@@ -28,9 +28,9 @@ class CouponsScreenViewModel @Inject constructor(
     }
 
     private fun getCoupons() {
-        val odd1 = Odd(1, "tmp1", 1.3)
-        val odd2 = Odd(1, "tmp2", 1.7)
-        val odd3 = Odd(1, "remis", 1.8)
+        val odd1 = Odd(1, "tmp1", "1.3")
+        val odd2 = Odd(1, "tmp2", "1.7")
+        val odd3 = Odd(1, "remis", "1.8")
         val game1 = TournamentGame(
             1,
             "Polska",
