@@ -3,13 +3,16 @@ package com.example.betsim.presentation.auth
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.betsim.repository.BetSimRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
-
+    private val repository: BetSimRepository
 ) : ViewModel(){
 
     private val _login = mutableStateOf("")
@@ -29,9 +32,16 @@ class LoginScreenViewModel @Inject constructor(
                 _password.value = event.value
             }
             is AuthEvent.OnAuthClick -> {
-
+                login()
             }
             else -> {}
+        }
+    }
+
+    private fun login(){
+        viewModelScope.launch {
+            val login = repository.login("test@test.pl", "testa1")
+            val logina = repository.login("test@test.pl", "testa1a")
         }
     }
 

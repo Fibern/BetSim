@@ -1,15 +1,21 @@
 package com.example.betsim.presentation.auth
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.betsim.repository.BetSimRepository
+import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 
 @HiltViewModel
 class RegisterScreenViewModel @Inject constructor(
-
+    private val repository: BetSimRepository
 ) : ViewModel(){
     private val _email = mutableStateOf("")
     val email: State<String> = _email
@@ -39,8 +45,15 @@ class RegisterScreenViewModel @Inject constructor(
                 _password2.value = event.value
             }
             is AuthEvent.OnAuthClick -> {
-
+                onRegister()
             }
         }
     }
+
+    private fun onRegister(){
+        viewModelScope.launch {
+            val result = repository.register("test@test.pl","testa1")
+        }
+    }
+
 }

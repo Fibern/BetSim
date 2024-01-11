@@ -100,7 +100,7 @@ fun RegisterScreen(
             ) {
 
                 BetSimButton(text = "Zarejestruj") {
-                    
+                    viewModel.onEvent(AuthEvent.OnAuthClick(""))
                 }
 
             }
