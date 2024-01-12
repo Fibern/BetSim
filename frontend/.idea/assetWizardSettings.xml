@@ -91,7 +91,7 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\domag\Desktop\ic_betsim_foreground.xml" />
-                                                <entry key="scalingPercent" value="65" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -123,6 +123,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="70ffb2" />
                                       <entry key="outputName" value="ic_betsim" />
                                     </map>
                                   </option>

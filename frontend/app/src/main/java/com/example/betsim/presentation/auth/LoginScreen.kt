@@ -72,12 +72,12 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 BetSimButton("Zaloguj"){
-                    //navController.navigate(Screen.UserNav.route){
-                    //    popUpTo(Screen.AuthNav.route){
-                    //        inclusive = true
-                    //    }
-                    //}
-                    viewModel.onEvent(AuthEvent.OnAuthClick(""))
+                    navController.navigate(Screen.UserNav.route){
+                        popUpTo(Screen.AuthNav.route){
+                            inclusive = true
+                        }
+                    }
+                    //viewModel.onEvent(AuthEvent.OnAuthClick(""))
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
