@@ -11,8 +11,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.betsim.presentation.util.Screen
-import com.example.betsim.presentation.create_feature.CreateEventScreen
-import com.example.betsim.presentation.create_feature.CreateGameMainScreen
+import com.example.betsim.presentation.create_feature.create_event.CreateEventScreen
+import com.example.betsim.presentation.create_feature.create_offer.CreateGameMainScreen
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile

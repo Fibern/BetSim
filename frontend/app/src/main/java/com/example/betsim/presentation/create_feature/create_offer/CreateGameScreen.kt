@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.create_feature
+package com.example.betsim.presentation.create_feature.create_offer
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -11,7 +11,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.EditCalendar
+import androidx.compose.material.icons.rounded.Handshake
+import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material.icons.rounded.ShortText
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -28,6 +33,7 @@ import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimDropdown
 import com.example.betsim.presentation.common.components.FormText
+import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.CreationTextField
 import com.example.betsim.presentation.util.Screen
 import java.time.LocalDate
@@ -40,17 +46,26 @@ fun CreateGameScreen(
     navController: NavController,
 ) {
 
+    val dateTextField by remember { viewModel.dateTextField }
+    val timeTextField by remember { viewModel.timeTextField }
+    val type by remember { viewModel.type }
+    val offerName by remember { viewModel.offerName }
+    val actionPossible by remember { viewModel.actionPossible }
+    val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
 
-    val state by remember { viewModel.state }
+    fun toDate(date: LocalDate?): String{ return if (date != null) dateFormat.format(date) else "" }
+    fun toTime(time: LocalTime?): String{ return if (time != null) timeFormat.format(time) else "" }
+
     val datePickerDialog = DatePickerDialog(
         LocalContext.current,
         { _, year, month, dayOfMonth ->
             viewModel.onEvent(CreationEvent.EnteredDate(LocalDate.of(year, month + 1, dayOfMonth)))
         },
-        state.date?.year ?: LocalDate.now().year,
-        if (state.date == null) LocalDate.now().monthValue
-        else state.date!!.monthValue - 1,
-        state.date?.dayOfMonth ?: LocalDate.now().dayOfMonth,
+        dateTextField.value?.year ?: LocalDate.now().year,
+        if (dateTextField.value == null) LocalDate.now().monthValue
+        else dateTextField.value!!.monthValue - 1,
+        dateTextField.value?.dayOfMonth ?: LocalDate.now().dayOfMonth,
     )
 
     val timePickerDialog = TimePickerDialog(
@@ -58,8 +73,8 @@ fun CreateGameScreen(
         { _, hourOfDay, minute ->
             viewModel.onEvent(CreationEvent.EnteredTime(LocalTime.of(hourOfDay, minute)))
         },
-        state.time?.hour ?: LocalTime.now().hour,
-        state.time?.minute ?: LocalTime.now().minute,
+        timeTextField.value?.hour ?: LocalTime.now().hour,
+        timeTextField.value?.minute ?: LocalTime.now().minute,
         true
     )
 
@@ -81,9 +96,11 @@ fun CreateGameScreen(
             FormText(text = "Wybierz datę")
             Box {
                 CreationTextField(
-                    value = if (state.date == null) ""
-                    else DateTimeFormatter.ofPattern("dd.MM.yyyy").format(state.date),
-                    hint = { Text(text = "Wybierz datę") }
+                    value = toDate(dateTextField.value),
+                    hint = "Wybierz datę",
+                    isError = dateTextField.isError,
+                    errorMessage = dateTextField.errorText,
+                    leadingIcon = Icons.Rounded.EditCalendar
                 )
                 Box(
                     modifier = Modifier
@@ -95,14 +112,15 @@ fun CreateGameScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
 
             FormText(text = "Wybierz godzinę")
             Box {
                 CreationTextField(
-                    value = if (state.time == null) ""
-                    else DateTimeFormatter.ofPattern("HH:mm").format(state.time),
-                    hint = { Text(text = "Wybierz godzinę") }
+                    value = toTime(timeTextField.value),
+                    hint = "Wybierz godzinę",
+                    isError = timeTextField.isError,
+                    errorMessage = timeTextField.errorText,
+                    leadingIcon = Icons.Rounded.Schedule
                 )
                 Box(
                     modifier = Modifier
@@ -114,20 +132,35 @@ fun CreateGameScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             FormText(text = "Rodzaj zakładu")
             BetSimDropdown(
-                value = state.type.value,
-                options = OfferType.entries.map { it.value }
+                value = type.value,
+                options = OfferType.entries.map { it.value },
+                leadingIcon = { Icon(Icons.Rounded.Handshake, "") }
             ) {
-                viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.entries[it] ))
+                viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.entries[it]))
             }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            if (type == OfferType.Selection) {
+                FormText(text = "Nazwa zakładu")
+                CreationTextField(
+                    value = offerName.value,
+                    hint = "Nazwa zakładu",
+                    onValueChange = { viewModel.onEvent(CreationEvent.EnteredName(it)) },
+                    isError = offerName.isError,
+                    errorMessage = offerName.errorText,
+                    leadingIcon = Icons.Rounded.ShortText
+                )
+            }
+
 
             Spacer(modifier = Modifier.height(24.dp))
 
             BetSimButton(text = "Przejdź dalej") {
-                navController.navigate(Screen.AddGameTeamsScreen.route)
+                viewModel.onEvent(CreationEvent.NavigateFurtherClick)
+                if (actionPossible)
+                    navController.navigate(Screen.AddGameTeamsScreen.route)
             }
 
         }

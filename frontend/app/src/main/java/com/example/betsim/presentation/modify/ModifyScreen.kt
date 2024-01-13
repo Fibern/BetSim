@@ -56,7 +56,7 @@ fun ModifyScreen(
                     OfferType.Match -> {
                         ModifyMatchType(options = state.odds)
                     }
-                    OfferType.Winner -> {
+                    OfferType.Selection -> {
                         ModifyWinnerType(options = state.odds)
                     }
                 }
@@ -89,7 +89,7 @@ fun ModifyScreenPreview(){
 fun ModifyScreenPreview2(){
     val viewModel = ModifyViewModel()
     viewModel.state.value = viewModel.state.value.copy(
-        type = OfferType.Winner
+        type = OfferType.Selection
     )
     ModifyScreen(rememberNavController(), viewModel)
 }

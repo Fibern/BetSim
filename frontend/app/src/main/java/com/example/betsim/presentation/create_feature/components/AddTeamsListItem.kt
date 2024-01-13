@@ -17,18 +17,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
+import com.example.betsim.presentation.common.util.TextFieldState
 
 @Composable
 fun AddTeamsListItem(
     offerType: OfferType,
-    name: String,
-    odd: String,
+    name: TextFieldState<String>,
+    odd: TextFieldState<String>,
     onNameChange: (String) -> Unit,
     onChanceChange: (String) -> Unit,
     onRemove: () -> Unit,
@@ -46,21 +46,24 @@ fun AddTeamsListItem(
         )
         BetSimOutlinedTextField(
             readonly = offerType == OfferType.Match && id == 2,
-            value = name,
+            value = name.value,
             onValueChange = onNameChange,
             modifier = Modifier.width(160.dp),
             singleLine = true,
-            placeholder = { Text(text = "Nazwa") }
+            placeholder = { Text(text = "Nazwa wyboru") },
+            isError = name.isError
         )
         BetSimOutlinedTextField(
-            value = odd,
+            value = odd.value,
             onValueChange = onChanceChange,
-            modifier = Modifier.width(60.dp),
+            modifier = Modifier.width(80.dp),
             singleLine = true,
-            textStyle = TextStyle(textAlign = TextAlign.Center),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            placeholder = { Text(text = "0", textAlign = TextAlign.Center) },
+            suffix = { Text(text = "%", textAlign = TextAlign.End) },
+            isError = odd.isError
         )
-        if (offerType == OfferType.Winner){
+        if (offerType == OfferType.Selection){
             Box(
                 modifier = Modifier
                     .width(40.dp)

@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.create_feature
+package com.example.betsim.presentation.create_feature.create_offer
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -13,5 +13,6 @@ data class CreateGameState (
     val time: LocalTime? = null,
     val drawable: Boolean = false,
     val odds: SnapshotStateList<Odd> =  mutableStateListOf(Odd(0, "", "0"),Odd(0, "", "0")),
-    val remaining: Double = 100.0
+    val remaining: Double = 100.0,
+    val name: String = ""
 )

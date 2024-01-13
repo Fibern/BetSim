@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.create_feature
+package com.example.betsim.presentation.create_feature.create_offer
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,8 +40,8 @@ fun CreateGameMainScreen(
             navController = navController,
             startDestination = Screen.AddGameScreen.route
         ){
-            composable(Screen.AddGameScreen.route){ CreateGameScreen(viewModel = viewModel, navController = navController)}
-            composable(Screen.AddGameTeamsScreen.route){ CreateGameTeamsScreen(viewModel = viewModel)}
+            composable(Screen.AddGameScreen.route){ CreateGameScreen(viewModel = viewModel, navController = navController) }
+            composable(Screen.AddGameTeamsScreen.route){ CreateGameTeamsScreen(viewModel = viewModel) }
         }
 
     }

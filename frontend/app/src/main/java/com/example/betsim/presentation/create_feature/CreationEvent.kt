@@ -15,5 +15,6 @@ sealed class CreationEvent {
     data class EnteredWinChance(val odd: String, val id: Int): CreationEvent()
     data object AddTeam: CreationEvent()
     data class RemoveTeam(val id: Int): CreationEvent()
-    data class CheckBoxChange(val checked: Boolean): CreationEvent()
+    data object CheckBoxChange: CreationEvent()
+    data object NavigateFurtherClick: CreationEvent()
 }
