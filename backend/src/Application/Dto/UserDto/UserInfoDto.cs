@@ -1,7 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.Dto.OffertDto{
+namespace Application.Dto.UserDto{
     public class UserInfoDto
     {
         public string Email { get; set; }
