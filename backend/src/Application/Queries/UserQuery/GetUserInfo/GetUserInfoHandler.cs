@@ -1,5 +1,5 @@
 using Application.Abstractions;
-using Application.Dto.OffertDto;
+using Application.Dto.UserDto;
 using Domain.Entities;
 using MediatR;
 
