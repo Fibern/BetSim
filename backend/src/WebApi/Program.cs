@@ -89,6 +89,44 @@ builder.Services.AddSwaggerGen(option =>
 
 var app = builder.Build();
 
+
+//add seciurity headers
+//https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("X-Xss-Protection", "DENY");
+    context.Response.Headers.Append("X-Frame-Options", "DENY");
+    context.Response.Headers.Append("Content-Type", "application/json");
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("Referrer-Policy", "no-referrer");
+    context.Response.Headers.Append("Cashe-Control", "no-store");
+    context.Response.Headers.Append("Feature-Policy",
+    "vibrate 'self' ; " +
+    "camera 'self' ; " +
+    "microphone 'self' ; " +
+    "speaker 'self' https://youtube.com https://www.youtube.com ;" +
+    "geolocation 'self' ; " +
+    "gyroscope 'self' ; " +
+    "magnetometer 'self' ; " +
+    "midi 'self' ; " +
+    "sync-xhr 'self' ; " +
+    "push 'self' ; " +
+    "notifications 'self' ; " +
+    "fullscreen '*' ; " +
+    "payment 'self' ; ");
+
+    context.Response.Headers.Append(
+    "Content-Security-Policy",
+    "frame-ancestors 'none'; "
+    );
+    await next();
+});
+
+// Strict-Transport-Security
+app.UseHsts();
+
+
 // Configure swagger
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
