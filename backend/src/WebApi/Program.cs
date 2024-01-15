@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
+
 // configure kerstel for https
 builder.WebHost.ConfigureKestrel( o => o.ListenLocalhost(7054));
 builder.WebHost.UseUrls("https://localhost");
