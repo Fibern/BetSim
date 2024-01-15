@@ -38,7 +38,7 @@ class TournamentDetailsViewModel @Inject constructor(
     fun onEvent(event: TournamentDetailsEvent){
         when(event){
             is TournamentDetailsEvent.LoadList -> {
-                state.value.games[event.index].selected = event.game.selected
+                state.value.games[event.index].selected.value = event.game.selected.value
             }
             is TournamentDetailsEvent.OnSelect -> {
                 event.game.selected.value = event.index
@@ -54,14 +54,14 @@ class TournamentDetailsViewModel @Inject constructor(
             val odd1 = Odd(1, "tmp1", "1.8")
             val odd2 = Odd(2, "remis", "2.3")
             val odd3 = Odd(3, "tmp2", "1.7")
-            val game1 = TournamentGame(1, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)
-            val game2 = TournamentGame(2, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)
-            val game3 = TournamentGame(3, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)
-            val game4 = TournamentGame(4, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time)
-            val game5 = TournamentGame(5, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time2)
-            val game6 = TournamentGame(6, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time2)
-            val game7 = TournamentGame(7, "tmp1", "tmp2", listOf(odd1, odd2, odd3), time2)
-            val game8 = TournamentGame(8, "tmp1", "tmp2", listOf(odd1, odd3), time2)
+            val game1 = TournamentGame(1, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time)
+            val game2 = TournamentGame(2, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time)
+            val game3 = TournamentGame(3, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time)
+            val game4 = TournamentGame(4, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time)
+            val game5 = TournamentGame(5, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
+            val game6 = TournamentGame(6, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
+            val game7 = TournamentGame(7, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
+            val game8 = TournamentGame(8, "tmp1 - tmp2", listOf(odd1, odd3), time2)
             val games = listOf(game1,game2,game3,game4,game5,game6,game7,game8)
             if (isToday) {
                 val jd = games.filter { it.date.toLocalDate() == LocalDate.now() }

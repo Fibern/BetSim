@@ -23,8 +23,9 @@ import androidx.compose.ui.Modifier
 fun BetSimDropdown(
     value: String,
     options: List<String>,
+    isError: Boolean = false,
     leadingIcon: @Composable() (() -> Unit)? = null,
-    onClick: (Int) -> Unit
+    onClick: (Int) -> Unit,
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -43,6 +44,7 @@ fun BetSimDropdown(
                 readonly = true,
                 singleLine = true,
                 leadingIcon = leadingIcon,
+                isError = isError,
                 trailingIcon = {
                     if (expanded) {
                         IconButton(onClick = { expanded = false }) {

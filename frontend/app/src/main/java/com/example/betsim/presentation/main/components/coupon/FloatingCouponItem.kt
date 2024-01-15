@@ -50,7 +50,7 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
                 lineHeight = MaterialTheme.typography.bodyLarge.lineHeight
             )
             Text(
-                "${game.homeTeam} - ${game.awayTeam}",
+                game.name,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
@@ -91,7 +91,7 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
 @Composable
 fun FlIt(){
     FloatingCouponItem(game = TournamentGame(
-        1, "aaa", "bbb", listOf(Odd(1,"Team 1", "1.2"), Odd(2, "Team 3", "1.5")), selected = mutableStateOf(1)
+        1, "aaa - bbb", listOf(Odd(1,"Team 1", "1.2"), Odd(2, "Team 3", "1.5")), selected = mutableStateOf(1)
     )){
 
     }

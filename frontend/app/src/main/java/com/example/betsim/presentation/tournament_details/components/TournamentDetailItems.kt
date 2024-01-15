@@ -70,7 +70,7 @@ fun TournamentDetailChoice(
         }
 
         Text(
-            text = "${game.homeTeam} - ${game.awayTeam}",
+            text = game.name,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSecondary
         )
@@ -127,8 +127,7 @@ fun TournamentDetailItemPreview(){
     TournamentDetailChoice(
         game = TournamentGame(
             1,
-            "asd",
-            "bsd",
+            "asd - bsd",
             listOf(Odd(1,"asd","1.23"),Odd(2,"asd2","1.53"),Odd(3,"as3d","1.33"))
         ),
         false,

@@ -178,13 +178,13 @@ class NoRippleInteractionSource : MutableInteractionSource{
 fun FCoupon(){
     val state: MutableState<Int?> = mutableStateOf(0)
     val list = listOf(
-        TournamentGame(1,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(5,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(4,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(3,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(2,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(7,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(8,"asd","asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(1,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(5,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(4,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(3,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(2,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(7,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
+        TournamentGame(8,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
     )
     FloatingCoupon(
         MainCouponState(games = list), onClick = {}, onValueChange = {}
