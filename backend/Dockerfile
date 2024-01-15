@@ -22,9 +22,9 @@ RUN dotnet publish "WebApi.csproj" -c Relase -o /app/publish /p:UseAppHost=false
 
 FROM base as final
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 7054
 
 COPY --from=publish /app/publish .
-ENTRYPOINT [ "dotnet", "WebApi.dll" ]
+ENTRYPOINT [ "dotnet", "WebApi.dll","--lauch-profile https" ]
 
 
