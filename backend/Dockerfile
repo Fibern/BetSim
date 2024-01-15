@@ -15,10 +15,10 @@ ENV ConnectionStrings:Dbconnect = "User ID=${DB_USER};Host=${host};Port=5432;Dat
 COPY /src .
 WORKDIR /src/WebApi
 
-RUN dotnet build "WebApi.csproj" -c Relase -o /app/build
+RUN dotnet build "WebApi.csproj" -o /app/build
 
 FROM build as publish
-RUN dotnet publish "WebApi.csproj" -c Relase -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "WebApi.csproj" -o /app/publish /p:UseAppHost=false
 
 FROM base as final
 WORKDIR /app
