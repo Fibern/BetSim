@@ -1,6 +1,7 @@
 
 using System.Security.Claims;
 using Application;
+using Application.Commands.UserCommand;
 using Application.Dto.CouponDto;
 using Application.Dto.EventDto;
 using Application.Queries.CouponQuery;
@@ -62,6 +63,16 @@ namespace WebApi.Controllers
 
             if (response.Succes == true) return Ok(response);
 
+            return BadRequest(response);
+        }
+
+        [HttpDelete()]
+        public async Task<ActionResult<BaseResponse<string>>> DeleteAsync()
+        {
+            var command =  new DeleteUserCommand(_userId);
+            
+            var response = await _mediator.Send(command);
+            if (response.Succes == true) return Ok(response);
             return BadRequest(response);
         }
     }
