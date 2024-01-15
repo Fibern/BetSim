@@ -65,7 +65,7 @@ fun BetSimSurface() {
                 route = Screen.UserNav.route
             ){
                 composable(route = Screen.UserMainScreen.route){
-                    UserMainScreen()
+                    UserMainScreen(navController)
                 }
 
             }

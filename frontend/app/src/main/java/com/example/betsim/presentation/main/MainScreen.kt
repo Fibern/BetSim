@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.util.Screen
@@ -32,6 +33,7 @@ import com.example.betsim.presentation.main.components.nav_hosts.UserNavHost
 
 @Composable
 fun UserMainScreen(
+    mainNavController: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ){
     val navController = rememberNavController()
@@ -53,8 +55,6 @@ fun UserMainScreen(
                     MutableInteractionSource()
                 }
             ) {
-                //viewModel.modEnabled.value = !modEnabled
-                //TODO
                 viewModel.onEvent(MainEvent.CollapsedChange(true))
             },
 
@@ -118,12 +118,14 @@ fun UserMainScreen(
         if (modEnabled){
             ModNavHost(
                 viewModel = viewModel,
+                mainNavController = mainNavController,
                 navController = navController,
                 paddingValues = innerPadding
             )
         }else{
             UserNavHost(
                 viewModel = viewModel,
+                mainNavController = mainNavController,
                 navController = navController,
                 paddingValues = innerPadding
             )
@@ -136,5 +138,5 @@ fun UserMainScreen(
 @Preview
 @Composable
 fun UserMainPreview(){
-    UserMainScreen()
+    UserMainScreen(mainNavController = rememberNavController())
 }

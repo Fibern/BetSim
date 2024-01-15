@@ -74,7 +74,7 @@ fun LoginScreen(
                 BetSimButton("Zaloguj"){
                     navController.navigate(Screen.UserNav.route){
                         popUpTo(Screen.AuthNav.route){
-                            inclusive = true
+                            inclusive = false
                         }
                     }
                 }

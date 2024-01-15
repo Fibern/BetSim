@@ -10,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.create_feature.create_event.CreateEventScreen
 import com.example.betsim.presentation.create_feature.create_offer.CreateGameMainScreen
 import com.example.betsim.presentation.main.MainViewModel
@@ -18,9 +17,15 @@ import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile
 import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
 import com.example.betsim.presentation.tournaments.TournamentsScreen
+import com.example.betsim.presentation.util.Screen
 
 @Composable
-fun ModNavHost(viewModel: MainViewModel, navController: NavHostController, paddingValues: PaddingValues) {
+fun ModNavHost(
+    viewModel: MainViewModel,
+    navController: NavHostController,
+    mainNavController: NavHostController,
+    paddingValues: PaddingValues
+) {
     NavHost(
         navController = navController,
         startDestination = Screen.EventsNav.route,
@@ -77,7 +82,7 @@ fun ModNavHost(viewModel: MainViewModel, navController: NavHostController, paddi
             )
         ){ TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
         composable(route = Screen.ModifyGameScreen.route){ ModifyScreen(navController) }
-        composable(route = Screen.ProfileScreen.route){ Profile(viewModel, navController) }
+        composable(route = Screen.ProfileScreen.route){ Profile(viewModel, mainNavController, navController) }
 
     }
 }

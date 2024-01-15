@@ -26,7 +26,12 @@ import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
 import com.example.betsim.presentation.tournaments.TournamentsScreen
 
 @Composable
-fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, paddingValues: PaddingValues) {
+fun UserNavHost(
+    viewModel: MainViewModel,
+    navController: NavHostController,
+    mainNavController: NavHostController,
+    paddingValues: PaddingValues
+) {
     val coupon: MainCouponState by remember{
         viewModel.couponState
     }
@@ -104,7 +109,7 @@ fun UserNavHost(viewModel: MainViewModel, navController: NavHostController, padd
             }
         }
 
-        composable(Screen.ProfileScreen.route) { Profile(viewModel, navController) }
+        composable(Screen.ProfileScreen.route) { Profile(viewModel, mainNavController, navController) }
 
         composable(Screen.LeaderboardScreen.route) { LeaderboardScreen() }
     }
