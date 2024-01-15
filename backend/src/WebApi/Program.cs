@@ -16,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 
+// configure kerstel for https
+builder.WebHost.ConfigureKestrel( o => o.ListenLocalhost(7054));
+builder.WebHost.UseUrls("https://localhost");
+
 builder.Services.AddApplication();
 builder.Services.AddInfraStucture(builder.Configuration);
 
@@ -86,9 +90,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-
 var app = builder.Build();
-
 
 //add seciurity headers
 //https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html
