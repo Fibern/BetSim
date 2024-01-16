@@ -50,18 +50,33 @@ class ModifyViewModel @Inject constructor(
                 else _away.value = _away.value.copy(value = value)
             }
             ModifyEvent.ConfirmClick -> {
-                when(_game.value.type){
-                    OfferType.Match -> {
-                        _home.value = validateTextFieldState(_home.value) ?: _home.value
-                        _away.value = validateTextFieldState(_away.value) ?: _away.value
-                    }
-                    OfferType.Selection -> {
-                        _selected.value = validateTextFieldState(_selected.value) ?: _selected.value
-                    }
-                }
+                val correct = checkInput()
                 //TODO()
             }
         }
+    }
+
+    private fun checkInput(): Boolean {
+
+        return when(_game.value.type){
+            OfferType.Match -> {
+                val homeState = validateTextFieldState(_home.value)
+                if (homeState != null) _home.value = homeState
+
+                val awayState = validateTextFieldState(_away.value)
+                if (awayState != null) _away.value = awayState
+
+                !_home.value.isError && !_away.value.isError
+            }
+
+            OfferType.Selection -> {
+                val selectedState = validateTextFieldState(_selected.value)
+                if (selectedState != null) _selected.value = selectedState
+
+                !_selected.value.isError
+            }
+        }
+
     }
 
 }

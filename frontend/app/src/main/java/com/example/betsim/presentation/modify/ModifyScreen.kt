@@ -63,6 +63,7 @@ fun ModifyScreen(
 
                  Row(
                      modifier = Modifier
+                         .padding(horizontal = 24.dp, vertical = 8.dp)
                          .fillMaxWidth(),
                      horizontalArrangement = Arrangement.SpaceBetween
                  ){
@@ -89,7 +90,7 @@ fun ModifyScreen(
                  }
 
 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 when(game.type){
                     OfferType.Match -> {
@@ -113,7 +114,7 @@ fun ModifyScreen(
                 }
 
                 BetSimButton(text = "Zatwierdź") {
-                    
+                    viewModel.onEvent(ModifyEvent.ConfirmClick)
                 }
 
             }
