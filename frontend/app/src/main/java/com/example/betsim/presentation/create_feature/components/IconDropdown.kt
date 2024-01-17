@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.material.icons.outlined.CropSquare
+import androidx.compose.material.icons.rounded.CropSquare
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -27,7 +27,8 @@ fun IconDropdown(
     value: EventIcons?,
     options: Array<EventIcons>,
     onClick: (EventIcons) -> Unit,
-    hint: @Composable (() -> Unit)? = null
+    hint: @Composable (() -> Unit)? = null,
+    isError: Boolean = false
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -44,7 +45,7 @@ fun IconDropdown(
                 if (value != null) Icon(value.icon, value.name)
                 else {
                     Icon(
-                        Icons.Outlined.CropSquare,
+                        Icons.Rounded.CropSquare,
                         "",
                         tint = MaterialTheme.colorScheme.onSurface.copy(ContentAlpha.medium)
                     )
@@ -66,7 +67,8 @@ fun IconDropdown(
             singleLine = true,
             modifier = Modifier
                 .menuAnchor(),
-            placeholder = hint
+            placeholder = hint,
+            isError = isError
         )
 
 

@@ -25,9 +25,9 @@ fun TournamentDetailScreen(
     mainViewModel: MainViewModel,
 ){
 
-    val state by remember { viewModel.state }
+    val games = viewModel.games
     val coupon by remember { mainViewModel.couponState }
-    val isMod = viewModel.isMod
+    val isMod by remember { viewModel.isMod }
 
     Surface(
         modifier = Modifier
@@ -40,7 +40,7 @@ fun TournamentDetailScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ){
 
-            itemsIndexed(state.games){index, game->
+            itemsIndexed(games){index, game->
                 val i = coupon.games.indexOf(game)
                 if (i != -1) viewModel.onEvent(TournamentDetailsEvent.LoadList(coupon.games[i], index))
 

@@ -1,5 +1,7 @@
 package com.example.betsim.presentation.common.components
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -21,7 +23,9 @@ import androidx.compose.ui.Modifier
 fun BetSimDropdown(
     value: String,
     options: List<String>,
-    onClick: (Int) -> Unit
+    isError: Boolean = false,
+    leadingIcon: @Composable() (() -> Unit)? = null,
+    onClick: (Int) -> Unit,
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -32,25 +36,31 @@ fun BetSimDropdown(
         onExpandedChange = { expanded = it }
     ) {
 
-        BetSimOutlinedTextField(
-            value = value,
-            readonly = true,
-            singleLine = true,
-            trailingIcon = {
-                if (expanded){
-                    IconButton(onClick = { expanded = false }) {
-                        Icon(Icons.Filled.ArrowDropUp, "drop_up")
+        Row(
+            modifier = Modifier.wrapContentSize()
+        ) {
+            BetSimOutlinedTextField(
+                value = value,
+                readonly = true,
+                singleLine = true,
+                leadingIcon = leadingIcon,
+                isError = isError,
+                trailingIcon = {
+                    if (expanded) {
+                        IconButton(onClick = { expanded = false }) {
+                            Icon(Icons.Filled.ArrowDropUp, "drop_up")
+                        }
+                    } else {
+                        IconButton(onClick = { expanded = true }) {
+                            Icon(Icons.Filled.ArrowDropDown, "drop_down")
+                        }
                     }
-                }else{
-                    IconButton(onClick = { expanded = true }) {
-                        Icon(Icons.Filled.ArrowDropDown, "drop_down")
-                    }
-                }
-            },
-            onValueChange = {},
-            modifier = Modifier
-                .menuAnchor()
-        )
+                },
+                onValueChange = {},
+                modifier = Modifier
+                    .menuAnchor()
+            )
+        }
 
         ExposedDropdownMenu(
             expanded = expanded,

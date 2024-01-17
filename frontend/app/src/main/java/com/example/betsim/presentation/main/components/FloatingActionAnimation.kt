@@ -20,6 +20,7 @@ fun FloatingActionAnimation(
     onClick: () -> Unit,
     onDeleteClick: (TournamentGame) -> Unit,
     onValueChange: (String) -> Unit,
+    onBet: () -> Unit
 ){
     AnimatedVisibility(
         visible = !coupon.hidden,
@@ -44,7 +45,8 @@ fun FloatingActionAnimation(
                         },
                         onClick = { game ->
                             onDeleteClick(game)
-                        }
+                        },
+                        onBet = onBet
                     )
                 }
             },

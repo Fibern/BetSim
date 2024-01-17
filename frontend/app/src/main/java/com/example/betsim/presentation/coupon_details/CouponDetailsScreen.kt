@@ -57,7 +57,7 @@ fun CouponDetailsScreen(
                         val index = tournamentGame.selected.value!!
                         val odd = tournamentGame.odds[index]
                         ListItem(
-                            headlineContent = { Text(text = "${tournamentGame.homeTeam}-${tournamentGame.awayTeam}")},
+                            headlineContent = { Text(text = tournamentGame.name)},
                             leadingContent = {
                                 when (tournamentGame.status) {
                                     "lost" -> CouponStatusIcon.LoseIcon()
@@ -66,7 +66,7 @@ fun CouponDetailsScreen(
                                 } },
                             supportingContent = { Text(text = odd.name)},
                             trailingContent = {
-                                Text(text = odd.odd.toString())
+                                Text(text = odd.odd)
                             },
                             overlineContent = {
                                 Text(

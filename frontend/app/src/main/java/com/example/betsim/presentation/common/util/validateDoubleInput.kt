@@ -6,7 +6,7 @@ fun validateDoubleInput(value: String, maxValue: Double) : String?{
     new = new.replace(',', '.')
     val num = new.toDoubleOrNull() ?: return null
     if (num < 0) return null
-    if (num > maxValue) return maxValue.toString()
+    if (num > maxValue) return maxValue.toString().replace('.',',')
 
     val split = new.split(".")
 

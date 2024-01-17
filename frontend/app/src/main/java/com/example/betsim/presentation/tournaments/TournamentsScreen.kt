@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.tournaments.components.TournamentItem
@@ -29,6 +30,7 @@ fun TournamentsScreen(
 
     val state by remember { viewModel.state }
     val route by remember { viewModel.route }
+    val isMod by remember { viewModel.isMod }
 
     Surface(
         modifier = Modifier
@@ -43,10 +45,13 @@ fun TournamentsScreen(
             items(state.tournaments){tournament ->
                     TournamentItem(
                         tournament,
+                        isMod,
                         Modifier.clickable(onClick = {
                             navController.navigate(route)
                         })
-                    )
+                    ){
+                        //TODO()
+                    }
             }
         }
 
@@ -54,8 +59,22 @@ fun TournamentsScreen(
 
 }
 
-@Preview
+
 @Composable
-fun TournamentsScreenPreview(){
-    TournamentsScreen(navController = rememberNavController())
+@Preview
+fun TournamentsScreenPreview() {
+    val map =   mapOf(
+        "mod" to false,
+        "today" to false
+    )
+    val viewModel = remember {
+        TournamentsScreenViewModel(SavedStateHandle(map))
+    }
+
+    val fakeNavController = rememberNavController()
+
+    TournamentsScreen(
+        viewModel = viewModel,
+        navController = fakeNavController
+    )
 }

@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.coupons
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
@@ -18,7 +19,7 @@ class CouponsScreenViewModel @Inject constructor(
 ): ViewModel(){
 
     private val _coupons = mutableStateOf(listOf<Category>())
-    val coupons = _coupons
+    val coupons: State<List<Category>> = _coupons
 
 
     init {
@@ -33,55 +34,48 @@ class CouponsScreenViewModel @Inject constructor(
         val odd3 = Odd(1, "remis", "1.8")
         val game1 = TournamentGame(
             1,
-            "Polska",
-            "Mołdawia",
+            "Polska - Mołdawia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(0)
         )
         val game2 = TournamentGame(
             2,
-            "Polska",
-            "Estonia",
+            "Polska - Estonia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(2)
         )
         val game3 = TournamentGame(
             3,
-            "Polska",
-            "Estonia",
+            "Polska - Estonia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(1)
         )
         val game4 = TournamentGame(
             4,
-            "Polska",
-            "Estonia",
+            "Polska - Estonia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(2)
         )
         val game5 = TournamentGame(
             5,
-            "Polska",
-            "Estonia",
+            "Polska - Estonia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(1)
         )
         val game6 = TournamentGame(
             6,
-            "Polska",
-            "Estonia",
+            "Polska - Estonia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(0)
         )
         val game7 = TournamentGame(
             7,
-            "Polska",
-            "Estonia",
+            "Polska - Estonia",
             listOf(odd1, odd2, odd3),
             selected = mutableStateOf(1)
         )
         val game8 =
-            TournamentGame(8, "Polska", "Łotwa", listOf(odd1, odd2), selected = mutableStateOf(0))
+            TournamentGame(8, "Polska - Łotwa", listOf(odd1, odd2), selected = mutableStateOf(0))
         val coupon1 = Coupon(
             1,
             listOf(game1, game2, game3, game4, game5),

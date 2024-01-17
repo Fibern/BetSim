@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.create_feature
+package com.example.betsim.presentation.create_feature.create_offer
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
+import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.AddTeamsListItem
 
 
@@ -45,7 +46,13 @@ import com.example.betsim.presentation.create_feature.components.AddTeamsListIte
 @Composable
 fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
 
-    val state by remember { viewModel.state }
+
+    val drawable by remember { viewModel.drawable }
+    val type by remember { viewModel.type }
+    val remaining by remember { viewModel.remaining }
+    val odds = viewModel.odds
+    val createErrorText by remember { viewModel.createErrorText }
+
     var h by remember {
         mutableStateOf(0.dp)
     }
@@ -78,16 +85,16 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                             textAlign = TextAlign.Center
                         )
                         Text(
-                            text = "Nazwa",
+                            text = "Nazwa wyboru",
                             modifier = Modifier.width(160.dp),
                             textAlign = TextAlign.Center
                         )
                         Text(
                             text = "Procent",
-                            modifier = Modifier.width(60.dp),
+                            modifier = Modifier.width(80.dp),
                             textAlign = TextAlign.Center
                         )
-                        if (state.type == OfferType.Winner) {
+                        if (type == OfferType.Selection) {
                             Text(
                                 text = "Usuń",
                                 modifier = Modifier.width(40.dp),
@@ -98,12 +105,12 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                     Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                itemsIndexed(state.odds) { id, _ ->
+                itemsIndexed(odds) { id, oddState ->
 
                     AddTeamsListItem(
-                        offerType = state.type,
-                        name = state.odds[id].name,
-                        odd = state.odds[id].odd,
+                        offerType = type,
+                        name = odds[id].name,
+                        odd = odds[id].odd,
                         id = id,
                         onNameChange = { name ->
                             viewModel.onEvent(CreationEvent.EnteredTeamName(name, id))
@@ -112,7 +119,7 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                             viewModel.onEvent(CreationEvent.EnteredWinChance(odd, id))
                         },
                         onRemove = {
-                            viewModel.onEvent(CreationEvent.RemoveTeam(id))
+                            viewModel.onEvent(CreationEvent.RemoveTeam(oddState))
                         }
                     )
 
@@ -128,23 +135,29 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                     },
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Text(
+                    text = createErrorText,
+                    modifier = Modifier.padding(top = 4.dp),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
                 Row {
-                    when (state.type) {
+                    when (type) {
                         OfferType.Match -> {
                             TextButton(onClick = {
-                                viewModel.onEvent(CreationEvent.CheckBoxChange(!state.drawable))
+                                viewModel.onEvent(CreationEvent.CheckBoxChange)
                             }) {
                                 Text(text = "Mecz może zakończyć się remisem")
                             }
                             Checkbox(
-                                checked = state.drawable,
+                                checked = drawable,
                                 onCheckedChange = {
-                                    viewModel.onEvent(CreationEvent.CheckBoxChange(it))
+                                    viewModel.onEvent(CreationEvent.CheckBoxChange)
                                 }
                             )
                         }
 
-                        OfferType.Winner -> {
+                        OfferType.Selection -> {
                             TextButton(onClick = {
                                 viewModel.onEvent(CreationEvent.AddTeam)
                             }) {
@@ -160,7 +173,7 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Row {
-                    Text(text = "Pozostało: ${state.remaining}%")
+                    Text(text = "Pozostało: ${remaining}%")
                 }
                 Spacer(modifier = Modifier.height(4.dp))
             }
@@ -180,6 +193,6 @@ fun CreateGameTeamsScreenPreview(){
 @Composable
 fun CreateGameTeamsScreenPreview2(){
     val viewModel = CreateGameViewModel()
-    viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.Winner))
+    viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.Selection))
     CreateGameTeamsScreen(viewModel)
 }
