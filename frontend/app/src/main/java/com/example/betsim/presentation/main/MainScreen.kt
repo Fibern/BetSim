@@ -108,7 +108,8 @@ fun UserMainScreen(
                     },
                     onValueChange = {
                         viewModel.onEvent(MainEvent.EnteredValue(it))
-                    }
+                    },
+                    onBet = { viewModel.onEvent(MainEvent.MakeBet) }
                 )
             }
         }

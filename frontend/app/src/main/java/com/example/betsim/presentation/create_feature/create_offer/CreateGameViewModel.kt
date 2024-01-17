@@ -96,12 +96,13 @@ class CreateGameViewModel @Inject constructor(
             is CreationEvent.CheckBoxChange -> {
                 _drawable.value = !_drawable.value
                 if (_drawable.value) onEvent(CreationEvent.AddTeam)
-                else (onEvent(CreationEvent.RemoveTeam(2)))
+                else (onEvent(CreationEvent.RemoveTeam(_odds[2])))
             }
 
             is CreationEvent.RemoveTeam -> {
-                if ( _odds.size > 2)
-                    _odds.removeAt(event.id)
+                if ( _odds.size <= 2) return
+                _odds.remove(event.team)
+                updateRemaining()
             }
 
             is CreationEvent.EnteredName -> {

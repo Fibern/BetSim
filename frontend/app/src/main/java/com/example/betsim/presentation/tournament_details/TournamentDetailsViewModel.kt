@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.tournament_details
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -23,15 +24,16 @@ class TournamentDetailsViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _state = mutableStateOf(GamesState())
-    val state = _state
+    val state: State<GamesState> = _state
 
-    private val isToday: Boolean
+    private val _isToday = mutableStateOf(false)
 
-    val isMod: Boolean
+    private val _isMod = mutableStateOf(false)
+    val isMod: State<Boolean> = _isMod
 
     init {
-        isToday = checkNotNull(savedStateHandle["today"])
-        isMod = checkNotNull(savedStateHandle["mod"])
+        _isToday.value = checkNotNull(savedStateHandle["today"])
+        _isMod.value = checkNotNull(savedStateHandle["mod"])
         getGames()
     }
 
@@ -63,7 +65,7 @@ class TournamentDetailsViewModel @Inject constructor(
             val game7 = TournamentGame(7, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
             val game8 = TournamentGame(8, "tmp1 - tmp2", listOf(odd1, odd3), time2)
             val games = listOf(game1,game2,game3,game4,game5,game6,game7,game8)
-            if (isToday) {
+            if (_isToday.value) {
                 val jd = games.filter { it.date.toLocalDate() == LocalDate.now() }
                 _state.value = _state.value.copy(
                     games = jd

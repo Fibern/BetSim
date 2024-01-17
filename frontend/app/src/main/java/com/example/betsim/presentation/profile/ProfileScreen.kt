@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.util.Screen.AuthNav
 import com.example.betsim.presentation.util.Screen.TournamentsScreen
@@ -48,7 +49,7 @@ fun Profile(
                     .padding(horizontal = 16.dp),
                 onClick = {
                     navController.popBackStack(route = TournamentsScreen.route, inclusive = true)
-                    mainViewModel.modEnabled.value = !mainViewModel.modEnabled.value
+                    mainViewModel.onEvent(MainEvent.Tmp)
                 },
                 content = {
                     Text(text = "Zmiana", modifier = Modifier.padding(vertical = 8.dp))

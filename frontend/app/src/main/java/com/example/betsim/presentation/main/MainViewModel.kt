@@ -1,11 +1,13 @@
 package com.example.betsim.presentation.main
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 @HiltViewModel
@@ -14,24 +16,28 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _modEnabled = mutableStateOf(true)
-    val modEnabled = _modEnabled
+    val modEnabled: State<Boolean> = _modEnabled
 
     private val _mainAppBarsHidden = mutableStateOf(false)
-    val mainAppBarsHidden = _mainAppBarsHidden
+    val mainAppBarsHidden: State<Boolean> = _mainAppBarsHidden
 
     private val _couponState = mutableStateOf(MainCouponState())
-    val couponState = _couponState
+    val couponState: State<MainCouponState> = _couponState
 
 
     fun onEvent(event: MainEvent){
         when(event){
             is MainEvent.EnteredValue -> {
                 val value = validateDoubleInput(event.value, 10000.0) ?: return
-                val winnings = value.replace(',','.').toDouble() * _couponState.value.oddValue
-                _couponState.value = _couponState.value.copy(value = value, winnings = winnings)
+                var winningsDouble = value.replace(',','.').toDouble() * _couponState.value.oddValue
+                winningsDouble = min(winningsDouble, 1000000.0)
+                val winnings = "%,2f".format(winningsDouble).trimEnd('0').trimEnd(',')
+                val textField = _couponState.value.betValue.copy(value = value)
+                _couponState.value = _couponState.value.copy(betValue = textField, winnings = winnings)
+                setMessage(winningsDouble)
             }
-            is MainEvent.MakeBet -> {
-                TODO()
+            MainEvent.MakeBet -> {
+                // TODO()
             }
             is MainEvent.DeleteGame -> {
                 val tmp = _couponState.value.games - event.game
@@ -48,7 +54,6 @@ class MainViewModel @Inject constructor(
                     games = tmp
                 )
                 updateOdds()
-
             }
             is MainEvent.CollapsedChange -> {
                 _couponState.value = _couponState.value.copy(
@@ -87,6 +92,11 @@ class MainViewModel @Inject constructor(
                 }
 
             }
+
+            MainEvent.Tmp -> {
+                _couponState.value = MainCouponState()
+                _modEnabled.value = !_modEnabled.value
+            }
         }
     }
 
@@ -110,6 +120,22 @@ class MainViewModel @Inject constructor(
                 hidden = false
             )
         }
+    }
+
+    private fun setMessage(winnings: Double){
+        val textField = _couponState.value.betValue
+        val value = textField.value.replace(',','.').toDouble()
+        val message = if (winnings > 1000000.0)
+                          "Maksymalna wygrana wynosi 1000000"
+                      else if (value == 10000.0)
+                          "Maksymalna stawka wynosi 10000"
+                      else if (value < 2)
+                          "Minimalna stawaka wynosi 2"
+                      else
+                          ""
+        _couponState.value = _couponState.value.copy(
+            betValue = textField.copy(errorText = message)
+        )
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.coupons
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
@@ -18,7 +19,7 @@ class CouponsScreenViewModel @Inject constructor(
 ): ViewModel(){
 
     private val _coupons = mutableStateOf(listOf<Category>())
-    val coupons = _coupons
+    val coupons: State<List<Category>> = _coupons
 
 
     init {

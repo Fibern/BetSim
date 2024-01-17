@@ -27,7 +27,7 @@ fun TournamentDetailScreen(
 
     val state by remember { viewModel.state }
     val coupon by remember { mainViewModel.couponState }
-    val isMod = viewModel.isMod
+    val isMod by remember { viewModel.isMod }
 
     Surface(
         modifier = Modifier

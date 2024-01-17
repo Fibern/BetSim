@@ -1,6 +1,6 @@
 package com.example.betsim.presentation.coupon_details
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
@@ -14,7 +14,7 @@ class CouponDetailViewModel @Inject constructor(
 ): ViewModel(){
 
     private val _coupon = mutableStateOf(CouponDetailsState())
-    val coupon : MutableState<CouponDetailsState> = _coupon
+    val coupon : State<CouponDetailsState> = _coupon
 
 
     init {

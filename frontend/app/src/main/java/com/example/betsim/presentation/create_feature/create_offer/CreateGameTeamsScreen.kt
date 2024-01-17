@@ -105,7 +105,7 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                     Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                itemsIndexed(odds) { id, _ ->
+                itemsIndexed(odds) { id, oddState ->
 
                     AddTeamsListItem(
                         offerType = type,
@@ -119,7 +119,7 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
                             viewModel.onEvent(CreationEvent.EnteredWinChance(odd, id))
                         },
                         onRemove = {
-                            viewModel.onEvent(CreationEvent.RemoveTeam(id))
+                            viewModel.onEvent(CreationEvent.RemoveTeam(oddState))
                         }
                     )
 
