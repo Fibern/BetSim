@@ -1,0 +1,111 @@
+package com.example.betsim.presentation.profile
+
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.betsim.presentation.main.MainEvent
+import com.example.betsim.presentation.main.MainViewModel
+import com.example.betsim.presentation.util.Screen.AuthNav
+import com.example.betsim.presentation.util.Screen.TournamentsScreen
+import com.example.betsim.presentation.util.Screen.UserNav
+
+@SuppressLint("RestrictedApi")
+@Composable
+fun Profile(
+    mainViewModel: MainViewModel,
+    mainNavController: NavController,
+    navController: NavHostController,
+    viewModel: ProfileViewModel = hiltViewModel()
+) {
+
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier.fillMaxSize(),
+        ) {
+
+            OutlinedButton(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .padding(horizontal = 16.dp),
+                onClick = {
+                    navController.popBackStack(route = TournamentsScreen.route, inclusive = true)
+                    mainViewModel.onEvent(MainEvent.Tmp)
+                },
+                content = {
+                    Text(text = "Zmiana", modifier = Modifier.padding(vertical = 8.dp))
+                }
+            )
+
+            if (!mainViewModel.modEnabled.value) {
+
+                OutlinedButton(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .padding(horizontal = 16.dp),
+                    onClick = {
+                        viewModel.onEvent(ProfileEvent.ResetClicked)
+                    },
+                    content = {
+                        Text(text = "Zresetuj punkty", modifier = Modifier.padding(vertical = 8.dp))
+                    }
+                )
+
+                OutlinedButton(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .padding(horizontal = 16.dp),
+                    onClick = {
+                        viewModel.onEvent(ProfileEvent.DeleteClicked)
+                    },
+                    content = {
+                        Text(text = "Usuń konto", modifier = Modifier.padding(vertical = 8.dp))
+                    }
+                )
+
+            }
+
+            OutlinedButton(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .padding(horizontal = 16.dp),
+                onClick = {
+                    navController.popBackStack(route = TournamentsScreen.route, inclusive = true)
+                    mainNavController.navigate(AuthNav.route){
+                        popUpTo(route = UserNav.route){
+                            inclusive = true
+                        }
+                    }
+                },
+                content = {
+                    Text(text = "Wyloguj", modifier = Modifier.padding(vertical = 8.dp))
+                }
+            )
+        }
+    }
+}

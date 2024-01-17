@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+/*
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
@@ -76,30 +77,45 @@ private val DarkColorScheme = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+ */
+
+private val LightColorScheme = lightColorScheme(
+    primary = primary,
+    onPrimary = md_theme_light_onSecondary,
+    secondary = secondary,
+
+    background = md_theme_light_background,
+    onBackground = md_theme_light_onBackground,
+    surfaceVariant = md_theme_light_surfaceVariant,
+    onSurfaceVariant = md_theme_light_onSurfaceVariant
+)
+
+private val DarkColorScheme = darkColorScheme(
+
+)
+
 @Composable
 fun BetSimTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    //dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-    //    dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-    //        val context = LocalContext.current
-    //        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-    //    }
 
+    val colorScheme = when {
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
+            window.navigationBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = darkTheme
         }
     }
+
 
     MaterialTheme(
         colorScheme = colorScheme,
