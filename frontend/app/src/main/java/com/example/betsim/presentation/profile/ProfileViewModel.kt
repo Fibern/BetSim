@@ -11,6 +11,7 @@ class ProfileViewModel @Inject constructor(
         when(event){
             ProfileEvent.LogoutClicked -> {}
             ProfileEvent.ResetClicked -> {}
+            ProfileEvent.DeleteClicked -> {}
         }
     }
 

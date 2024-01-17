@@ -18,7 +18,11 @@ import androidx.compose.ui.unit.dp
 import com.example.betsim.R.drawable.ic_casino_chip
 
 @Composable
-fun LeaderboardItem(place: Int){
+fun LeaderboardItem(
+    place: Int,
+    isUser: Boolean
+){
+
     Row(
         modifier = Modifier
             .background(colorScheme.secondary)
@@ -45,7 +49,8 @@ fun LeaderboardItem(place: Int){
                 }
             },
             colors = ListItemDefaults.colors(
-                containerColor = colorScheme.secondary,
+                containerColor = if(isUser) colorScheme.tertiary
+                                 else colorScheme.secondary,
                 headlineColor = colorScheme.onSecondary,
                 leadingIconColor = colorScheme.onSecondary,
                 trailingIconColor = colorScheme.onSecondary

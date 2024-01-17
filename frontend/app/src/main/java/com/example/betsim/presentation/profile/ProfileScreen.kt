@@ -56,19 +56,37 @@ fun Profile(
                 }
             )
 
-            OutlinedButton(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .padding(horizontal = 16.dp),
-                onClick = {
-                    viewModel.onEvent(ProfileEvent.ResetClicked)
-                },
-                content = {
-                    Text(text = "Zresetuj punkty", modifier = Modifier.padding(vertical = 8.dp))
-                }
-            )
+            if (!mainViewModel.modEnabled.value) {
+
+                OutlinedButton(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .padding(horizontal = 16.dp),
+                    onClick = {
+                        viewModel.onEvent(ProfileEvent.ResetClicked)
+                    },
+                    content = {
+                        Text(text = "Zresetuj punkty", modifier = Modifier.padding(vertical = 8.dp))
+                    }
+                )
+
+                OutlinedButton(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .padding(horizontal = 16.dp),
+                    onClick = {
+                        viewModel.onEvent(ProfileEvent.DeleteClicked)
+                    },
+                    content = {
+                        Text(text = "Usuń konto", modifier = Modifier.padding(vertical = 8.dp))
+                    }
+                )
+
+            }
 
             OutlinedButton(
                 modifier = Modifier

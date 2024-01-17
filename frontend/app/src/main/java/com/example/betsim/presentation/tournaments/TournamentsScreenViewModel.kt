@@ -18,8 +18,10 @@ class TournamentsScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val isToday: Boolean
-    private val isMod: Boolean
+    private val _isToday = mutableStateOf(false)
+
+    private val _isMod = mutableStateOf(false)
+    val isMod: State<Boolean> = _isMod
 
     private var _state = mutableStateOf(TournamentsState())
     val state: State<TournamentsState> = _state
@@ -28,9 +30,9 @@ class TournamentsScreenViewModel @Inject constructor(
     val route: State<String> = _route
 
     init {
-        isToday = checkNotNull(savedStateHandle["today"])
-        isMod = checkNotNull(savedStateHandle["mod"])
-        if (isToday) _route.value = Screen.TodayTournamentDetailScreen.route
+        _isToday.value = checkNotNull(savedStateHandle["today"])
+        _isMod.value = checkNotNull(savedStateHandle["mod"])
+        if (_isToday.value) _route.value = Screen.TodayTournamentDetailScreen.route
         else _route.value = Screen.TournamentDetailScreen.route
         getTournaments()
     }
