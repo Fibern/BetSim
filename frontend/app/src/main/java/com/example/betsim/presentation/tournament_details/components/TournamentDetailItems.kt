@@ -9,23 +9,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
 import java.time.format.DateTimeFormatter
+import kotlin.math.min
 
 @Composable
 fun TournamentDetailChoice(
@@ -40,7 +37,7 @@ fun TournamentDetailChoice(
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.secondary)
             .padding(bottom = 16.dp)
-            .clickable(isMod){ onClick(game.id) },
+            .clickable(isMod) { onClick(game.id) },
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
@@ -75,47 +72,30 @@ fun TournamentDetailChoice(
             color = MaterialTheme.colorScheme.onSecondary
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        Row (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ){
+        for (i in 0 until game.odds.size step 3) {
 
-            game.odds.forEachIndexed{ index: Int, it: Odd ->
-                Button(
-                    onClick = {
-                        if (!isMod) {
-                            onClick(index)
-                        }
-                    },
-                    modifier = Modifier
-                        .width(90.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if(index == game.selected.value) Color.Black else MaterialTheme.colorScheme.primary
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+
+                for (j in i..min(i+2,game.odds.size-1)) {
+                    val it = game.odds[j]
+                    TournamentItemButton(
+                        isMod = isMod,
+                        onClick = { onClick(j) },
+                        name = it.name,
+                        odd = it.odd,
+                        selected = j == game.selected.value
                     )
-                ) {
-                    Column {
-                        Text(
-                            text = it.name,
-                            fontSize = MaterialTheme.typography.labelSmall.fontSize,
-                            fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                            lineHeight = MaterialTheme.typography.labelSmall.lineHeight,
-                            letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        Text(
-                            text = it.odd,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
                 }
             }
-
         }
-
     }
 
 }
@@ -128,7 +108,7 @@ fun TournamentDetailItemPreview(){
         game = TournamentGame(
             1,
             "asd - bsd",
-            listOf(Odd(1,"asd","1.23"),Odd(2,"asd2","1.53"),Odd(3,"as3d","1.33"))
+            listOf(Odd(1,"asd","1.23"),Odd(2,"asd2","1.53"),Odd(3,"as3d","1.33"),Odd(3,"as3d","1.33"))
         ),
         false,
         onClick = {}
