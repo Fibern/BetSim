@@ -27,7 +27,8 @@ fun AuthTextField(
     icon: ImageVector,
     isPassword: Boolean = false,
     isError: Boolean = false,
-    errorText: String = ""
+    errorText: String = "",
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
 ) {
     Row(
         modifier = Modifier
@@ -45,7 +46,7 @@ fun AuthTextField(
             singleLine = true,
             leadingIcon = { Icon(icon, contentDescription = null) },
             visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
-            keyboardOptions = if (isPassword) KeyboardOptions(keyboardType = KeyboardType.Password) else KeyboardOptions(keyboardType = KeyboardType.Text),
+            keyboardOptions = if (isPassword) KeyboardOptions(keyboardType = KeyboardType.Password) else keyboardOptions,
             isError = isError,
             supportingText = { Text(text = if (isError) errorText else "") },
             trailingIcon = { if (isError) Icon(Icons.Rounded.Error, "", tint = colorScheme.error) }

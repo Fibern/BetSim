@@ -18,16 +18,16 @@ import javax.inject.Inject
 class RegisterScreenViewModel @Inject constructor(
     private val repository: BetSimRepository
 ) : ViewModel(){
-    private val _email = mutableStateOf(TextFieldState("test@test.pl"))
+    private val _email = mutableStateOf(TextFieldState(""))
     val email: State<TextFieldState<String>> = _email
 
-    private val _login = mutableStateOf(TextFieldState("test@test.pl"))
+    private val _login = mutableStateOf(TextFieldState(""))
     val login: State<TextFieldState<String>> = _login
 
-    private val _password = mutableStateOf(TextFieldState("test@test.pl"))
+    private val _password = mutableStateOf(TextFieldState(""))
     val password: State<TextFieldState<String>> = _password
 
-    private val _password2 = mutableStateOf(TextFieldState("test@test.pl"))
+    private val _password2 = mutableStateOf(TextFieldState(""))
     val password2: State<TextFieldState<String>> = _password2
 
     private val _toastMessage = mutableStateOf("")

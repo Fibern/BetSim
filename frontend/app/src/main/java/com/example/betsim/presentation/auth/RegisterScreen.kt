@@ -1,6 +1,7 @@
 package com.example.betsim.presentation.auth
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
@@ -25,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,6 +69,8 @@ fun RegisterScreen(
         if (success) navController.navigateUp()
     }
 
+
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -97,7 +102,8 @@ fun RegisterScreen(
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
                 icon = Icons.Rounded.Email,
                 isError = email.isError,
-                errorText = email.errorText
+                errorText = email.errorText,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
             AuthTextField(
@@ -162,6 +168,8 @@ fun RegisterScreen(
             SemiTransparentLoadingScreen()
         }
     }
+
+    BackHandler(enabled = isLoading) { }
 
 }
 
