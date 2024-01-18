@@ -18,7 +18,9 @@ var configuration = builder.Configuration;
 
 // configure kerstel for https
 // builder.WebHost.ConfigureKestrel( o => o.ListenLocalhost(7054));
-builder.WebHost.UseUrls("https://sport-bet-simulator.pl");
+if(builder.Environment.IsProduction()){
+    builder.WebHost.UseUrls("https://sport-bet-simulator.pl");
+}
 
 builder.Services.AddApplication();
 builder.Services.AddInfraStucture(builder.Configuration);
