@@ -13,6 +13,9 @@
   </PropertyGroup>	
 
   <ItemGroup>
+    <PackageReference Include="Amazon.AspNetCore.Identity.Cognito" Version="3.0.1" />
+    <PackageReference Include="Amazon.Extensions.CognitoAuthentication" Version="2.5.2" />
+    <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="3.7.301.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />

@@ -1,69 +1,186 @@
-﻿using Application.Dto.UserDto;
-using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
+using Amazon;
+using Amazon.CognitoIdentityProvider;
+using Amazon.CognitoIdentityProvider.Model;
+using Amazon.Extensions.CognitoAuthentication;
+using Application;
+using Application.Abstractions;
+using Application.Dto.UserDto;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
+    private readonly IAmazonCognitoIdentityProvider _cognitoIdentityProvider;
+    private readonly CognitoUserPool _cognitoUserPool;
+    private readonly IConfiguration _configuration;
+    private readonly IUserRepository _userRepo;
 
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+
+    public AccountController(CognitoUserPool cognitoUserPool, IAmazonCognitoIdentityProvider cognitoIdentityProvider, IConfiguration configuration, IUserRepository userRepo)
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
+        _cognitoUserPool = cognitoUserPool;
+        _cognitoIdentityProvider = cognitoIdentityProvider;
+        _configuration = configuration;
+        _userRepo = userRepo;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserRegisterDto request)
+    public async Task<ActionResult<BaseResponse<string>>> Register([FromBody] UserRegisterDto request)
     {
-        var user = new User
+
+        //validation
+
+        var signUpRequest = new SignUpRequest
         {
-            UserName = request.Username,
-            Email = request.Email
+            ClientId = _configuration["AWS:AppClientId"],
+            Password = request.Password,
+            Username = request.Username
         };
 
-        var result = await _userManager.CreateAsync(user, request.Password);
-
-        if (result.Succeeded)
+        signUpRequest.UserAttributes.Add(new AttributeType
         {
-            return Ok(new { Message = "Registration successful" });
-        }
+            Name = "email",
+            Value = request.Email
+        });
 
-        return BadRequest(new { Errors = result.Errors });
+        try{
+            SignUpResponse response = await _cognitoIdentityProvider.SignUpAsync(signUpRequest);
+
+            // var user = new User(){
+            //     UserName = request.Username,
+            //     Email = request.Email
+            // };
+            
+            return Ok(new BaseResponse<string>("User Registered Successfully!", true));
+        }
+        catch(Exception error){
+            return BadRequest(new BaseResponse<string>(error.Message));
+        }
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginDto request)
-    {
-
-        var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password,true,false);
-
-        if (result.Succeeded)
-        {
-            return Ok(new { Message = "Registration successful" });
-        }
-
-        return BadRequest(new { Errors = "Invalid login or password." });
-    }
-
-
-    // [HttpPost("refresh")]
-    // public async Task<IActionResult> Refresh([FromBody] string refreshToken)
+    // [HttpPost("confirmEmail")]
+    // public async Task<ActionResult<BaseResponse<string>>> PostAsync([FromBody] EmailConfirmationDto UserRequest)
     // {
-
-    //     var result = await _userManager.Token
-
-    //     if (result.Succeeded)
+    //     ConfirmSignUpRequest request = new ConfirmSignUpRequest
     //     {
-    //         return Ok(new { Message = "Registration successful" });
-    //     }
+    //         ClientId = _configuration["AWS:AppClientId"],
+    //         ConfirmationCode = UserRequest.ConfirmationCode,
+    //         Username = UserRequest.Email
+    //     };
 
-    //     return BadRequest(new { Errors = "Invalid login or password." });
+    //     try
+    //     {
+    //         var response = await _cognitoIdentityProvider.ConfirmSignUpAsync(request);
+
+    //         return Ok(new BaseResponse<string>("Email confirmed",true));
+    //     }
+    //     catch (CodeMismatchException)
+    //     {
+    //         return new UserSignUpResponse
+    //         {
+    //             IsSuccess = false,
+    //             Message = "Invalid Confirmation Code",
+    //             EmailAddress = model.EmailAddress
+    //         };
+    //     }
     // }
 
+    [HttpPost("login")]
+    public async Task<ActionResult<BaseResponse<AccessTokenResponse>>> Login([FromBody] UserLoginDto request)
+    {
+        try
+        {
+            CognitoUser user = new CognitoUser(request.Username,
+            _configuration["AWS:AppClientId"], 
+            _cognitoUserPool,
+            _cognitoIdentityProvider);
+
+            InitiateSrpAuthRequest authRequest = new InitiateSrpAuthRequest()
+            {           
+                Password = request.Password,
+            };
+
+            AuthFlowResponse authResponse = await user.StartWithSrpAuthAsync(authRequest);
+            var result = authResponse.AuthenticationResult;
+
+            var token = new AccessTokenResponse(){
+                AccessToken = result.AccessToken,
+                RefreshToken = result.RefreshToken,
+                ExpiresIn = result.ExpiresIn,
+                TokenType = "JwtBarer"
+            };
+
+            return Ok(new BaseResponse<AccessTokenResponse>(token));
+
+        }
+        catch (Exception error)
+        {
+            return Unauthorized(new BaseResponse<AccessTokenResponse>(error.Message));
+        }
+    }
 
 
+    [HttpPost("refresh")]
+    public async Task<ActionResult<BaseResponse<AccessTokenResponse>>> Refresh([FromBody] string refreshToken)
+    {
+        string clientId = _configuration["AWS:AppClientId"];
+        string userPoolId = _configuration["AWS:UserPoolId"];
+
+        AccessTokenResponse accessToken = await RefreshTokenAsync(refreshToken, clientId, userPoolId);
+
+
+        if (accessToken != null)
+        {
+            return Ok(new BaseResponse<AccessTokenResponse>(accessToken));
+        }
+        else
+        {
+            return Unauthorized(new BaseResponse<AccessTokenResponse>("Invalid Token"));
+        }
+    }
+
+    private static async Task<AccessTokenResponse> RefreshTokenAsync(string refreshToken, string clientId, string userPoolId)
+    {
+        AmazonCognitoIdentityProviderClient providerClient = new AmazonCognitoIdentityProviderClient(RegionEndpoint.EUCentral1);
+
+        InitiateAuthRequest initiateAuthRequest = new InitiateAuthRequest
+        {
+            AuthFlow = AuthFlowType.REFRESH_TOKEN_AUTH,
+            AuthParameters = new Dictionary<string, string>
+            {
+                { "REFRESH_TOKEN", refreshToken },
+                { "CLIENT_ID", clientId }
+            },
+            ClientId = clientId,
+            
+        };
+
+        try
+        {
+            InitiateAuthResponse initiateAuthResponse = await providerClient.InitiateAuthAsync(initiateAuthRequest);
+
+            if (initiateAuthResponse.AuthenticationResult != null)
+            {
+                return new AccessTokenResponse(){
+                    AccessToken = initiateAuthResponse.AuthenticationResult.AccessToken,
+                    RefreshToken = initiateAuthResponse.AuthenticationResult.RefreshToken,
+                    ExpiresIn = initiateAuthResponse.AuthenticationResult.ExpiresIn,
+                    TokenType = "JwtBarer"
+                };
+            }
+            else
+            {
+                // Handle authentication failure
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exception
+            return null;
+        }
+    }
 }

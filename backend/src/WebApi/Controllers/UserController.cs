@@ -4,6 +4,7 @@ using Application;
 using Application.Commands.UserCommand;
 using Application.Dto.CouponDto;
 using Application.Dto.EventDto;
+using Application.Dto.UserDto;
 using Application.Queries.CouponQuery;
 using Application.Queries.UserQuery;
 using MediatR;
@@ -30,7 +31,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetEventDto>>>> GetUserInfo()
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<UserInfoDto>>>> GetUserInfo()
         {
             bool isOddsMaker = _httpContextAccessor.HttpContext.User.IsInRole("OddsMaker");
             var command = new GetUserInfoQuery(_userId,isOddsMaker);

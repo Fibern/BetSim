@@ -18,7 +18,10 @@ var configuration = builder.Configuration;
 
 // configure kerstel for https
 // builder.WebHost.ConfigureKestrel( o => o.ListenLocalhost(7054));
-builder.WebHost.UseUrls("https://sport-bet-simulator.pl");
+
+ if(builder.Environment.IsProduction()){
+    builder.WebHost.UseUrls("https://sport-bet-simulator.pl");
+ }
 
 builder.Services.AddApplication();
 builder.Services.AddInfraStucture(builder.Configuration);
@@ -32,14 +35,32 @@ builder.Services.AddControllers(
     }
 }
 );
+// cognit configuration
+builder.Services.AddCognitoIdentity();
+var userPoolId = builder.Configuration["AWS:UserPoolId"];
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+ .AddJwtBearer(options =>
+    {
+        options.Authority = $"https://cognito-idp.eu-central-1.amazonaws.com/{userPoolId}";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = $"https://cognito-idp.eu-central-1.amazonaws.com/{userPoolId}",
+            LifetimeValidator = (before, expires, token, param) => expires > DateTime.Now,
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+            ValidateAudience = false
+        };
+    });
 
 //configure identity
-builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<DbMainContext>()
-    .AddApiEndpoints();
+// builder.Services.AddIdentityApiEndpoints<User>()
+//     .AddEntityFrameworkStores<DbMainContext>();
+
 
 //configre authorization
-builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+builder.Services.AddAuthentication();
 
 builder.Services.AddAuthorizationBuilder();
 
@@ -139,7 +160,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
-app.MapIdentityApi<User>();
+// app.MapIdentityApi<User>();
 
 app.UseAuthentication();
 app.UseAuthorization();

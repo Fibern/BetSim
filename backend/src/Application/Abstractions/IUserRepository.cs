@@ -10,6 +10,7 @@ namespace Application.Abstractions
 {
     public interface IUserRepository 
     {
+        Task<int> AddAsync(User user);
         Task<User> GetUserInfoAsync(int userId);
         void Delete(int userId);
     }

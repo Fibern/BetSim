@@ -13,6 +13,12 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<int> AddAsync(User user)
+        {
+            await _context.Users.AddAsync(user);
+            return user.Id;
+        }
+
         public void Delete(int userId)
         {
             var user = _context.User.Find(userId);
