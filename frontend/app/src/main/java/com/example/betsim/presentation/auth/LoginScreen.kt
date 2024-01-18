@@ -77,7 +77,7 @@ fun LoginScreen(
                             inclusive = false
                         }
                     }
-                    //viewModel.onEvent(AuthEvent.OnAuthClick(""))
+                    viewModel.onEvent(AuthEvent.OnAuthClick)
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))

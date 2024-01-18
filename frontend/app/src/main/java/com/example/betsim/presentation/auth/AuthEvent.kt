@@ -5,5 +5,5 @@ sealed class AuthEvent{
     data class EnteredPassword(val value:String): AuthEvent()
     data class EnteredEmail(val value:String): AuthEvent()
     data class EnteredPassword2(val value:String): AuthEvent()
-    data class OnAuthClick(val login: String): AuthEvent()
+    data object OnAuthClick: AuthEvent()
 }

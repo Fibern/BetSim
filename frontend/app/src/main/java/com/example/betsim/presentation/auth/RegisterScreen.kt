@@ -60,38 +60,42 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             AuthTextField(
-                text = login,
-                label = "Login",
+                text = login.value,
+                label = "Nazwa użytkownika",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredLogin(it)) },
-                icon = Icons.Rounded.Person
+                icon = Icons.Rounded.Person,
+                isError = login.isError,
+                errorText = login.errorText
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
             AuthTextField(
-                text = email,
+                text = email.value,
                 label = "Email",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
-                icon = Icons.Rounded.Email
+                icon = Icons.Rounded.Email,
+                isError = email.isError,
+                errorText = email.errorText
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
             AuthTextField(
-                text = password,
+                text = password.value,
                 label = "Hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
                 icon = Icons.Rounded.Lock,
-                isPassword = true
+                isPassword = true,
+                isError = password.isError,
+                errorText = password.errorText
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
             AuthTextField(
-                text = password2,
+                text = password2.value,
                 label = "Powtórz hasło",
                 onValChange = { viewModel.onEvent(AuthEvent.EnteredPassword2(it)) },
                 icon = Icons.Rounded.Lock,
-                isPassword = true
+                isPassword = true,
+                isError = password2.isError,
+                errorText = password2.errorText
             )
-            Spacer(modifier = Modifier.height(20.dp))
 
             Row(
                 modifier = Modifier
@@ -100,7 +104,7 @@ fun RegisterScreen(
             ) {
 
                 BetSimButton(text = "Zarejestruj") {
-                    viewModel.onEvent(AuthEvent.OnAuthClick(""))
+                    viewModel.onEvent(AuthEvent.OnAuthClick)
                 }
 
             }
