@@ -34,26 +34,10 @@ builder.Services.AddControllers(
     }
 }
 );
-// cognit configuration
-builder.Services.AddCognitoIdentity();
-var userPoolId = builder.Configuration["AWS:UserPoolId"];
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
- .AddJwtBearer(options =>
-    {
-        options.Authority = $"https://cognito-idp.eu-central-1.amazonaws.com/{userPoolId}";
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateLifetime = true,
-            ValidAudience = configuration["AWS:AppClientId"],
-            ValidateAudience = true,
-            RoleClaimType = "cognito:groups"
-        };
-    });
 
 //configure identity
-// builder.Services.AddIdentityApiEndpoints<User>()
-//     .AddEntityFrameworkStores<DbMainContext>();
+builder.Services.AddIdentityApiEndpoints<User>()
+    .AddEntityFrameworkStores<DbMainContext>();
 
 
 //configre authorization
@@ -156,10 +140,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
-// app.MapIdentityApi<User>();
+app.MapIdentityApi<User>();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
