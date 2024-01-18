@@ -6,6 +6,7 @@ using Amazon.Extensions.CognitoAuthentication;
 using Application;
 using Application.Abstractions;
 using Application.Dto.UserDto;
+using Domain.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,14 +47,23 @@ public class AccountController : ControllerBase
             Value = request.Email
         });
 
+        signUpRequest.UserAttributes.Add(new AttributeType
+        {
+            Name = "",
+            Value = request.Username
+        });
+
         try{
             SignUpResponse response = await _cognitoIdentityProvider.SignUpAsync(signUpRequest);
 
-            // var user = new User(){
-            //     UserName = request.Username,
-            //     Email = request.Email
-            // };
-            
+            // response.UserSub;
+            var user = new User(){
+                UserName = request.Username,
+                Email = request.Email
+            };
+
+            _userRepo.AddAsync(user);
+     
             return Ok(new BaseResponse<string>("User Registered Successfully!", true));
         }
         catch(Exception error){

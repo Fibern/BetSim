@@ -45,12 +45,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.Authority = $"https://cognito-idp.eu-central-1.amazonaws.com/{userPoolId}";
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = $"https://cognito-idp.eu-central-1.amazonaws.com/{userPoolId}",
-            LifetimeValidator = (before, expires, token, param) => expires > DateTime.Now,
             ValidateLifetime = true,
-            ValidateIssuer = true,
-            ValidateAudience = false
+            ValidAudience = configuration["AWS:AppClientId"],
+            ValidateAudience = true,
+            RoleClaimType = "cognito:groups"
         };
     });
 
@@ -63,7 +61,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthentication();
 
 builder.Services.AddAuthorizationBuilder();
-
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
