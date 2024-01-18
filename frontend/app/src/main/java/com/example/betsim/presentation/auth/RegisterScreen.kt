@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.auth
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,9 +18,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -28,10 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.presentation.util.Screen
-import com.example.betsim.presentation.auth.components.AuthTextField
 import com.example.betsim.presentation.auth.components.AuthText
+import com.example.betsim.presentation.auth.components.AuthTextField
 import com.example.betsim.presentation.common.components.BetSimButton
+import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
+import com.example.betsim.presentation.util.Screen
 
 @Composable
 fun RegisterScreen(
@@ -43,12 +47,31 @@ fun RegisterScreen(
     val email by remember { viewModel.email }
     val password by remember { viewModel.password }
     val password2 by remember { viewModel.password2 }
+    val toast by remember { viewModel.toastMessage }
+    val success by remember { viewModel.success }
+    val isLoading by remember { viewModel.isLoading }
+    val context = LocalContext.current
 
+    if (toast.isNotBlank()) {
+        LaunchedEffect(toast) {
+            Toast.makeText(
+                context,
+                toast,
+                Toast.LENGTH_SHORT
+            ).show()
+            viewModel.clearToast()
+        }
+    }
+    LaunchedEffect(success) {
+        if (success) navController.navigateUp()
+    }
 
     Surface(
         modifier = Modifier
             .fillMaxSize()
     ) {
+
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -132,6 +155,11 @@ fun RegisterScreen(
                     }
                 )
             }
+
+        }
+
+        if (isLoading){
+            SemiTransparentLoadingScreen()
         }
     }
 
