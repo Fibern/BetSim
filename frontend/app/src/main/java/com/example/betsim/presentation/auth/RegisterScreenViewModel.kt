@@ -52,14 +52,10 @@ class RegisterScreenViewModel @Inject constructor(
     }
 
     private fun checkInputFields(): Boolean{
-        val checkLogin = validateTextFieldState(_login.value)
-        if (checkLogin != null) _login.value = checkLogin
-        val checkEmail = validateTextFieldState(_email.value)
-        if (checkEmail != null) _email.value = checkEmail
-        val checkPassword = validateTextFieldState(_password.value)
-        if (checkPassword != null) _password.value = checkPassword
-        val checkPassword2 = validateTextFieldState(_password2.value)
-        if (checkPassword2 != null) _password2.value = checkPassword2
+        _login.value = validateTextFieldState(_login.value)
+        _email.value = validateTextFieldState(_email.value)
+        _password.value = validateTextFieldState(_password.value)
+        _password2.value = validateTextFieldState(_password2.value)
 
         return !_login.value.isError || !_email.value.isError || !_password.value.isError || !_password2.value.isError
     }

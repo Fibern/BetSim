@@ -42,15 +42,10 @@ class CreateEventViewModel @Inject constructor(
     }
 
     private fun checkInput(): Boolean {
-
-        val nameState = validateTextFieldState(_name.value)
-        if (nameState != null) _name.value = nameState
-
-        val iconState = validateTextFieldState(_icon.value)
-        if (iconState != null) _icon.value = iconState
+        _name.value = validateTextFieldState(_name.value)
+        _icon.value = validateTextFieldState(_icon.value)
 
          return !_name.value.isError && !_icon.value.isError
-
     }
 
 }

@@ -60,18 +60,13 @@ class ModifyViewModel @Inject constructor(
 
         return when(_game.value.type){
             OfferType.Match -> {
-                val homeState = validateTextFieldState(_home.value)
-                if (homeState != null) _home.value = homeState
-
-                val awayState = validateTextFieldState(_away.value)
-                if (awayState != null) _away.value = awayState
+                _home.value = validateTextFieldState(_home.value)
+                _away.value = validateTextFieldState(_away.value)
 
                 !_home.value.isError && !_away.value.isError
             }
-
             OfferType.Selection -> {
-                val selectedState = validateTextFieldState(_selected.value)
-                if (selectedState != null) _selected.value = selectedState
+                _selected.value = validateTextFieldState(_selected.value)
 
                 !_selected.value.isError
             }

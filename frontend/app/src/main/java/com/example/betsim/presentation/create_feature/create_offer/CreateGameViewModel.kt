@@ -152,17 +152,11 @@ class CreateGameViewModel @Inject constructor(
 
         }
         else{
-            val date = validateTextFieldState(_dateTextField.value)
-            if (date != null) _dateTextField.value = date
-
-            val time = validateTextFieldState(_timeTextField.value)
-            if (time != null) _timeTextField.value = time
-
+            _dateTextField.value = validateTextFieldState(_dateTextField.value)
+            _timeTextField.value = validateTextFieldState(_timeTextField.value)
             if (type.value == OfferType.Selection) {
-                val name = validateTextFieldState(_offerName.value)
-                if (name != null) _offerName.value = name
+                _offerName.value = validateTextFieldState(_offerName.value)
             }
-
             correct = !_dateTextField.value.isError && !_timeTextField.value.isError && !_offerName.value.isError
         }
 
