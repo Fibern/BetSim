@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.common.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -74,6 +75,7 @@ fun SemiTransparentLoadingScreen(){
         )
 
     }
+    BackHandler { }
 }
 
 

@@ -1,7 +1,6 @@
 package com.example.betsim.presentation.auth
 
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -69,13 +68,10 @@ fun RegisterScreen(
         if (success) navController.navigateUp()
     }
 
-
-
     Surface(
         modifier = Modifier
             .fillMaxSize()
     ) {
-
 
         Column(
             modifier = Modifier
@@ -163,14 +159,10 @@ fun RegisterScreen(
             }
 
         }
-
         if (isLoading){
             SemiTransparentLoadingScreen()
         }
     }
-
-    BackHandler(enabled = isLoading) { }
-
 }
 
 @Preview
