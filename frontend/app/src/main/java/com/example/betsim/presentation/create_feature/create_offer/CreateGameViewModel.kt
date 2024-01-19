@@ -10,11 +10,13 @@ import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.create_feature.CreationEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
 import kotlin.math.min
 
+@HiltViewModel
 class CreateGameViewModel @Inject constructor(
 
 ): ViewModel() {

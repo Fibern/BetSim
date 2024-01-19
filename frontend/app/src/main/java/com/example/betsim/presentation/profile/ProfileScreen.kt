@@ -95,6 +95,7 @@ fun Profile(
                     .padding(vertical = 8.dp)
                     .padding(horizontal = 16.dp),
                 onClick = {
+                    viewModel.onEvent(ProfileEvent.LogoutClicked)
                     navController.popBackStack(route = TournamentsScreen.route, inclusive = true)
                     mainNavController.navigate(AuthNav.route){
                         popUpTo(route = UserNav.route){

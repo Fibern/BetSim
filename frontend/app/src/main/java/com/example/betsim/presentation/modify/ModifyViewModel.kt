@@ -9,8 +9,10 @@ import com.example.betsim.domain.model.TournamentGame
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.common.util.validateTextFieldState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ModifyViewModel @Inject constructor(
 
 ): ViewModel() {

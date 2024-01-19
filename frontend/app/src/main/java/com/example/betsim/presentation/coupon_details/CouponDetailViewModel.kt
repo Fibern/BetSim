@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDateTime
 import javax.inject.Inject
 
+@HiltViewModel
 class CouponDetailViewModel @Inject constructor(
 
 ): ViewModel(){

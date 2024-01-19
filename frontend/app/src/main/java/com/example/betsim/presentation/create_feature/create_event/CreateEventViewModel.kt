@@ -7,8 +7,10 @@ import com.example.betsim.domain.model.EventIcons
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.create_feature.CreationEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class CreateEventViewModel @Inject constructor(
 
 ): ViewModel() {

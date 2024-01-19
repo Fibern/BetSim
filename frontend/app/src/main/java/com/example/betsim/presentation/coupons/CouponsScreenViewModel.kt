@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Coupon
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -14,6 +15,8 @@ data class Category(
     val header: LocalDate,
     val coupons: List<Coupon>
 )
+
+@HiltViewModel
 class CouponsScreenViewModel @Inject constructor(
 
 ): ViewModel(){
