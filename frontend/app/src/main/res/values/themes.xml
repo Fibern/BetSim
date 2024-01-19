@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="Theme.BetSim" parent="android:Theme.Material.Light.NoActionBar" />
+    
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/iconBackground</item>
+        <item name="postSplashScreenTheme">@style/Theme.BetSim</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splashscreen_icon</item>
+    </style>
+
 </resources>

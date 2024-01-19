@@ -12,13 +12,13 @@
         android:icon="@mipmap/ic_betsim"
         android:roundIcon="@mipmap/ic_betsim_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BetSim"
+        android:theme="@style/Theme.App.SplashScreen"
         tools:targetApi="31">
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BetSim">
+            android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
