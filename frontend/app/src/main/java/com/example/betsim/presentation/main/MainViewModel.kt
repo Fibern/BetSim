@@ -1,22 +1,27 @@
 package com.example.betsim.presentation.main
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.betsim.data.local.SecurePreferencesHelper
+import com.example.betsim.data.remote.status.BasicStatus
+import com.example.betsim.data.remote.responses.User
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.util.Screen
+import com.example.betsim.repository.BetSimRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.min
 import kotlin.math.roundToInt
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-
+    private val helper: SecurePreferencesHelper,
+    private val repository: BetSimRepository
 ) : ViewModel() {
-
-    private val _modEnabled = mutableStateOf(true)
-    val modEnabled: State<Boolean> = _modEnabled
 
     private val _mainAppBarsHidden = mutableStateOf(false)
     val mainAppBarsHidden: State<Boolean> = _mainAppBarsHidden
@@ -24,6 +29,21 @@ class MainViewModel @Inject constructor(
     private val _couponState = mutableStateOf(MainCouponState())
     val couponState: State<MainCouponState> = _couponState
 
+    private val _isLoading = mutableStateOf(true)
+    val isLoading: State<Boolean> = _isLoading
+
+    private val _user = mutableStateOf(User("",false,null))
+    val user: State<User> = _user
+
+    init {
+        viewModelScope.launch {
+            val result = getUser()
+            if (result){
+                //ToDO()
+            }
+            _isLoading.value = false
+        }
+    }
 
     fun onEvent(event: MainEvent){
         when(event){
@@ -92,11 +112,6 @@ class MainViewModel @Inject constructor(
                 }
 
             }
-
-            MainEvent.Tmp -> {
-                _couponState.value = MainCouponState()
-                _modEnabled.value = !_modEnabled.value
-            }
         }
     }
 
@@ -136,6 +151,20 @@ class MainViewModel @Inject constructor(
         _couponState.value = _couponState.value.copy(
             betValue = textField.copy(errorText = message)
         )
+    }
+
+    private suspend fun getUser(): Boolean{
+        val login = helper.getLoginResponse() ?: return false
+        Log.i("jd","a${login.accessToken}a")
+        return when(val response = repository.getUser(login.accessToken)){
+            BasicStatus.BadInternet -> false
+            BasicStatus.Failure -> false
+            is BasicStatus.Success -> {
+                _user.value = response.response
+                true
+            }
+        }
+
     }
 
 }

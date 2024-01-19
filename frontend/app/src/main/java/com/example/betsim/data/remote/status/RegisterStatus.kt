@@ -1,4 +1,4 @@
-package com.example.betsim.domain.response
+package com.example.betsim.data.remote.status
 
 sealed class RegisterStatus {
     data object Success: RegisterStatus()

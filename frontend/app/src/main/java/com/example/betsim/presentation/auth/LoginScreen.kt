@@ -27,8 +27,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.auth.components.AuthClickableText
 import com.example.betsim.presentation.auth.components.AuthText
 import com.example.betsim.presentation.auth.components.AuthTextField
+import com.example.betsim.presentation.common.components.BasicLoadingScreen
 import com.example.betsim.presentation.common.components.BetSimButton
-import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.util.Screen
 
 @Composable
@@ -119,7 +119,7 @@ fun LoginScreen(
             }
         }
         if (isLoading) {
-            SemiTransparentLoadingScreen()
+            BasicLoadingScreen()
         }
     }
 

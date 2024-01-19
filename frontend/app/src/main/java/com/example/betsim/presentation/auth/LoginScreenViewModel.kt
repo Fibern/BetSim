@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.data.local.SecurePreferencesHelper
-import com.example.betsim.domain.response.LoginStatus
+import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.common.util.validateTextInput
@@ -44,8 +44,8 @@ class LoginScreenViewModel @Inject constructor(
                 return@launch
             }
             when(val result = repository.refresh(login.refreshToken)){
-                is LoginStatus.Success -> {
-                    helper.saveLoginResponse(result.loginResponse)
+                is BasicStatus.Success -> {
+                    helper.saveLoginResponse(result.response)
                     _success.value = true
                 }
                 else -> {
@@ -86,15 +86,14 @@ class LoginScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             when(val result = repository.login(_login.value.value, _password.value.value)){
-                LoginStatus.BadInternet -> {
+                BasicStatus.BadInternet -> {
                     _toastMessage.value = "Brak połączenia z internetem!"
                 }
-                LoginStatus.Failure -> {
+                BasicStatus.Failure -> {
                     _toastMessage.value = "Błędny login lub hasło!"
                 }
-                is LoginStatus.Success -> {
-                    helper.saveLoginResponse(result.loginResponse)
-                    helper.getLoginResponse()
+                is BasicStatus.Success -> {
+                    helper.saveLoginResponse(result.response)
                     _success.value = true
                 }
             }

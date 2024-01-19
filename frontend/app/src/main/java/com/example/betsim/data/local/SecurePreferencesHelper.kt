@@ -3,7 +3,7 @@ package com.example.betsim.data.local
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.example.betsim.data.remote.LoginResponse
+import com.example.betsim.data.remote.responses.LoginResponse
 
 class SecurePreferencesHelper(context: Context){
 
@@ -23,7 +23,7 @@ class SecurePreferencesHelper(context: Context){
     fun saveLoginResponse(loginResponse: LoginResponse) {
         sharedPreferences.edit()
             .putString("refresh_token", loginResponse.refreshToken)
-            .putString("access_token", loginResponse.refreshToken)
+            .putString("access_token", loginResponse.accessToken)
             .apply()
     }
 

@@ -1,5 +1,7 @@
 package com.example.betsim.data.remote
 
+import com.example.betsim.data.remote.responses.LoginResponse
+import com.example.betsim.data.remote.responses.UserResponse
 import com.google.gson.JsonObject
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -21,7 +23,7 @@ interface BetSimApi {
 
     @Headers("accept: */*", "Content-Type: application/json")
     @GET("/User")
-    suspend fun getUser(@Header("authorization") authorization: String): Response<JsonObject>
+    suspend fun getUser(@Header("authorization") authorization: String): Response<UserResponse?>
 
     @Headers("accept: */*", "Content-Type: application/json")
     @POST("/refresh")

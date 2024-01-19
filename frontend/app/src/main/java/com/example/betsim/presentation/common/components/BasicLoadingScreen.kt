@@ -12,9 +12,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -22,13 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.betsim.R.drawable.ic_casino_chip
-
+import com.example.betsim.R
 
 @Composable
-fun SemiTransparentLoadingScreen(){
+fun BasicLoadingScreen(){
     val infiniteTransition = rememberInfiniteTransition(label = "Rotate Icon")
     val rotationState by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -42,7 +46,7 @@ fun SemiTransparentLoadingScreen(){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorScheme.primary.copy(alpha = 0.5f))
+            .background(colorScheme.primary)
             .clickable(
                 indication = null,
                 interactionSource = remember{ MutableInteractionSource() },
@@ -50,8 +54,17 @@ fun SemiTransparentLoadingScreen(){
             )
     ) {
 
+        Text(
+            text = "BetSim",
+            color = colorScheme.onPrimary,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(56.dp),
+            style = TextStyle(fontFamily = FontFamily.Cursive, fontSize = MaterialTheme.typography.displayLarge.fontSize)
+        )
+
         Icon(
-            painterResource(ic_casino_chip),
+            painterResource(R.drawable.ic_casino_chip),
             "",
             modifier = Modifier
                 .size(56.dp)
@@ -64,10 +77,8 @@ fun SemiTransparentLoadingScreen(){
     BackHandler { }
 }
 
-
-
 @Preview
 @Composable
-fun SemiTransparentLoadingScreenPreview(){
-    SemiTransparentLoadingScreen()
+fun BasicLoadingScreenPreview(){
+    BasicLoadingScreen()
 }

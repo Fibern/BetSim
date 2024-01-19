@@ -1,4 +1,4 @@
-package com.example.betsim.data.remote
+package com.example.betsim.data.remote.responses
 
 data class LoginResponse(
     val accessToken: String,

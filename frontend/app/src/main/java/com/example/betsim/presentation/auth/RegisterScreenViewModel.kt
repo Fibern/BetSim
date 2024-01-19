@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.betsim.domain.response.RegisterStatus
+import com.example.betsim.data.remote.status.RegisterStatus
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.common.util.validateTextInput
