@@ -4,6 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.betsim.data.local.SecurePreferencesHelper
+import com.example.betsim.domain.response.LoginStatus
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.common.util.validateTextInput
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
-    private val repository: BetSimRepository
+    private val repository: BetSimRepository,
+    private val helper: SecurePreferencesHelper
 ) : ViewModel(){
 
     private val _login = mutableStateOf(TextFieldState(""))
@@ -30,8 +33,28 @@ class LoginScreenViewModel @Inject constructor(
     private val _success = mutableStateOf(false)
     val success: State<Boolean> =_success
 
-    private val _isLoading = mutableStateOf(false)
+    private val _isLoading = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
+
+    init {
+        viewModelScope.launch {
+            val login = helper.getLoginResponse()
+            if (login == null){
+                _isLoading.value = false
+                return@launch
+            }
+            when(val result = repository.refresh(login.refreshToken)){
+                is LoginStatus.Success -> {
+                    helper.saveLoginResponse(result.loginResponse)
+                    _success.value = true
+                }
+                else -> {
+                    _isLoading.value = false
+                    return@launch
+                }
+            }
+        }
+    }
 
 
     fun onEvent(event: AuthEvent){
@@ -61,10 +84,24 @@ class LoginScreenViewModel @Inject constructor(
 
     private fun onLogin(){
         viewModelScope.launch {
-            val login = repository.login("test@test.pl", "testa1")
-            val logina = repository.login("test@test.pl", "testa1a")
+            _isLoading.value = true
+            when(val result = repository.login(_login.value.value, _password.value.value)){
+                LoginStatus.BadInternet -> {
+                    _toastMessage.value = "Brak połączenia z internetem!"
+                }
+                LoginStatus.Failure -> {
+                    _toastMessage.value = "Błędny login lub hasło!"
+                }
+                is LoginStatus.Success -> {
+                    helper.saveLoginResponse(result.loginResponse)
+                    helper.getLoginResponse()
+                    _success.value = true
+                }
+            }
+            _isLoading.value = false
         }
     }
+
 
     fun clearToast(){
         _toastMessage.value = ""

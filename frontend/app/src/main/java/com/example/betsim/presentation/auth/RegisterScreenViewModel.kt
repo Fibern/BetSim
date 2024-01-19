@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.betsim.domain.response.RegisterError
+import com.example.betsim.domain.response.RegisterStatus
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.common.util.validateTextInput
@@ -97,24 +97,24 @@ class RegisterScreenViewModel @Inject constructor(
             _isLoading.value = true
             val result = repository.register(_login.value.value, _email.value.value, _password.value.value)
             when(result){
-                RegisterError.BadInternet -> {
+                RegisterStatus.BadInternet -> {
                     _toastMessage.value = "Brak połączenia z internetem!"
                 }
-                RegisterError.DuplicateEmail -> {
+                RegisterStatus.DuplicateEmail -> {
                     _email.value = _email.value.copy(isError = true, errorText = "Podany adres email jest już zarejestrowany")
                 }
-                RegisterError.DuplicateEmailAndUsername -> {
+                RegisterStatus.DuplicateEmailAndUsername -> {
                     _login.value = _login.value.copy(isError = true, errorText = "Podana nazwa użytkownika jest zajęta")
                     _email.value = _email.value.copy(isError = true, errorText = "Podany adres email jest już zarejestrowany")
                 }
-                RegisterError.DuplicateUsername -> {
+                RegisterStatus.DuplicateUsername -> {
                     _login.value = _login.value.copy(isError = true, errorText = "Podana nazwa użytkownika jest zajęta")
                 }
-                RegisterError.Success -> {
+                RegisterStatus.Success -> {
                     _toastMessage.value = "Użytkownik został zarejestrowany!"
                     _success.value = true
                 }
-                RegisterError.Unknown -> {
+                RegisterStatus.Unknown -> {
                     _toastMessage.value = "Coś poszło nie tak!"
                 }
             }
