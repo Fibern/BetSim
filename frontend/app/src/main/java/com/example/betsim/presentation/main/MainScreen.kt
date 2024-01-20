@@ -117,26 +117,28 @@ fun UserMainScreen(
 
     ) { innerPadding ->
 
-        if (user.isMod){
-            ModNavHost(
-                viewModel = viewModel,
-                mainNavController = mainNavController,
-                navController = navController,
-                paddingValues = innerPadding
-            )
-        }else{
-            UserNavHost(
-                viewModel = viewModel,
-                mainNavController = mainNavController,
-                navController = navController,
-                paddingValues = innerPadding
-            )
-        }
 
+        if (isLoading)
+            BasicLoadingScreen()
+        else {
+            if (user.isMod) {
+                ModNavHost(
+                    viewModel = viewModel,
+                    mainNavController = mainNavController,
+                    navController = navController,
+                    paddingValues = innerPadding
+                )
+            } else {
+                UserNavHost(
+                    viewModel = viewModel,
+                    mainNavController = mainNavController,
+                    navController = navController,
+                    paddingValues = innerPadding
+                )
+            }
+        }
     }
 
-    if (isLoading)
-        BasicLoadingScreen()
 
 }
 

@@ -31,14 +31,22 @@ class MainViewModel @Inject constructor(
     private val _isLoading = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
 
-    private val _user = mutableStateOf(User("",false,null))
+    private val _user = mutableStateOf(User("","",false,0))
     val user: State<User> = _user
 
     init {
         viewModelScope.launch {
-            val result = getUser()
-            if (result){
-                //ToDO()
+            val login = sessionManager.getCurrent()
+            if (login == null){
+                _isLoading.value = false
+                return@launch
+            }
+            when (val response: BasicStatus<User> = repository.getUser(login.accessToken)) {
+                BasicStatus.BadInternet -> {}
+                BasicStatus.Failure -> {}
+                is BasicStatus.Success -> {
+                    _user.value = response.response
+                }
             }
             _isLoading.value = false
         }
@@ -150,19 +158,6 @@ class MainViewModel @Inject constructor(
         _couponState.value = _couponState.value.copy(
             betValue = textField.copy(errorText = message)
         )
-    }
-
-    private suspend fun getUser(): Boolean{
-        val login = sessionManager.getCurrentLogin() ?: return false
-        return when(val response = repository.getUser(login.accessToken)){
-            BasicStatus.BadInternet -> false
-            BasicStatus.Failure -> false
-            is BasicStatus.Success -> {
-                _user.value = response.response
-                true
-            }
-        }
-
     }
 
 }

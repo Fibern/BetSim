@@ -37,7 +37,7 @@ interface BetSimApi {
     suspend fun getEvents(): Response<EventsResponse>
 
     @Headers("accept: */*", "Content-Type: application/json")
-    @DELETE("/Event/User")
+    @GET("/User/Event")
     suspend fun getEventByUser(@Header("authorization") authorization: String): Response<EventsResponse>
 
     @Headers("accept: */*", "Content-Type: application/json")

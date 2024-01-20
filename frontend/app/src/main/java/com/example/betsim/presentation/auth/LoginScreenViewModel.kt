@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.auth
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -21,10 +22,10 @@ class LoginScreenViewModel @Inject constructor(
     private val sessionManager: SessionManager
 ) : ViewModel(){
 
-    private val _login = mutableStateOf(TextFieldState(""))
+    private val _login = mutableStateOf(TextFieldState("Admin"))
     val login: State<TextFieldState<String>> = _login
 
-    private val _password = mutableStateOf(TextFieldState(""))
+    private val _password = mutableStateOf(TextFieldState("zaq12wsx"))
     val password: State<TextFieldState<String>> = _password
 
     private val _toastMessage = mutableStateOf("")
@@ -38,10 +39,12 @@ class LoginScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val login = sessionManager.getCurrentLogin()
-            if (login == null){
+            _isLoading.value = true
+            val login = sessionManager.getRefresh()
+            if (login != null) {
+                _success.value = true
+            }else{
                 _isLoading.value = false
-                return@launch
             }
         }
     }
@@ -51,11 +54,11 @@ class LoginScreenViewModel @Inject constructor(
         when(event){
             is AuthEvent.EnteredLogin -> {
                 if (!validateTextInput(event.value)) return
-                _login.value = _login.value.copy(value = event.value)
+                _login.value = _login.value.copy(value = event.value.trim())
             }
             is AuthEvent.EnteredPassword -> {
                 if (!validateTextInput(event.value)) return
-                _password.value = _password.value.copy(value = event.value)
+                _password.value = _password.value.copy(value = event.value.trim())
             }
             AuthEvent.OnAuthClick -> {
                 if (!checkInputFields()) return
@@ -78,16 +81,17 @@ class LoginScreenViewModel @Inject constructor(
             when(val result = repository.login(_login.value.value, _password.value.value)){
                 BasicStatus.BadInternet -> {
                     _toastMessage.value = "Brak połączenia z internetem!"
+                    _isLoading.value = false
                 }
                 BasicStatus.Failure -> {
                     _toastMessage.value = "Błędny login lub hasło!"
+                    _isLoading.value = false
                 }
                 is BasicStatus.Success -> {
                     sessionManager.saveLoginResponse(result.response)
                     _success.value = true
                 }
             }
-            _isLoading.value = false
         }
     }
 

@@ -43,19 +43,19 @@ class RegisterScreenViewModel @Inject constructor(
         when(event){
             is AuthEvent.EnteredLogin -> {
                 if (!validateTextInput(event.value)) return
-                _login.value = _login.value.copy(value = event.value)
+                _login.value = _login.value.copy(value = event.value.trim())
             }
             is AuthEvent.EnteredEmail -> {
                 if (!validateTextInput(event.value)) return
-                _email.value = _email.value.copy(value = event.value)
+                _email.value = _email.value.copy(value = event.value.trim())
             }
             is AuthEvent.EnteredPassword -> {
                 if (!validateTextInput(event.value)) return
-                _password.value = _password.value.copy(value = event.value)
+                _password.value = _password.value.copy(value = event.value.trim())
             }
             is AuthEvent.EnteredPassword2 -> {
                 if (!validateTextInput(event.value)) return
-                _password2.value = _password2.value.copy(value = event.value)
+                _password2.value = _password2.value.copy(value = event.value.trim())
             }
             AuthEvent.OnAuthClick -> {
                 if (!checkInputFields()) return

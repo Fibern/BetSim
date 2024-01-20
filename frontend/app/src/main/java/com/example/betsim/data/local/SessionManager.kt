@@ -21,9 +21,8 @@ class SessionManager @Inject constructor(
         helper.saveLoginResponse(loginResponse)
     }
 
-    suspend fun getCurrentLogin(): LoginResponse? {
-        return if (refresh()) currentLogin
-               else null
+    fun getCurrent(): LoginResponse? {
+        return currentLogin
     }
 
     fun clearSession() {
@@ -31,16 +30,14 @@ class SessionManager @Inject constructor(
         currentLogin = null
     }
 
-    private suspend fun refresh(): Boolean{
-        val login = helper.getLoginResponse() ?: return false
+    suspend fun getRefresh(): LoginResponse?{
+        val login = helper.getLoginResponse() ?: return null
         return when(val result = repository.refresh(login.refreshToken)){
             is BasicStatus.Success -> {
                 saveLoginResponse(result.response)
-                true
+                result.response
             }
-            else -> {
-                false
-            }
+            else -> null
         }
     }
 

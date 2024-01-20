@@ -21,7 +21,7 @@ fun BetSimTopAppBar(
 ){
 
     TopAppBar(
-        title = { Text(user.email) },
+        title = { Text(user.username) },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary

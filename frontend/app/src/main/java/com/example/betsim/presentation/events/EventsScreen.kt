@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.events.components.EventItem
 
 
@@ -30,6 +31,7 @@ fun EventsScreen(
     val events = viewModel.events
     val route by remember { viewModel.route }
     val isMod by remember { viewModel.isMod }
+    val isLoading by remember { viewModel.isLoading }
 
     Surface(
         modifier = Modifier
@@ -49,11 +51,15 @@ fun EventsScreen(
                             navController.navigate(route)
                         })
                     ){
-                        //TODO()
+                        viewModel.onEvent(EventsScreenEvent.DeleteClicked(event.id))
                     }
             }
         }
 
+    }
+
+    if (isLoading){
+        SemiTransparentLoadingScreen()
     }
 
 }
