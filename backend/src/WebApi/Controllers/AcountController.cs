@@ -29,15 +29,15 @@ public class AccountController : ControllerBase
         _userManager = userManager;
     }
 
-    [HttpPost()]
-    [Authorize]
-    public async Task<ActionResult> AddOddsMakerAsync()
-    {
-        var user = await _userRepo.GetUserInfoAsync(_userId);
-        IdentityResult result = await _userManager.AddToRoleAsync(user,"OddsMaker");
+    // [HttpPost()]
+    // [Authorize]
+    // public async Task<ActionResult> AddOddsMakerAsync()
+    // {
+    //     var user = await _userRepo.GetUserInfoAsync(_userId);
+    //     IdentityResult result = await _userManager.AddToRoleAsync(user,"OddsMaker");
 
-        return Ok();
-    }
+    //     return Ok();
+    // }
 
     // [HttpPost("register")]
     // public async Task<IActionResult> Register([FromBody] UserRegisterDto request)
