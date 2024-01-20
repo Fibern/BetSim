@@ -10,11 +10,13 @@ import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.create_feature.CreationEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
 import kotlin.math.min
 
+@HiltViewModel
 class CreateGameViewModel @Inject constructor(
 
 ): ViewModel() {
@@ -152,17 +154,11 @@ class CreateGameViewModel @Inject constructor(
 
         }
         else{
-            val date = validateTextFieldState(_dateTextField.value)
-            if (date != null) _dateTextField.value = date
-
-            val time = validateTextFieldState(_timeTextField.value)
-            if (time != null) _timeTextField.value = time
-
+            _dateTextField.value = validateTextFieldState(_dateTextField.value)
+            _timeTextField.value = validateTextFieldState(_timeTextField.value)
             if (type.value == OfferType.Selection) {
-                val name = validateTextFieldState(_offerName.value)
-                if (name != null) _offerName.value = name
+                _offerName.value = validateTextFieldState(_offerName.value)
             }
-
             correct = !_dateTextField.value.isError && !_timeTextField.value.isError && !_offerName.value.isError
         }
 

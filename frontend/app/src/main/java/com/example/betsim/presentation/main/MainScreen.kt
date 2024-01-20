@@ -23,6 +23,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.betsim.presentation.common.components.BasicLoadingScreen
 import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.main.components.BetSimBottomAppBar
 import com.example.betsim.presentation.main.components.BetSimTopAppBar
@@ -38,10 +39,10 @@ fun UserMainScreen(
 ){
     val navController = rememberNavController()
     val navStackEntry by navController.currentBackStackEntryAsState()
-    val modEnabled by remember { viewModel.modEnabled }
     val coupon by remember { viewModel.couponState }
     val appBarsHidden by remember { viewModel.mainAppBarsHidden }
-
+    val isLoading by remember { viewModel.isLoading }
+    val user by remember { viewModel.user }
 
     navController.addOnDestinationChangedListener{ _: NavController, destination: NavDestination, _: Bundle? ->
         viewModel.onEvent(MainEvent.DestinationChange(destination.route))
@@ -60,14 +61,14 @@ fun UserMainScreen(
 
         topBar = {
                 if (!appBarsHidden) {
-                    BetSimTopAppBar(modEnabled)
+                    BetSimTopAppBar(user)
                 }
             },
 
         bottomBar = {
                 if (!appBarsHidden) {
                     BetSimBottomAppBar(
-                        modEnabled,
+                        user.isMod,
                         navController
                     ) {
                         viewModel.onEvent(MainEvent.HiddenChange(it))
@@ -76,7 +77,7 @@ fun UserMainScreen(
             },
 
         floatingActionButton = {
-            if (modEnabled && (
+            if (user.isMod && (
                     navStackEntry?.destination?.route == Screen.TournamentsScreen.route ||
                     navStackEntry?.destination?.route == Screen.TournamentDetailScreen.route
                     )
@@ -116,7 +117,7 @@ fun UserMainScreen(
 
     ) { innerPadding ->
 
-        if (modEnabled){
+        if (user.isMod){
             ModNavHost(
                 viewModel = viewModel,
                 mainNavController = mainNavController,
@@ -133,6 +134,9 @@ fun UserMainScreen(
         }
 
     }
+
+    if (isLoading)
+        BasicLoadingScreen()
 
 }
 

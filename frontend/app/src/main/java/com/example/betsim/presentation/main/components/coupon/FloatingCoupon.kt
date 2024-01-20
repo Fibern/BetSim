@@ -3,8 +3,6 @@ package com.example.betsim.presentation.main.components.coupon
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.Interaction
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,8 +32,6 @@ import com.example.betsim.R.drawable.ic_casino_chip
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
 import com.example.betsim.presentation.main.MainCouponState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 
 
 @Composable
@@ -173,15 +169,6 @@ fun FloatingCoupon(
 
         }
     }
-}
-
-class NoRippleInteractionSource : MutableInteractionSource{
-    override val interactions: Flow<Interaction> = emptyFlow()
-
-    override suspend fun emit(interaction: Interaction) { }
-
-    override fun tryEmit(interaction: Interaction): Boolean = true
-
 }
 
 

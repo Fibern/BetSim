@@ -37,11 +37,11 @@ import com.example.betsim.presentation.util.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BetSimBottomAppBar(
-    modEnabled: Boolean,
+    isMod: Boolean,
     navController: NavController,
     onClick: (Boolean) -> Unit
 ){
-    val items = if (modEnabled){
+    val items = if (isMod){
         modDestinations
     }else{
         userDestinations

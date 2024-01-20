@@ -12,22 +12,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.betsim.R.drawable.ic_casino_chip
+import com.example.betsim.data.remote.responses.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BetSimTopAppBar(
-    modEnabled: Boolean
+    user: User
 ){
 
     TopAppBar(
-        title = { Text("username") },
+        title = { Text(user.email) },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary
         ),
         actions = {
-            if (!modEnabled){
-                Text(text = "2500", color = MaterialTheme.colorScheme.onPrimary)
+            if (!user.isMod && user.points != null){
+                Text(text = user.points.toString(), color = MaterialTheme.colorScheme.onPrimary)
                 Icon(
                     painterResource(id = ic_casino_chip),
                     "",
