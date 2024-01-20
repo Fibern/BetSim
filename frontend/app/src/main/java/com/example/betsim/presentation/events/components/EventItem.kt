@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournaments.components
+package com.example.betsim.presentation.events.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,12 +20,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.betsim.data.remote.responses.Event
 import com.example.betsim.domain.model.EventIcons
-import com.example.betsim.domain.model.Tournament
 
 @Composable
-fun TournamentItem(
-    tournament: Tournament,
+fun EventItem(
+    event: Event,
     isMod: Boolean,
     modifier: Modifier,
     onDelete: () -> Unit
@@ -52,20 +52,20 @@ fun TournamentItem(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                tournament.icon.icon,
-                tournament.icon.name,
+                EventIcons.valueOf(event.icon).icon,
+                event.title,
                 tint = colorScheme.onSecondary,
                 modifier = Modifier.size(48.dp)
             )
-            Text(text = tournament.name, color = colorScheme.onSecondary)
+            Text(text = event.title, color = colorScheme.onSecondary)
         }
     }
 }
 
 @Preview
 @Composable
-fun TournamentItemPreview(){
-    TournamentItem(tournament = Tournament("tournament", EventIcons.Football),false, modifier = Modifier){
+fun EventItemPreview(){
+    EventItem(event = Event("Football", 0, "tournament"),false, modifier = Modifier){
 
     }
 }

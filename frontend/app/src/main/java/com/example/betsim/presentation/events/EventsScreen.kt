@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournaments
+package com.example.betsim.presentation.events
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,19 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.presentation.tournaments.components.TournamentItem
+import com.example.betsim.presentation.events.components.EventItem
 
 
 @Composable
-fun TournamentsScreen(
-    viewModel: TournamentsScreenViewModel = hiltViewModel(),
+fun EventsScreen(
+    viewModel: EventsScreenViewModel = hiltViewModel(),
     navController: NavController
 ){
 
-    val state by remember { viewModel.state }
+    val events = viewModel.events
     val route by remember { viewModel.route }
     val isMod by remember { viewModel.isMod }
 
@@ -42,9 +41,9 @@ fun TournamentsScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         ){
-            items(state.tournaments){tournament ->
-                    TournamentItem(
-                        tournament,
+            items(events){event ->
+                    EventItem(
+                        event,
                         isMod,
                         Modifier.clickable(onClick = {
                             navController.navigate(route)
@@ -62,19 +61,11 @@ fun TournamentsScreen(
 
 @Composable
 @Preview
-fun TournamentsScreenPreview() {
-    val map =   mapOf(
-        "mod" to false,
-        "today" to false
-    )
-    val viewModel = remember {
-        TournamentsScreenViewModel(SavedStateHandle(map))
-    }
-
+fun EventsScreenPreview() {
     val fakeNavController = rememberNavController()
 
-    TournamentsScreen(
-        viewModel = viewModel,
+    EventsScreen(
+        viewModel = hiltViewModel(),
         navController = fakeNavController
     )
 }

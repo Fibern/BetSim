@@ -1,13 +1,12 @@
 package com.example.betsim.presentation.main
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.data.local.SecurePreferencesHelper
-import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.data.remote.responses.User
+import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.util.Screen
 import com.example.betsim.repository.BetSimRepository
@@ -155,7 +154,6 @@ class MainViewModel @Inject constructor(
 
     private suspend fun getUser(): Boolean{
         val login = helper.getLoginResponse() ?: return false
-        Log.i("jd","a${login.accessToken}a")
         return when(val response = repository.getUser(login.accessToken)){
             BasicStatus.BadInternet -> false
             BasicStatus.Failure -> false
