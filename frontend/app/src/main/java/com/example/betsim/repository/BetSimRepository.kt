@@ -2,6 +2,7 @@ package com.example.betsim.repository
 
 import com.example.betsim.data.remote.BetSimApi
 import com.example.betsim.data.remote.error_responses.ErrorResponse
+import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.data.remote.status.RegisterStatus
@@ -84,6 +85,53 @@ class BetSimRepository @Inject constructor(
             return BasicStatus.Failure
         }catch (e: Exception){
             return BasicStatus.BadInternet
+        }
+    }
+
+    suspend fun getEvents(): BasicStatus<EventsResponse>{
+        try {
+            val response = api.getEvents()
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            return BasicStatus.BadInternet
+        }
+    }
+
+    suspend fun getEventsByUser(token: String): BasicStatus<EventsResponse>{
+        try {
+            val response = api.getEventByUser("Bearer $token")
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            return BasicStatus.BadInternet
+        }
+    }
+
+    suspend fun postEvent(token: String, title: String, icon: String): Boolean{
+        val map = hashMapOf(
+            "title" to title,
+            "icon" to icon
+        )
+        return try {
+            val response = api.postEvent(
+                "Bearer $token",
+                RequestBody.create(type, gson.toJson(map))
+            )
+            response.isSuccessful
+        }catch (e: Exception){
+            false
+        }
+    }
+
+    suspend fun deleteEvent(token: String, id: Int): Boolean{
+        return try {
+            val response = api.deleteEvent("Bearer $token", id)
+            response.isSuccessful
+        }catch (e: Exception){
+            false
         }
     }
 

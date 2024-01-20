@@ -1,15 +1,18 @@
 package com.example.betsim.data.remote
 
+import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.responses.UserResponse
 import com.google.gson.JsonObject
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface BetSimApi {
 
@@ -28,5 +31,30 @@ interface BetSimApi {
     @Headers("accept: */*", "Content-Type: application/json")
     @POST("/refresh")
     suspend fun refresh(@Body requestBody: RequestBody): Response<LoginResponse?>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @GET("/Event")
+    suspend fun getEvents(): Response<EventsResponse>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @DELETE("/Event/User")
+    suspend fun getEventByUser(@Header("authorization") authorization: String): Response<EventsResponse>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @POST("/Event")
+    suspend fun postEvent(
+        @Header("authorization") authorization: String,
+        @Body requestBody: RequestBody
+    ): Response<JsonObject>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @DELETE("/Event/{id}")
+    suspend fun deleteEvent(
+        @Header("authorization") authorization: String,
+        @Path("id") id: Int
+    ): Response<JsonObject>
+
+
+
 
 }

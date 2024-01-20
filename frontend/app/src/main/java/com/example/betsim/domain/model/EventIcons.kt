@@ -14,7 +14,7 @@ enum class EventIcons(val iconName: String, val icon: ImageVector) {
     Football("piłka nożna", Icons.Filled.SportsSoccer),
     Basketball("koszykówka", Icons.Filled.SportsBasketball),
     Volleyball("siatkówka", Icons.Filled.SportsVolleyball),
-    Exports("e-sport", Icons.Filled.SportsEsports),
+    Esports("e-sport", Icons.Filled.SportsEsports),
     Motorsports("wyścigi", Icons.Filled.SportsMotorsports),
     Mma("sport walki", Icons.Filled.SportsMma)
 
