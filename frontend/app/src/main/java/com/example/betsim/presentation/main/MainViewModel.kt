@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.betsim.data.local.SecurePreferencesHelper
+import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.remote.responses.User
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.common.util.validateDoubleInput
@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val helper: SecurePreferencesHelper,
+    private val sessionManager: SessionManager,
     private val repository: BetSimRepository
 ) : ViewModel() {
 
@@ -153,7 +153,7 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun getUser(): Boolean{
-        val login = helper.getLoginResponse() ?: return false
+        val login = sessionManager.getCurrentLogin() ?: return false
         return when(val response = repository.getUser(login.accessToken)){
             BasicStatus.BadInternet -> false
             BasicStatus.Failure -> false

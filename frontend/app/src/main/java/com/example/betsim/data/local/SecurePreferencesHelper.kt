@@ -5,7 +5,9 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.betsim.data.remote.responses.LoginResponse
 
-class SecurePreferencesHelper(context: Context){
+class SecurePreferencesHelper(
+    context: Context,
+){
 
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 

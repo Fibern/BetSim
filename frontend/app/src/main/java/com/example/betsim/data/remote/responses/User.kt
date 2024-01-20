@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class User(
     val email: String,
-    @SerializedName("isOddMaker")
+    @SerializedName("isOddsMaker")
     val isMod: Boolean,
     val points: Int?
 )

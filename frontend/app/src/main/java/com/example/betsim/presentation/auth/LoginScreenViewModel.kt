@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.betsim.data.local.SecurePreferencesHelper
+import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val repository: BetSimRepository,
-    private val helper: SecurePreferencesHelper
+    private val sessionManager: SessionManager
 ) : ViewModel(){
 
     private val _login = mutableStateOf(TextFieldState(""))
@@ -38,20 +38,10 @@ class LoginScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val login = helper.getLoginResponse()
+            val login = sessionManager.getCurrentLogin()
             if (login == null){
                 _isLoading.value = false
                 return@launch
-            }
-            when(val result = repository.refresh(login.refreshToken)){
-                is BasicStatus.Success -> {
-                    helper.saveLoginResponse(result.response)
-                    _success.value = true
-                }
-                else -> {
-                    _isLoading.value = false
-                    return@launch
-                }
             }
         }
     }
@@ -93,7 +83,7 @@ class LoginScreenViewModel @Inject constructor(
                     _toastMessage.value = "Błędny login lub hasło!"
                 }
                 is BasicStatus.Success -> {
-                    helper.saveLoginResponse(result.response)
+                    sessionManager.saveLoginResponse(result.response)
                     _success.value = true
                 }
             }
