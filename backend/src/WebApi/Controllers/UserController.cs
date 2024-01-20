@@ -7,8 +7,10 @@ using Application.Dto.EventDto;
 using Application.Dto.UserDto;
 using Application.Queries.CouponQuery;
 using Application.Queries.UserQuery;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -58,6 +60,7 @@ namespace WebApi.Controllers
         [HttpGet("Coupon")]
         [Authorize]    
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetCouponDto>>>> GetAsync()
+
         {
             var command = new GetUserCouponQuery(_userId);
             var response = await _mediator.Send(command);
@@ -67,7 +70,32 @@ namespace WebApi.Controllers
             return BadRequest(response);
         }
 
+        [HttpGet("scoreBoard")]
+        [Authorize]
+        public async Task<ActionResult<BaseResponse<ScoreBoardDto>>> GetScoreboardAsync()
+        {
+            var command = new GetUserScoreBoardQuery(_userId);
+            var response = await _mediator.Send(command);
+
+            if (response.Succes == true) return Ok(response);
+
+            return BadRequest(response);
+        }
+
+        [HttpPut()]
+        [Authorize]
+        public async Task<ActionResult<BaseResponse<string>>> PutAsync(UserPutDto userPutDto)
+        {
+            var command = new PutUserCommand(_userId, userPutDto);
+            var response = await _mediator.Send(command);
+
+            if (response.Succes == true) return Ok(response);
+
+            return BadRequest(response);
+        }
+
         [HttpDelete()]
+        [Authorize]
         public async Task<ActionResult<BaseResponse<string>>> DeleteAsync()
         {
             var command =  new DeleteUserCommand(_userId);

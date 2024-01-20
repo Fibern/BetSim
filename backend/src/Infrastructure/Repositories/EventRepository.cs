@@ -48,7 +48,7 @@ namespace Infrastructure.Repositories
         public async Task<Event> GetById(int Id)
         {
             return await _context.Event
-            .FirstOrDefaultAsync(o => o.Id == Id);
+            .FindAsync(Id);
         }
 
         public async Task<Event> GetUserEventAsync(int id, int userId)

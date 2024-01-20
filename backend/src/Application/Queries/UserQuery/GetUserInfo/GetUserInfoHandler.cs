@@ -19,6 +19,7 @@ namespace Application.Queries.UserQuery
 
             var userInfo = new UserInfoDto()
             {
+                UserName = user.UserName,
                 IsOddsMaker = request.IsOddsMaker,
                 Email = user.Email,
                 Points = user.Points

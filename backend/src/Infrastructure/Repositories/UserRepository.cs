@@ -1,4 +1,5 @@
 using Application.Abstractions;
+using Application.Dto.UserDto;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,10 +33,25 @@ namespace Infrastructure.Repositories
         public async Task<User> GetUserInfoAsync(int userId)
         {
             User user = await _context.User
-            .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == userId);
             
             return user;
         }
+
+        public async Task<List<User>> GetUserScoreSortedAsync()
+        {
+            var users = await _context.User.AsNoTracking()
+            .OrderByDescending(e => e.Points)
+            .Select(e => new User{Id = e.Id, UserName = e.UserName, Points = e.Points}).ToListAsync();
+
+            return users;
+        }
+
+        public async Task<bool> PutAsync(User user)
+        {
+            _context.User.Update(user);
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
     }
 }

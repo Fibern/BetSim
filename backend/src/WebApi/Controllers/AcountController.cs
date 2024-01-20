@@ -4,6 +4,8 @@ using Application.Abstractions;
 using Application.Dto.UserDto;
 using Domain.Entities;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -12,12 +14,29 @@ public class AccountController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly IUserRepository _userRepo;
+    private IHttpContextAccessor _httpContextAccessor;
+    private UserManager<User> _userManager;
+    private int _userId;
 
 
-    public AccountController(IConfiguration configuration, IUserRepository userRepo)
+    public AccountController(IConfiguration configuration, IUserRepository userRepo, IHttpContextAccessor httpContextAccessor, UserManager<User> userManager)
     {
         _configuration = configuration;
         _userRepo = userRepo;
+        var userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId != null) _userId = int.Parse(userId);
+        _httpContextAccessor = httpContextAccessor;
+        _userManager = userManager;
+    }
+
+    [HttpPost()]
+    [Authorize]
+    public async Task<ActionResult> AddOddsMakerAsync()
+    {
+        var user = await _userRepo.GetUserInfoAsync(_userId);
+        IdentityResult result = await _userManager.AddToRoleAsync(user,"OddsMaker");
+
+        return Ok();
     }
 
     // [HttpPost("register")]

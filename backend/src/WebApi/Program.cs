@@ -37,6 +37,7 @@ builder.Services.AddControllers(
 
 //configure identity
 builder.Services.AddIdentityApiEndpoints<User>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DbMainContext>();
 
 
@@ -148,6 +149,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//seeding
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new List {"OddsMaker","User"}
+}
 
 app.Run();
 

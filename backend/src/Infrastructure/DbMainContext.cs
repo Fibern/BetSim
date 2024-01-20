@@ -18,6 +18,8 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
+
         }
 
         public DbSet<User> User { get; set; }
