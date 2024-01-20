@@ -43,7 +43,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker")]
         public async Task<ActionResult<BaseResponse<int>>> PostEvent(EventDto eventDto)
         {
 
@@ -56,7 +56,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker") ]
         public async Task<ActionResult<BaseResponse<int>>> PutEvent(EventDto eventDto, [FromRoute] int id)
         {
 
@@ -70,7 +70,7 @@ namespace WebApi.Controllers
 
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker")]
         public async Task<ActionResult<BaseResponse<string>>> Delete([FromRoute] int id)
         {
             var command = new DeleteEventCommand(id,_userId);

@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Configuration;
 using System.Text;
+using WebApi;
 using WebApi.Filtres;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,7 +38,8 @@ builder.Services.AddControllers(
 
 //configure identity
 builder.Services.AddIdentityApiEndpoints<User>()
-    .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole<int>>()
+    .AddRoleManager<RoleManager<IdentityRole<int>>>()
     .AddEntityFrameworkStores<DbMainContext>();
 
 
@@ -150,12 +152,17 @@ app.UseAuthorization();
 app.MapControllers();
 
 //seeding
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+// using (var scope = app.Services.CreateScope())
+// {
+//     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
-    var roles = new List {"OddsMaker","User"}
-}
+//     var roles = new [] {"OddsMaker","User"};
+
+//     foreach (var role in roles)
+//     {
+//         await roleManager.CreateAsync(new IdentityRole<int>(role));
+//     }
+// }
 
 app.Run();
 
