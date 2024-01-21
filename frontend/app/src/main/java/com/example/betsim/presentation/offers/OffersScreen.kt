@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details
+package com.example.betsim.presentation.offers
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,12 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.betsim.presentation.main.MainViewModel
-import com.example.betsim.presentation.tournament_details.components.TournamentDetailChoice
+import com.example.betsim.presentation.offers.components.OffersItem
 import com.example.betsim.presentation.util.Screen
 
 @Composable
-fun TournamentDetailScreen(
-    viewModel: TournamentDetailsViewModel = hiltViewModel(),
+fun OffersScreen(
+    viewModel: OffersViewModel = hiltViewModel(),
     navController: NavController,
     mainViewModel: MainViewModel,
 ) {
@@ -36,18 +36,21 @@ fun TournamentDetailScreen(
     val coupon by remember { mainViewModel.couponState }
     val isMod by remember { viewModel.isMod }
     val route by remember { viewModel.route }
+    val id by remember { viewModel.id }
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
-                shape = CircleShape,
-                onClick = {
-                    navController.navigate(route)
-                },
-                containerColor = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(top = 500.dp, start = 200.dp)
-            ) {
-                Icon(Icons.Filled.Add, "add", tint = MaterialTheme.colorScheme.onPrimary)
+            if (isMod && id != -1) {
+                FloatingActionButton(
+                    shape = CircleShape,
+                    onClick = {
+                        navController.navigate(route)
+                    },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 500.dp, start = 200.dp)
+                ) {
+                    Icon(Icons.Filled.Add, "add", tint = MaterialTheme.colorScheme.onPrimary)
+                }
             }
         }
     ) {paddingValues ->
@@ -76,11 +79,12 @@ fun TournamentDetailScreen(
                     )
                      */
 
-                    TournamentDetailChoice(offer, isMod) { onClickIndex ->
+                    OffersItem(offer, isMod) { onClickIndex ->
                         if (isMod) {
-                            navController.navigate(Screen.ModifyGameScreen.route)
+                            viewModel.onEvent(OffersEvent.ModifyClicked(index))
+                            navController.navigate("${Screen.ModifyGameDefaultScreen.route}?id=${id}")
                         } else {
-                            viewModel.onEvent(TournamentDetailsEvent.OnSelect(offer, onClickIndex))
+                            viewModel.onEvent(OffersEvent.OnSelect(offer, onClickIndex))
                             // TODO() mainViewModel.onEvent(MainEvent.AddGame(game))
                         }
                     }

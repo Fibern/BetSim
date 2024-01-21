@@ -171,5 +171,18 @@ class BetSimRepository @Inject constructor(
         }
     }
 
+    suspend fun patchOffer(token: String, id: Int, winner: Int, score: String): Boolean{
+        val map = hashMapOf(
+            "winner" to winner,
+            "score" to score
+        )
+        return try {
+            val response = api.patchOffer("Bearer $token", id, RequestBody.create(type, gson.toJson(map)))
+            response.isSuccessful
+        }catch (e: Exception){
+            false
+        }
+    }
+
 
 }

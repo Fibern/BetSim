@@ -39,7 +39,8 @@ sealed class Screen(val route: String) {
     data object AddGameScreen: Screen("add_game_screen")
     data object AddGameTeamsScreen: Screen("add_game_teams_screen")
     data object StartedGamesScreen: Screen("started_games_screen?today={today}&mod={mod}&id={id}")
-    data object ModifyGameScreen: Screen("modify_game_screen")
+    data object ModifyGameDefaultScreen: Screen("modify_game_screen")
+    data object ModifyGameScreen: Screen("modify_game_screen?id={id}")
 
 }
 

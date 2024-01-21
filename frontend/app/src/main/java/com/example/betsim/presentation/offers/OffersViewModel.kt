@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details
+package com.example.betsim.presentation.offers
 
 import androidx.compose.runtime.IntState
 import androidx.compose.runtime.State
@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.betsim.data.local.OfferHolder
 import com.example.betsim.data.remote.responses.Offer
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.util.Screen
@@ -18,9 +19,10 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
-class TournamentDetailsViewModel @Inject constructor(
+class OffersViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val repository: BetSimRepository
+    private val repository: BetSimRepository,
+    private val offerHolder: OfferHolder
 ): ViewModel() {
 
     private val _offers = mutableStateListOf<Offer>()
@@ -46,15 +48,18 @@ class TournamentDetailsViewModel @Inject constructor(
         getGames()
     }
 
-    fun onEvent(event: TournamentDetailsEvent){
+    fun onEvent(event: OffersEvent){
         when(event){
-            is TournamentDetailsEvent.LoadList -> {
+            is OffersEvent.LoadList -> {
                 //TODO()
                 // _games.removeAt(event.index)
                // _games.add(event.index, event.game)
             }
-            is TournamentDetailsEvent.OnSelect -> {
+            is OffersEvent.OnSelect -> {
                 event.offer.selected = event.index
+            }
+            is OffersEvent.ModifyClicked -> {
+                offerHolder.saveOffer(_offers[event.index])
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.betsim.di
 
 import android.content.Context
+import com.example.betsim.data.local.OfferHolder
 import com.example.betsim.data.local.SecurePreferencesHelper
 import com.example.betsim.data.remote.BetSimApi
 import com.example.betsim.repository.BetSimRepository
@@ -45,6 +46,12 @@ object AppModule {
     @Provides
     fun provideSecurePreferencesHelper(@ApplicationContext appContext: Context): SecurePreferencesHelper{
         return SecurePreferencesHelper(appContext)
+    }
+
+    @Singleton
+    @Provides
+    fun provideOfferHolder(): OfferHolder{
+        return OfferHolder()
     }
 
 }

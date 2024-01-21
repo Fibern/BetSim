@@ -22,7 +22,7 @@ import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.main.components.coupon.CouponFog
 import com.example.betsim.presentation.profile.Profile
-import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
+import com.example.betsim.presentation.offers.OffersScreen
 import com.example.betsim.presentation.events.EventsScreen
 
 @Composable
@@ -71,7 +71,7 @@ fun UserNavHost(
                         type = NavType.IntType
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
+            ) { OffersScreen(mainViewModel = viewModel, navController = navController) }
         }
 
         navigation(startDestination = Screen.TournamentsScreen.route, route = Screen.TournamentsNav.route){
@@ -103,7 +103,7 @@ fun UserNavHost(
                         type = NavType.IntType
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
+            ) { OffersScreen(mainViewModel = viewModel, navController = navController) }
         }
 
         navigation(startDestination = Screen.CouponsScreen.route, route = Screen.CouponsNav.route){

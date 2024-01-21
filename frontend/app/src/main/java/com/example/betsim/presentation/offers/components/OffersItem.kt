@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details.components
+package com.example.betsim.presentation.offers.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.min
 
 @Composable
-fun TournamentDetailChoice(
+fun OffersItem(
     offer: Offer,
     isMod: Boolean,
     onClick: (Int) -> Unit
@@ -91,7 +91,7 @@ fun TournamentDetailChoice(
 
                 for (j in i..min(i+2,offer.odds.size-1)) {
                     val it = offer.odds[j]
-                    TournamentItemButton(
+                    OffersItemButton(
                         isMod = isMod,
                         onClick = { onClick(j) },
                         name = it.playerName,
@@ -139,8 +139,8 @@ fun TournamentDetailChoice(
 
 @Preview
 @Composable
-fun TournamentDetailItemPreview(){
-    TournamentDetailChoice(
+fun OffersItemPreview(){
+    OffersItem(
         offer = Offer(
             active = true,
             dateTime = LocalDateTime.now(),

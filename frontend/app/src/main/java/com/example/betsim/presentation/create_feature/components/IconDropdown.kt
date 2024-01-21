@@ -41,6 +41,8 @@ fun IconDropdown(
 
         BetSimOutlinedTextField(
             value = value?.iconName ?: "",
+            readonly = true,
+            singleLine = true,
             leadingIcon = {
                 if (value != null) Icon(value.icon, value.name)
                 else {
@@ -51,7 +53,7 @@ fun IconDropdown(
                     )
                 }
             },
-            readonly = true,
+            isError = isError,
             trailingIcon = {
                 if (expanded){
                     IconButton(onClick = { expanded = false }) {
@@ -64,11 +66,9 @@ fun IconDropdown(
                 }
             },
             onValueChange = {},
-            singleLine = true,
             modifier = Modifier
                 .menuAnchor(),
-            placeholder = hint,
-            isError = isError
+            placeholder = hint
         )
 
 

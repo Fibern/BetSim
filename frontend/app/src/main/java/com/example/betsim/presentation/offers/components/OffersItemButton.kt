@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.tournament_details.components
+package com.example.betsim.presentation.offers.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TournamentItemButton(
+fun OffersItemButton(
     isMod: Boolean,
     onClick: () -> Unit,
     name: String,

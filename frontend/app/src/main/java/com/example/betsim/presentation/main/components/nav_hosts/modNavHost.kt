@@ -15,7 +15,7 @@ import com.example.betsim.presentation.create_feature.create_offer.CreateOfferMa
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile
-import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
+import com.example.betsim.presentation.offers.OffersScreen
 import com.example.betsim.presentation.events.EventsScreen
 import com.example.betsim.presentation.util.Screen
 
@@ -66,7 +66,7 @@ fun ModNavHost(
                         type = NavType.IntType
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel , navController = navController) }
+            ) { OffersScreen(mainViewModel = viewModel , navController = navController) }
 
             composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen(navController) }
             composable(
@@ -94,8 +94,16 @@ fun ModNavHost(
                     defaultValue = -1
                 }
             )
-        ){ TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
-        composable(route = Screen.ModifyGameScreen.route){ ModifyScreen(navController) }
+        ){ OffersScreen(mainViewModel = viewModel, navController = navController) }
+        composable(
+            route = Screen.ModifyGameScreen.route,
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ){ ModifyScreen(navController) }
         composable(route = Screen.ProfileScreen.route){ Profile(viewModel, mainNavController, navController) }
 
     }

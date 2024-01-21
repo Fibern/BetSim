@@ -12,6 +12,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -69,5 +70,13 @@ interface BetSimApi {
     suspend fun getOffer(
         @Path("eventId") id: Int
     ): Response<OfferResponse>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @PATCH("/Offert/{offertId}")
+    suspend fun patchOffer(
+        @Header("authorization") authorization: String,
+        @Path("offertId") id: Int,
+        @Body requestBody: RequestBody
+    ):Response<JsonObject>
 
 }
