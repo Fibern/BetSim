@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
-import com.example.betsim.domain.model.EventIcons
+import com.example.betsim.data.model.EventIcons
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)

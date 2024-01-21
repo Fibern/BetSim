@@ -1,6 +1,8 @@
 package com.example.betsim.presentation.tournament_details
 
+import androidx.compose.runtime.IntState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -8,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.domain.model.Odd
 import com.example.betsim.domain.model.TournamentGame
+import com.example.betsim.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -27,9 +30,18 @@ class TournamentDetailsViewModel @Inject constructor(
     private val _isMod = mutableStateOf(false)
     val isMod: State<Boolean> = _isMod
 
+    private val _id = mutableIntStateOf(-1)
+    val id: IntState = _id
+
+    private val _route = mutableStateOf("")
+    val route: State<String> = _route
+
+
     init {
         _isToday.value = checkNotNull(savedStateHandle["today"])
         _isMod.value = checkNotNull(savedStateHandle["mod"])
+        _id.intValue = checkNotNull(savedStateHandle["id"])
+        _route.value = "${Screen.AddGameMainDefaultScreen.route}?id=${_id.intValue}"
         getGames()
     }
 

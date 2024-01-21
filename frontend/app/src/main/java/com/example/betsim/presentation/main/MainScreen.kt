@@ -78,19 +78,12 @@ fun UserMainScreen(
 
         floatingActionButton = {
             if (user.isMod && (
-                    navStackEntry?.destination?.route == Screen.TournamentsScreen.route ||
-                    navStackEntry?.destination?.route == Screen.TournamentDetailScreen.route
-                    )
+                    navStackEntry?.destination?.route == Screen.TournamentsScreen.route)
                 ) {
                 FloatingActionButton(
                     shape = CircleShape,
                     onClick = {
-                        navController.navigate(
-                            if (navStackEntry?.destination?.route == Screen.TournamentsScreen.route)
-                                Screen.AddTournamentScreen.route
-                            else
-                                Screen.AddGameMainScreen.route
-                        )
+                        navController.navigate(Screen.AddTournamentScreen.route)
                     },
                     containerColor = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(top = 500.dp, start = 200.dp)

@@ -55,6 +55,13 @@ interface BetSimApi {
     ): Response<JsonObject>
 
 
+    @Headers("accept: */*", "Content-Type: application/json")
+    @POST("/Offert/{eventId}")
+    suspend fun postOffer(
+        @Header("authorization") authorization: String,
+        @Path("eventId") id: Int,
+        @Body requestBody: RequestBody
+    ): Response<JsonObject>
 
 
 }

@@ -29,7 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.common.components.FormText
-import com.example.betsim.domain.model.EventIcons
+import com.example.betsim.data.model.EventIcons
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.CreationTextField

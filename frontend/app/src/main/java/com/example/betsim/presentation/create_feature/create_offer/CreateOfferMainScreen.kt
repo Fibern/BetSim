@@ -14,9 +14,9 @@ import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 
 @Composable
-fun CreateGameMainScreen(
+fun CreateOfferMainScreen(
     mainNavController: NavHostController,
-    viewModel: CreateGameViewModel = hiltViewModel()
+    viewModel: CreateOfferViewModel = hiltViewModel()
 ) {
 
     val navController = rememberNavController()
@@ -40,8 +40,8 @@ fun CreateGameMainScreen(
             navController = navController,
             startDestination = Screen.AddGameScreen.route
         ){
-            composable(Screen.AddGameScreen.route){ CreateGameScreen(viewModel = viewModel, navController = navController) }
-            composable(Screen.AddGameTeamsScreen.route){ CreateGameTeamsScreen(viewModel = viewModel) }
+            composable(Screen.AddGameScreen.route){ CreateOfferScreen(viewModel = viewModel, navController = navController) }
+            composable(Screen.AddGameTeamsScreen.route){ CreateOfferTeamsScreen(viewModel = viewModel) }
         }
 
     }

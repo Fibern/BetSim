@@ -1,24 +1,36 @@
 package com.example.betsim.presentation.create_feature.create_offer
 
 
+import android.util.Log
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.betsim.data.local.SessionManager
+import com.example.betsim.data.model.OddItem
 import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.create_feature.CreationEvent
+import com.example.betsim.repository.BetSimRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.inject.Inject
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 @HiltViewModel
-class CreateGameViewModel @Inject constructor(
-
+class CreateOfferViewModel @Inject constructor(
+    private val repository: BetSimRepository,
+    private val sessionManager: SessionManager,
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
 
@@ -49,14 +61,22 @@ class CreateGameViewModel @Inject constructor(
     private val _createErrorText = mutableStateOf("")
     val createErrorText: State<String> = _createErrorText
 
+    private val _id = mutableIntStateOf(-1)
+
+    init {
+        _id.intValue = checkNotNull(savedStateHandle["id"])
+        Log.i("jd",_id.intValue.toString())
+    }
+
     fun onEvent(event: CreationEvent){
         when(event){
             CreationEvent.CreateClick -> {
-                //TODO()
-                checkInput(true)
+                if(!checkInput(true)) return
+                onCreate()
             }
 
             CreationEvent.AddTeam -> {
+                if (_odds.size > 15) return
                 _odds.add(
                     OddState(
                         name = TextFieldState(if (_drawable.value) "remis" else "")
@@ -195,6 +215,48 @@ class CreateGameViewModel @Inject constructor(
         return type
     }
 
+    private fun onCreate(){
+        viewModelScope.launch {
+            val title = if (_type.value == OfferType.Selection) _offerName.value.value
+                        else "${_odds[0].name.value} - ${_odds[1].name.value}"
+            val dateTime = LocalDateTime.of(_dateTextField.value.value, _timeTextField.value.value)
+            val oddItems = createOddItems()
+            val login = sessionManager.getCurrent()
+            Log.i("jd", login?.accessToken ?: "niuja")
+            if (login != null) {
+                repository.postOffer(
+                    token = login.accessToken,
+                    id = _id.intValue,
+                    title = title,
+                    offerType = _type.value.ordinal,
+                    dateTime = dateTime.toString(),
+                    odds = oddItems
+                )
+            }
+        }
 
+    }
+
+    private fun createOddItems(): List<OddItem>{
+
+        val oddItems = mutableListOf<OddItem>()
+        _odds.forEach {
+            oddItems.add(convertOddStateToOddItem(it))
+        }
+
+        if (_type.value == OfferType.Match && oddItems.size == 3)
+            return listOf(oddItems[0], oddItems[2], oddItems[1])
+
+        return oddItems
+    }
+
+    private fun convertOddStateToOddItem(oddState: OddState): OddItem{
+
+        val name = oddState.name.value
+        val percentage = oddState.odd.value.replace(',','.').toDouble()
+        val oddValue = (10000 / percentage).roundToInt().toDouble() / 100
+        return OddItem(name, oddValue)
+
+    }
 
 }

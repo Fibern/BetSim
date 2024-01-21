@@ -42,8 +42,8 @@ class EventsScreenViewModel @Inject constructor(
     init {
         _isToday.value = checkNotNull(savedStateHandle["today"])
         _isMod.value = checkNotNull(savedStateHandle["mod"])
-        if (_isToday.value) _route.value = Screen.TodayTournamentDetailScreen.route
-        else _route.value = Screen.TournamentDetailScreen.route
+        if (_isToday.value) _route.value = Screen.TodayTournamentDetailDefaultScreen.route
+        else _route.value = Screen.TournamentDetailDefaultScreen.route
 
         if (_isMod.value) getModEvents()
         else getEvents()

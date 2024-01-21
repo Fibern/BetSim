@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.betsim.presentation.create_feature.create_event.CreateEventScreen
-import com.example.betsim.presentation.create_feature.create_offer.CreateGameMainScreen
+import com.example.betsim.presentation.create_feature.create_offer.CreateOfferMainScreen
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile
@@ -61,12 +61,22 @@ fun ModNavHost(
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = true
+                    },
+                    navArgument("id"){
+                        type = NavType.IntType
                     }
                 )
             ) { TournamentDetailScreen(mainViewModel = viewModel , navController = navController) }
 
             composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen(navController) }
-            composable(route = Screen.AddGameMainScreen.route){ CreateGameMainScreen(navController) }
+            composable(
+                route = Screen.AddGameMainScreen.route,
+                arguments = listOf(
+                    navArgument("id"){
+                        type = NavType.IntType
+                    }
+                )
+            ){ CreateOfferMainScreen(navController) }
         }
         composable(
             Screen.StartedGamesScreen.route,
@@ -78,6 +88,10 @@ fun ModNavHost(
                 navArgument("mod"){
                     type = NavType.BoolType
                     defaultValue = true
+                },
+                navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
                 }
             )
         ){ TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }

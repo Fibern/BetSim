@@ -1,5 +1,6 @@
 package com.example.betsim.repository
 
+import com.example.betsim.data.model.OddItem
 import com.example.betsim.data.remote.BetSimApi
 import com.example.betsim.data.remote.error_responses.ErrorResponse
 import com.example.betsim.data.remote.responses.EventsResponse
@@ -134,5 +135,28 @@ class BetSimRepository @Inject constructor(
             false
         }
     }
+
+    suspend fun postOffer(
+        token: String,
+        id: Int,
+        title: String,
+        offerType: Int,
+        dateTime: String,
+        odds: List<OddItem>
+    ): Boolean{
+        val map = hashMapOf(
+            "title" to title,
+            "type" to offerType,
+            "dateTime" to dateTime,
+            "odds" to odds
+        )
+        return try {
+            val response = api.postOffer("Bearer $token", id, RequestBody.create(type, gson.toJson(map)))
+            response.isSuccessful
+        }catch (e: Exception){
+            false
+        }
+    }
+
 
 }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.data.local.SessionManager
-import com.example.betsim.domain.model.EventIcons
+import com.example.betsim.data.model.EventIcons
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
 import com.example.betsim.presentation.create_feature.CreationEvent

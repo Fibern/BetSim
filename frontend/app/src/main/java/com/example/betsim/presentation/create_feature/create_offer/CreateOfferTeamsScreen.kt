@@ -44,7 +44,7 @@ import com.example.betsim.presentation.create_feature.components.AddTeamsListIte
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
+fun CreateOfferTeamsScreen(viewModel: CreateOfferViewModel) {
 
 
     val drawable by remember { viewModel.drawable }
@@ -185,14 +185,12 @@ fun CreateGameTeamsScreen(viewModel: CreateGameViewModel) {
 
 @Preview
 @Composable
-fun CreateGameTeamsScreenPreview(){
-    CreateGameTeamsScreen(viewModel = hiltViewModel())
+fun CreateOfferTeamsScreenPreview(){
+    CreateOfferTeamsScreen(viewModel = hiltViewModel())
 }
 
 @Preview
 @Composable
-fun CreateGameTeamsScreenPreview2(){
-    val viewModel = CreateGameViewModel()
-    viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.Selection))
-    CreateGameTeamsScreen(viewModel)
+fun CreateOfferTeamsScreenPreview2(){
+    CreateOfferTeamsScreen(hiltViewModel())
 }

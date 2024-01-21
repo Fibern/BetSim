@@ -1,7 +1,7 @@
 package com.example.betsim.presentation.create_feature
 
 import com.example.betsim.domain.model.OfferType
-import com.example.betsim.domain.model.EventIcons
+import com.example.betsim.data.model.EventIcons
 import com.example.betsim.presentation.create_feature.create_offer.OddState
 import java.time.LocalDate
 import java.time.LocalTime

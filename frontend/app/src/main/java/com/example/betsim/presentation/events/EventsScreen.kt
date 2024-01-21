@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.events.components.EventItem
@@ -25,7 +25,7 @@ import com.example.betsim.presentation.events.components.EventItem
 @Composable
 fun EventsScreen(
     viewModel: EventsScreenViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavHostController
 ){
 
     val events = viewModel.events
@@ -48,13 +48,14 @@ fun EventsScreen(
                         event,
                         isMod,
                         Modifier.clickable(onClick = {
-                            navController.navigate(route)
+                            navController.navigate("$route?id=${event.id}")
                         })
                     ){
                         viewModel.onEvent(EventsScreenEvent.DeleteClicked(event.id))
                     }
             }
         }
+
 
     }
 

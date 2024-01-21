@@ -66,6 +66,9 @@ fun UserNavHost(
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = false
+                    },
+                    navArgument("id"){
+                        type = NavType.IntType
                     }
                 )
             ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
@@ -95,6 +98,9 @@ fun UserNavHost(
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = false
+                    },
+                    navArgument("id"){
+                        type = NavType.IntType
                     }
                 )
             ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }

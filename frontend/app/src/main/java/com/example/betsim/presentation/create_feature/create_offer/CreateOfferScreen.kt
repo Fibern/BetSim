@@ -41,8 +41,8 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun CreateGameScreen(
-    viewModel: CreateGameViewModel,
+fun CreateOfferScreen(
+    viewModel: CreateOfferViewModel,
     navController: NavController,
 ) {
 
@@ -171,6 +171,6 @@ fun CreateGameScreen(
 
 @Preview
 @Composable
-fun CreateGameScreenPreview(){
-    CreateGameScreen(hiltViewModel(), rememberNavController())
+fun CreateOfferScreenPreview(){
+    CreateOfferScreen(hiltViewModel(), rememberNavController())
 }
