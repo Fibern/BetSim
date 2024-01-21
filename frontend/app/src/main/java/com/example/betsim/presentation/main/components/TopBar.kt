@@ -28,7 +28,7 @@ fun BetSimTopAppBar(
         ),
         actions = {
             if (!user.isMod && user.points != null){
-                Text(text = user.points.toString(), color = MaterialTheme.colorScheme.onPrimary)
+                Text(text = "%.2f".format(user.points).replace('.',','), color = MaterialTheme.colorScheme.onPrimary)
                 Icon(
                     painterResource(id = ic_casino_chip),
                     "",

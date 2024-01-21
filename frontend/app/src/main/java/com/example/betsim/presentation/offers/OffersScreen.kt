@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
+import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.offers.components.OffersItem
 import com.example.betsim.presentation.util.Screen
@@ -37,6 +39,7 @@ fun OffersScreen(
     val isMod by remember { viewModel.isMod }
     val route by remember { viewModel.route }
     val id by remember { viewModel.id }
+    val isLoading by remember { viewModel.isLoading }
 
     Scaffold(
         floatingActionButton = {
@@ -69,15 +72,8 @@ fun OffersScreen(
             ) {
 
                 itemsIndexed(offers) { index, offer ->
-                    /* TODO()
-                    val i = coupon.games.indexOf(offer)
-                    if (i != -1) viewModel.onEvent(
-                        TournamentDetailsEvent.LoadList(
-                            coupon.games[i],
-                            index
-                        )
-                    )
-                     */
+                    val i = coupon.offers.indexOf(offer)
+                    if (i != -1) viewModel.onEvent(OffersEvent.LoadList(coupon.offers[i], index))
 
                     OffersItem(offer, isMod) { onClickIndex ->
                         if (isMod) {
@@ -85,12 +81,15 @@ fun OffersScreen(
                             navController.navigate("${Screen.ModifyGameDefaultScreen.route}?id=${id}")
                         } else {
                             viewModel.onEvent(OffersEvent.OnSelect(offer, onClickIndex))
-                            // TODO() mainViewModel.onEvent(MainEvent.AddGame(game))
+                            mainViewModel.onEvent(MainEvent.AddGame(offer))
                         }
                     }
                 }
 
             }
+
+            if (isLoading)
+                SemiTransparentLoadingScreen()
 
         }
     }

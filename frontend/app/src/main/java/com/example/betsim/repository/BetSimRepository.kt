@@ -197,4 +197,26 @@ class BetSimRepository @Inject constructor(
         }
     }
 
+
+    suspend fun postCoupon(
+        token: String,
+        bets: List<HashMap<String, Int>>,
+        value: Double,
+        oddSum: Double,
+        dateTime: String
+    ): Boolean{
+        val map = hashMapOf(
+            "bets" to bets,
+            "value" to value,
+            "oddSum" to oddSum,
+            "dateTime" to dateTime
+        )
+        return try {
+            val response = api.postCoupon("Bearer $token", RequestBody.create(type, gson.toJson(map)))
+            response.isSuccessful
+        }catch (e: Exception){
+            false
+        }
+    }
+
 }

@@ -39,6 +39,8 @@ class OffersViewModel @Inject constructor(
     private val _route = mutableStateOf("")
     val route: State<String> = _route
 
+    private val _isLoading = mutableStateOf(true)
+    val isLoading: State<Boolean> = _isLoading
 
     init {
         _isToday.value = checkNotNull(savedStateHandle["today"])
@@ -51,9 +53,8 @@ class OffersViewModel @Inject constructor(
     fun onEvent(event: OffersEvent){
         when(event){
             is OffersEvent.LoadList -> {
-                //TODO()
-                // _games.removeAt(event.index)
-               // _games.add(event.index, event.game)
+                _offers.removeAt(event.index)
+                _offers.add(event.index, event.offer)
             }
             is OffersEvent.OnSelect -> {
                 event.offer.selected = event.index
@@ -68,6 +69,7 @@ class OffersViewModel @Inject constructor(
     private fun getGames() {
 
         viewModelScope.launch {
+            _isLoading.value = true
             if (_id.intValue != -1){
                 val response = repository.getOffer(_id.intValue)
                 when(response){
@@ -76,13 +78,17 @@ class OffersViewModel @Inject constructor(
                     is BasicStatus.Success -> {
                         val tmp = response.response.offer.toMutableList()
                         _offers.clear()
+                        if (!_isMod.value)
+                            tmp.retainAll { it.active }
                         if (_isToday.value)
-                            _offers.addAll(tmp.filter { it.dateTime.toLocalDate() == LocalDate.now() })
-                        else
-                            _offers.addAll(tmp)
+                            tmp.retainAll { it.dateTime.toLocalDate() == LocalDate.now() }
+
+                        _offers.addAll(tmp)
                     }
                 }
             }
+            _isLoading.value = false
         }
     }
+
 }

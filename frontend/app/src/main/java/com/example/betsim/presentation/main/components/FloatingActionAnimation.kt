@@ -10,7 +10,7 @@ import androidx.compose.animation.slideOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.IntOffset
-import com.example.betsim.domain.model.TournamentGame
+import com.example.betsim.data.remote.responses.Offer
 import com.example.betsim.presentation.main.MainCouponState
 import com.example.betsim.presentation.main.components.coupon.FloatingCoupon
 
@@ -18,7 +18,7 @@ import com.example.betsim.presentation.main.components.coupon.FloatingCoupon
 fun FloatingActionAnimation(
     coupon: MainCouponState,
     onClick: () -> Unit,
-    onDeleteClick: (TournamentGame) -> Unit,
+    onDeleteClick: (Offer) -> Unit,
     onValueChange: (String) -> Unit,
     onBet: () -> Unit
 ){
@@ -35,7 +35,7 @@ fun FloatingActionAnimation(
                 if(it){
                     FloatAB(
                         onClick = ({ onClick() }),
-                        count = coupon.games.size
+                        count = coupon.offers.size
                     )
                 }else{
                     FloatingCoupon(
@@ -43,8 +43,8 @@ fun FloatingActionAnimation(
                         onValueChange = {str ->
                             onValueChange(str)
                         },
-                        onClick = { game ->
-                            onDeleteClick(game)
+                        onClick = { offer ->
+                            onDeleteClick(offer)
                         },
                         onBet = onBet
                     )

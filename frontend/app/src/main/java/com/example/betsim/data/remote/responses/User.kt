@@ -8,5 +8,5 @@ data class User(
     val email: String,
     @SerializedName("isOddsMaker")
     val isMod: Boolean,
-    val points: Int?
+    val points: Double?
 )

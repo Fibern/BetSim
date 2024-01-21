@@ -84,4 +84,8 @@ interface BetSimApi {
     @GET("/User/scoreBoard")
     suspend fun getLeaderboard(@Header("authorization") authorization: String): Response<RankingResponse>
 
+    @Headers("accept: */*", "Content-Type: application/json")
+    @POST("/Coupon")
+    suspend fun postCoupon(@Header("authorization") authorization: String, @Body requestBody: RequestBody): Response<JsonObject>
+
 }
