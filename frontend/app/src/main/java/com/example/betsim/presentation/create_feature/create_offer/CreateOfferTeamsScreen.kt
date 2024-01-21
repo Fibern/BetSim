@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.betsim.domain.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
+import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.AddTeamsListItem
 
@@ -52,6 +53,7 @@ fun CreateOfferTeamsScreen(viewModel: CreateOfferViewModel) {
     val remaining by remember { viewModel.remaining }
     val odds = viewModel.odds
     val createErrorText by remember { viewModel.createErrorText }
+    val isLoading by remember { viewModel.isLoading }
 
     var h by remember {
         mutableStateOf(0.dp)
@@ -179,6 +181,10 @@ fun CreateOfferTeamsScreen(viewModel: CreateOfferViewModel) {
             }
         }
         
+    }
+
+    if (isLoading){
+        SemiTransparentLoadingScreen()
     }
 
 }

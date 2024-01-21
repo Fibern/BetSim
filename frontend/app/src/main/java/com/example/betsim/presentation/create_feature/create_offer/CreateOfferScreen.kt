@@ -63,7 +63,7 @@ fun CreateOfferScreen(
             viewModel.onEvent(CreationEvent.EnteredDate(LocalDate.of(year, month + 1, dayOfMonth)))
         },
         dateTextField.value?.year ?: LocalDate.now().year,
-        if (dateTextField.value == null) LocalDate.now().monthValue
+        if (dateTextField.value == null) LocalDate.now().monthValue - 1
         else dateTextField.value!!.monthValue - 1,
         dateTextField.value?.dayOfMonth ?: LocalDate.now().dayOfMonth,
     )

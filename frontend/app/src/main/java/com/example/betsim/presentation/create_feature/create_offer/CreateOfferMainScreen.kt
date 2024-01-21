@@ -1,10 +1,15 @@
 package com.example.betsim.presentation.create_feature.create_offer
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,7 +25,25 @@ fun CreateOfferMainScreen(
 ) {
 
     val navController = rememberNavController()
+    val eventCreated by remember { viewModel.eventCreated }
+    val toast by remember { viewModel.toastMessage }
+    val context = LocalContext.current
+    val id by remember { viewModel.id }
 
+    if (toast.isNotBlank()) {
+        LaunchedEffect(toast) {
+            Toast.makeText(
+                context,
+                toast,
+                Toast.LENGTH_SHORT
+            ).show()
+            viewModel.clearToast()
+        }
+    }
+    LaunchedEffect(eventCreated) {
+        if (eventCreated)
+            mainNavController.navigate("${Screen.TournamentDetailDefaultScreen.route}?id=$id")
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

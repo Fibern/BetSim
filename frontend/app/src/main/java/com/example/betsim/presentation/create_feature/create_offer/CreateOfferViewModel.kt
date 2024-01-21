@@ -1,7 +1,6 @@
 package com.example.betsim.presentation.create_feature.create_offer
 
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -22,6 +21,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -58,14 +58,23 @@ class CreateOfferViewModel @Inject constructor(
     private val _actionPossible = mutableStateOf(true)
     val actionPossible: State<Boolean> = _actionPossible
 
+    private val _eventCreated = mutableStateOf(false)
+    val eventCreated: State<Boolean> = _eventCreated
+
     private val _createErrorText = mutableStateOf("")
     val createErrorText: State<String> = _createErrorText
 
+    private val _toastMessage = mutableStateOf("")
+    val toastMessage: State<String> = _toastMessage
+
+    private val _isLoading = mutableStateOf(false)
+    val isLoading: State<Boolean> = _isLoading
+
     private val _id = mutableIntStateOf(-1)
+    val id: State<Int> = _id
 
     init {
         _id.intValue = checkNotNull(savedStateHandle["id"])
-        Log.i("jd",_id.intValue.toString())
     }
 
     fun onEvent(event: CreationEvent){
@@ -85,11 +94,18 @@ class CreateOfferViewModel @Inject constructor(
             }
 
             is CreationEvent.EnteredDate -> {
-                _dateTextField.value = _dateTextField.value.copy(value = event.date)
+                if(validateDate(event.date))
+                    _dateTextField.value = _dateTextField.value.copy(value = event.date)
+                else
+                    _toastMessage.value = "Podaj datę z przyszłości"
+
             }
 
             is CreationEvent.EnteredTime -> {
-                _timeTextField.value = _timeTextField.value.copy(value = event.time)
+                if(validateTime(event.time))
+                    _timeTextField.value = _timeTextField.value.copy(value = event.time)
+                else
+                    _toastMessage.value = "Podaj datę z przyszłości"
             }
 
             is CreationEvent.SelectDropdown -> {
@@ -145,7 +161,6 @@ class CreateOfferViewModel @Inject constructor(
         }
         _remaining.value = "%,2f".format(base).trimEnd('0').trimEnd(',')
     }
-
 
 
     private fun checkInput(creation: Boolean): Boolean {
@@ -217,14 +232,14 @@ class CreateOfferViewModel @Inject constructor(
 
     private fun onCreate(){
         viewModelScope.launch {
+
             val title = if (_type.value == OfferType.Selection) _offerName.value.value
                         else "${_odds[0].name.value} - ${_odds[1].name.value}"
             val dateTime = LocalDateTime.of(_dateTextField.value.value, _timeTextField.value.value)
             val oddItems = createOddItems()
             val login = sessionManager.getCurrent()
-            Log.i("jd", login?.accessToken ?: "niuja")
             if (login != null) {
-                repository.postOffer(
+                val response = repository.postOffer(
                     token = login.accessToken,
                     id = _id.intValue,
                     title = title,
@@ -232,9 +247,33 @@ class CreateOfferViewModel @Inject constructor(
                     dateTime = dateTime.toString(),
                     odds = oddItems
                 )
+                if (response){
+                    _toastMessage.value = "Utworzono"
+                    _eventCreated.value = true
+                }else{
+                    _toastMessage.value = "Coś poszło nie tak"
+                    _isLoading.value = false
+                }
+            }else{
+                _toastMessage.value = "Coś poszło nie tak"
+                _isLoading.value = false
             }
         }
 
+    }
+
+    private fun validateDate(date: LocalDate): Boolean{
+        val now = LocalDateTime.now().plus(1, ChronoUnit.HOURS)
+        if (_timeTextField.value.value == null){
+            return LocalDateTime.of(date,  LocalTime.now()).plus(2, ChronoUnit.HOURS).isAfter(now)
+        }
+        return LocalDateTime.of(date, _timeTextField.value.value).isAfter(now)
+    }
+
+    private fun validateTime(time: LocalTime): Boolean{
+        val now = LocalDateTime.now().plus(1, ChronoUnit.HOURS)
+        if (_dateTextField.value.value == null) return true
+        return LocalDateTime.of(_dateTextField.value.value, time).isAfter(now)
     }
 
     private fun createOddItems(): List<OddItem>{
@@ -257,6 +296,10 @@ class CreateOfferViewModel @Inject constructor(
         val oddValue = (10000 / percentage).roundToInt().toDouble() / 100
         return OddItem(name, oddValue)
 
+    }
+
+    fun clearToast(){
+        _toastMessage.value = ""
     }
 
 }
