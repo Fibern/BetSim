@@ -6,6 +6,7 @@ import com.example.betsim.data.remote.error_responses.ErrorResponse
 import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.responses.OfferResponse
+import com.example.betsim.data.remote.responses.RankingResponse
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.data.remote.status.RegisterStatus
 import com.example.betsim.data.remote.responses.User
@@ -184,5 +185,16 @@ class BetSimRepository @Inject constructor(
         }
     }
 
+    suspend fun getLeaderboard(token: String): BasicStatus<RankingResponse>{
+        try {
+            val response = api.getLeaderboard("Bearer $token")
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            e.printStackTrace()
+            return BasicStatus.BadInternet
+        }
+    }
 
 }

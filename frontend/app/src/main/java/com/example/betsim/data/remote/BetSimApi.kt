@@ -3,6 +3,7 @@ package com.example.betsim.data.remote
 import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.responses.OfferResponse
+import com.example.betsim.data.remote.responses.RankingResponse
 import com.example.betsim.data.remote.responses.UserResponse
 import com.google.gson.JsonObject
 import okhttp3.RequestBody
@@ -78,5 +79,9 @@ interface BetSimApi {
         @Path("offertId") id: Int,
         @Body requestBody: RequestBody
     ):Response<JsonObject>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @GET("/User/scoreBoard")
+    suspend fun getLeaderboard(@Header("authorization") authorization: String): Response<RankingResponse>
 
 }

@@ -6,17 +6,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.leaderboard.components.LeaderboardItem
 
 @Composable
 fun LeaderboardScreen(
-
+    viewModel: LeaderBoardViewModel = hiltViewModel()
 ) {
+
+    val users by remember { viewModel.rankingUsers }
+    val isLoading by remember { viewModel.isLoading }
 
     Surface(
         modifier = Modifier
@@ -36,9 +44,12 @@ fun LeaderboardScreen(
                 verticalArrangement = Arrangement.spacedBy(1.dp)
             ) {
 
-                items(20) {
-                    LeaderboardItem(place = it + 1, false)
+                if (users != null){
+                    items(users!!.topUsers){
+                        LeaderboardItem(user = it, isUser = it.place == users!!.user.place)
+                    }
                 }
+
             }
 
             Column(
@@ -46,11 +57,15 @@ fun LeaderboardScreen(
                     .padding(top = 24.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                LeaderboardItem(place = 24, true)
+                if (users != null)
+                    LeaderboardItem(users!!.user, true)
             }
 
         }
     }
+
+    if (isLoading)
+        SemiTransparentLoadingScreen()
 
 }
 
