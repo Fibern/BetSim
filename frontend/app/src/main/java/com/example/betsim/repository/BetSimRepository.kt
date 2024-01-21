@@ -5,6 +5,7 @@ import com.example.betsim.data.remote.BetSimApi
 import com.example.betsim.data.remote.error_responses.ErrorResponse
 import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
+import com.example.betsim.data.remote.responses.OfferResponse
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.data.remote.status.RegisterStatus
 import com.example.betsim.data.remote.responses.User
@@ -155,6 +156,18 @@ class BetSimRepository @Inject constructor(
             response.isSuccessful
         }catch (e: Exception){
             false
+        }
+    }
+
+    suspend fun getOffer(id: Int): BasicStatus<OfferResponse>{
+        try {
+            val response = api.getOffer(id)
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            e.printStackTrace()
+            return BasicStatus.BadInternet
         }
     }
 

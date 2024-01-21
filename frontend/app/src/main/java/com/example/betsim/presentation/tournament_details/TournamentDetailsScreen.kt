@@ -21,10 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.betsim.presentation.util.Screen
-import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.tournament_details.components.TournamentDetailChoice
+import com.example.betsim.presentation.util.Screen
 
 @Composable
 fun TournamentDetailScreen(
@@ -33,7 +32,7 @@ fun TournamentDetailScreen(
     mainViewModel: MainViewModel,
 ) {
 
-    val games = viewModel.games
+    val offers = viewModel.offers
     val coupon by remember { mainViewModel.couponState }
     val isMod by remember { viewModel.isMod }
     val route by remember { viewModel.route }
@@ -66,21 +65,23 @@ fun TournamentDetailScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-                itemsIndexed(games) { index, game ->
-                    val i = coupon.games.indexOf(game)
+                itemsIndexed(offers) { index, offer ->
+                    /* TODO()
+                    val i = coupon.games.indexOf(offer)
                     if (i != -1) viewModel.onEvent(
                         TournamentDetailsEvent.LoadList(
                             coupon.games[i],
                             index
                         )
                     )
+                     */
 
-                    TournamentDetailChoice(game, isMod) { onClickIndex ->
+                    TournamentDetailChoice(offer, isMod) { onClickIndex ->
                         if (isMod) {
                             navController.navigate(Screen.ModifyGameScreen.route)
                         } else {
-                            viewModel.onEvent(TournamentDetailsEvent.OnSelect(game, onClickIndex))
-                            mainViewModel.onEvent(MainEvent.AddGame(game))
+                            viewModel.onEvent(TournamentDetailsEvent.OnSelect(offer, onClickIndex))
+                            // TODO() mainViewModel.onEvent(MainEvent.AddGame(game))
                         }
                     }
                 }

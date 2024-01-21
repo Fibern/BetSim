@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.betsim.domain.model.Odd
-import com.example.betsim.domain.model.OfferType
+import com.example.betsim.data.model.OfferType
 import com.example.betsim.domain.model.TournamentGame
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateDoubleInput

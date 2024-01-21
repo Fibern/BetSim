@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.domain.model.OfferType
+import com.example.betsim.data.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.modify.components.ModifyMatchType

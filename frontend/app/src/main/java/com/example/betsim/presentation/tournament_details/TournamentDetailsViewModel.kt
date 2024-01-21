@@ -8,22 +8,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.betsim.domain.model.Odd
-import com.example.betsim.domain.model.TournamentGame
+import com.example.betsim.data.remote.responses.Offer
+import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.util.Screen
+import com.example.betsim.repository.BetSimRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class TournamentDetailsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val repository: BetSimRepository
 ): ViewModel() {
 
-    private val _games = mutableStateListOf<TournamentGame>()
-    val games: List<TournamentGame> = _games
+    private val _offers = mutableStateListOf<Offer>()
+    val offers: List<Offer> = _offers
 
     private val _isToday = mutableStateOf(false)
 
@@ -48,40 +49,34 @@ class TournamentDetailsViewModel @Inject constructor(
     fun onEvent(event: TournamentDetailsEvent){
         when(event){
             is TournamentDetailsEvent.LoadList -> {
-                _games.removeAt(event.index)
-                _games.add(event.index, event.game)
+                //TODO()
+                // _games.removeAt(event.index)
+               // _games.add(event.index, event.game)
             }
             is TournamentDetailsEvent.OnSelect -> {
-                event.game.selected.value = event.index
+                event.offer.selected = event.index
             }
         }
     }
 
 
     private fun getGames() {
+
         viewModelScope.launch {
-            val time = LocalDateTime.now()
-            val time2 = LocalDateTime.of(2023, 12, 10, 12, 20, 0)
-            val odd1 = Odd(1, "tmp1", "1.8")
-            val odd2 = Odd(2, "remis", "2.3")
-            val odd3 = Odd(3, "tmp2", "1.7")
-            val odd4 = Odd(4, "tmpasfa2", "2.7")
-            val odd5 = Odd(5, "tmad", "1.75")
-            val game1 = TournamentGame(1, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time)
-            val game2 = TournamentGame(2, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time)
-            val game3 = TournamentGame(3, "tmp1 - tmp2", listOf(odd1, odd2, odd3, odd4, odd5), time)
-            val game4 = TournamentGame(4, "tmp1 - tmp2", listOf(odd1, odd2, odd3, odd4), time)
-            val game5 = TournamentGame(5, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
-            val game6 = TournamentGame(6, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
-            val game7 = TournamentGame(7, "tmp1 - tmp2", listOf(odd1, odd2, odd3), time2)
-            val game8 = TournamentGame(8, "tmp1 - tmp2", listOf(odd1, odd3), time2)
-            val tmpGames = listOf(game1,game2,game3,game4,game5,game6,game7,game8)
-            _games.clear()
-            if (_isToday.value) {
-                val jd = tmpGames.filter { it.date.toLocalDate() == LocalDate.now() }
-                _games.addAll(jd)
-            }else {
-                _games.addAll(tmpGames)
+            if (_id.intValue != -1){
+                val response = repository.getOffer(_id.intValue)
+                when(response){
+                    BasicStatus.BadInternet -> {}
+                    BasicStatus.Failure -> {}
+                    is BasicStatus.Success -> {
+                        val tmp = response.response.offer.toMutableList()
+                        _offers.clear()
+                        if (_isToday.value)
+                            _offers.addAll(tmp.filter { it.dateTime.toLocalDate() == LocalDate.now() })
+                        else
+                            _offers.addAll(tmp)
+                    }
+                }
             }
         }
     }

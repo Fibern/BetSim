@@ -2,6 +2,7 @@ package com.example.betsim.domain.model
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.example.betsim.data.model.OfferType
 import java.time.LocalDateTime
 
 data class TournamentGame(

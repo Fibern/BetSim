@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.betsim.domain.model.OfferType
+import com.example.betsim.data.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.create_feature.CreationEvent

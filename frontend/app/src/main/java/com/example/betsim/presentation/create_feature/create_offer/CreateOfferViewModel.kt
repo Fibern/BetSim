@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.model.OddItem
-import com.example.betsim.domain.model.OfferType
+import com.example.betsim.data.model.OfferType
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateDoubleInput
 import com.example.betsim.presentation.common.util.validateTextFieldState
