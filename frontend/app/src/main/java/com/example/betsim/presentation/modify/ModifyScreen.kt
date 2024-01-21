@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.data.model.OfferType
@@ -62,7 +63,11 @@ fun ModifyScreen(
     }
     LaunchedEffect(success) {
         if (success)
-            navController.navigate("${Screen.TournamentDetailDefaultScreen.route}?id=$eventId")
+            navController.navigate("${Screen.TournamentDetailDefaultScreen.route}?id=$eventId"){
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+            }
     }
 
 

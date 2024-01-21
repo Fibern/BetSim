@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BetSimButton
@@ -61,7 +62,11 @@ fun CreateEventScreen(
         }
     }
     LaunchedEffect(success) {
-        if (success) navController.navigate(Screen.TournamentsScreen.route)
+        if (success) navController.navigate(Screen.TournamentsScreen.route){
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+        }
     }
 
     Scaffold(
