@@ -39,24 +39,24 @@ public class AccountController : ControllerBase
     //     return Ok();
     // }
 
-    // [HttpPost("register")]
-    // public async Task<IActionResult> Register([FromBody] UserRegisterDto request)
-    // {
-    //     var user = new User
-    //     {
-    //         UserName = request.Username,
-    //         Email = request.Email
-    //     };
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserRegisterDto request)
+    {
+        var user = new User
+        {
+            UserName = request.Username,
+            Email = request.Email
+        };
 
-    //     var result = await _userManager.CreateAsync(user, request.Password);
+        var result = await _userManager.CreateAsync(user, request.Password);
 
-    //     if (result.Succeeded)
-    //     {
-    //         return Ok(new { Message = "Registration successful" });
-    //     }
+        if (result.Succeeded)
+        {
+            return Ok(new { Message = "Registration successful" });
+        }
 
-    //     return BadRequest(new { Errors = result.Errors });
-    // }
+        return BadRequest(new { Errors = result.Errors });
+    }
 
     // [HttpPost("login")]
     // public async Task<IActionResult> Login([FromBody] UserLoginDto request)
