@@ -10,7 +10,11 @@ namespace Application.Commands.CouponCommand
         {
             RuleFor(p => p.Value)
                 .NotEmpty()
-                .GreaterThan(0);
+                .GreaterThan(0)
+                .LessThanOrEqualTo(10.000)
+                .WithMessage("Value must be between 0 and 10.000");
+            RuleFor(p => p.OddSum * p.Value).LessThanOrEqualTo(1000000)
+                .WithMessage("Max possible winner sum is 1 000 000");
             RuleFor(p => p.DateTime)
                 .NotEmpty();
             RuleFor(p => p.Bets.Count)
