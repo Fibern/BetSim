@@ -28,17 +28,17 @@ fun ModNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.EventsNav.route,
+        startDestination = Screen.CreateEventNav.route,
         modifier = Modifier.padding(paddingValues)
     ){
 
         navigation(
-            startDestination = Screen.TournamentsScreen.route,
-            route = Screen.EventsNav.route
+            startDestination = Screen.EventsScreen.route,
+            route = Screen.CreateEventNav.route
         ){
             
             composable(
-                route = Screen.TournamentsScreen.route,
+                route = Screen.EventsScreen.route,
                 arguments = listOf(
                     navArgument("today"){
                         type = NavType.BoolType
@@ -52,12 +52,8 @@ fun ModNavHost(
             ){ EventsScreen(navController = navController) }
 
             composable(
-                Screen.TournamentDetailScreen.route,
+                Screen.OffersScreen.route,
                 arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    },
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = true
@@ -68,9 +64,9 @@ fun ModNavHost(
                 )
             ) { OffersScreen(mainViewModel = viewModel , navController = navController) }
 
-            composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen(navController) }
+            composable(route = Screen.CreateEventScreen.route){ CreateEventScreen(navController) }
             composable(
-                route = Screen.AddGameMainScreen.route,
+                route = Screen.CreateOfferMainScreen.route,
                 arguments = listOf(
                     navArgument("id"){
                         type = NavType.IntType
@@ -79,12 +75,8 @@ fun ModNavHost(
             ){ CreateOfferMainScreen(navController) }
         }
         composable(
-            Screen.StartedGamesScreen.route,
+            Screen.StartedOffersScreen.route,
             arguments = listOf(
-                navArgument("today"){
-                    type = NavType.BoolType
-                    defaultValue = true
-                },
                 navArgument("mod"){
                     type = NavType.BoolType
                     defaultValue = true

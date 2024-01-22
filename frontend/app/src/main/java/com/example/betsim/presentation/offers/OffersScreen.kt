@@ -78,7 +78,7 @@ fun OffersScreen(
                     OffersItem(offer, isMod) { onClickIndex ->
                         if (isMod) {
                             viewModel.onEvent(OffersEvent.ModifyClicked(index))
-                            navController.navigate("${Screen.ModifyGameDefaultScreen.route}?id=${id}")
+                            navController.navigate("${Screen.ModifyGameScreenDefault.route}?id=${id}")
                         } else {
                             viewModel.onEvent(OffersEvent.OnSelect(offer, onClickIndex))
                             mainViewModel.onEvent(MainEvent.AddGame(offer))

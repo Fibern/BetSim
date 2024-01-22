@@ -173,6 +173,18 @@ class BetSimRepository @Inject constructor(
         }
     }
 
+    suspend fun getOffer(date: String): BasicStatus<OfferResponse>{
+        try {
+            val response = api.getOfferByDate(date)
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            e.printStackTrace()
+            return BasicStatus.BadInternet
+        }
+    }
+
     suspend fun patchOffer(token: String, id: Int, winner: Int, score: String): Boolean{
         val map = hashMapOf(
             "winner" to winner,

@@ -116,7 +116,7 @@ private val userDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.TodayTournamentsNav.route
+        route = Screen.TodayOffersScreen.route
     ),
     BottomNavigationItem(
         title = "Wszystko",
@@ -125,7 +125,7 @@ private val userDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.TournamentsNav.route
+        route = Screen.EventsNav.route
     ),
     BottomNavigationItem(
         title = "Kupony",
@@ -164,7 +164,7 @@ private val modDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.EventsNav.route
+        route = Screen.CreateEventNav.route
     ),
     BottomNavigationItem(
         title = "Rozpoczęte",
@@ -173,7 +173,7 @@ private val modDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = true,
-        route = Screen.StartedGamesScreen.route,
+        route = Screen.StartedOffersScreen.route,
     ),
     BottomNavigationItem(
         title = "Profil",

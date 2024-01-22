@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.events.components.EventItem
+import com.example.betsim.presentation.util.Screen
 
 
 @Composable
@@ -29,7 +30,6 @@ fun EventsScreen(
 ){
 
     val events = viewModel.events
-    val route by remember { viewModel.route }
     val isMod by remember { viewModel.isMod }
     val isLoading by remember { viewModel.isLoading }
 
@@ -48,7 +48,7 @@ fun EventsScreen(
                         event,
                         isMod,
                         Modifier.clickable(onClick = {
-                            navController.navigate("$route?id=${event.id}")
+                            navController.navigate("${Screen.OffersScreenDefault.route}?id=${event.id}")
                         })
                     ){
                         viewModel.onEvent(EventsScreenEvent.DeleteClicked(event.id))

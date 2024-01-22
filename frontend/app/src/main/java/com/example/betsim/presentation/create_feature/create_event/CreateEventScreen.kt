@@ -62,7 +62,7 @@ fun CreateEventScreen(
         }
     }
     LaunchedEffect(success) {
-        if (success) navController.navigate(Screen.TournamentsScreen.route){
+        if (success) navController.navigate(Screen.EventsScreen.route){
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }

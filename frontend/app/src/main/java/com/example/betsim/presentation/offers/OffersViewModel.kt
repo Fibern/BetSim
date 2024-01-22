@@ -15,7 +15,7 @@ import com.example.betsim.presentation.util.Screen
 import com.example.betsim.repository.BetSimRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,8 +27,6 @@ class OffersViewModel @Inject constructor(
 
     private val _offers = mutableStateListOf<Offer>()
     val offers: List<Offer> = _offers
-
-    private val _isToday = mutableStateOf(false)
 
     private val _isMod = mutableStateOf(false)
     val isMod: State<Boolean> = _isMod
@@ -43,10 +41,9 @@ class OffersViewModel @Inject constructor(
     val isLoading: State<Boolean> = _isLoading
 
     init {
-        _isToday.value = checkNotNull(savedStateHandle["today"])
         _isMod.value = checkNotNull(savedStateHandle["mod"])
         _id.intValue = checkNotNull(savedStateHandle["id"])
-        _route.value = "${Screen.AddGameMainDefaultScreen.route}?id=${_id.intValue}"
+        _route.value = "${Screen.CreateOfferMainScreenDefault.route}?id=${_id.intValue}"
         getGames()
     }
 
@@ -67,24 +64,21 @@ class OffersViewModel @Inject constructor(
 
 
     private fun getGames() {
-
         viewModelScope.launch {
             _isLoading.value = true
-            if (_id.intValue != -1){
-                val response = repository.getOffer(_id.intValue)
-                when(response){
-                    BasicStatus.BadInternet -> {}
-                    BasicStatus.Failure -> {}
-                    is BasicStatus.Success -> {
-                        val tmp = response.response.offer.toMutableList()
-                        _offers.clear()
-                        if (!_isMod.value)
-                            tmp.retainAll { it.active }
-                        if (_isToday.value)
-                            tmp.retainAll { it.dateTime.toLocalDate() == LocalDate.now() }
-
-                        _offers.addAll(tmp)
-                    }
+            val response = if (_id.intValue == -1) {
+                if (_isMod.value)
+                    repository.getOffer(LocalDateTime.now().toString())
+                else
+                    repository.getOffer(LocalDateTime.now().toString())
+            } else {
+                    repository.getOffer(_id.intValue)
+            }
+            when (response) {
+                BasicStatus.BadInternet -> {}
+                BasicStatus.Failure -> {}
+                is BasicStatus.Success -> {
+                    _offers.addAll(response.response.offer)
                 }
             }
             _isLoading.value = false

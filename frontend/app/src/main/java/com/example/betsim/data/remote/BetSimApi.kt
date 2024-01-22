@@ -17,6 +17,7 @@ import retrofit2.http.Headers
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BetSimApi {
 
@@ -71,6 +72,12 @@ interface BetSimApi {
     @GET("/Offert/{eventId}")
     suspend fun getOffer(
         @Path("eventId") id: Int
+    ): Response<OfferResponse>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @GET("/Offert")
+    suspend fun getOfferByDate(
+        @Query("dateTime") date: String
     ): Response<OfferResponse>
 
     @Headers("accept: */*", "Content-Type: application/json")

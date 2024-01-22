@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.util.Screen.AuthNav
-import com.example.betsim.presentation.util.Screen.TournamentsScreen
+import com.example.betsim.presentation.util.Screen.EventsScreen
 import com.example.betsim.presentation.util.Screen.UserNav
 
 @SuppressLint("RestrictedApi")
@@ -81,7 +81,7 @@ fun Profile(
                     .padding(horizontal = 16.dp),
                 onClick = {
                     viewModel.onEvent(ProfileEvent.LogoutClicked)
-                    navController.popBackStack(route = TournamentsScreen.route, inclusive = true)
+                    navController.popBackStack(route = EventsScreen.route, inclusive = true)
                     mainNavController.navigate(AuthNav.route){
                         popUpTo(route = UserNav.route){
                             inclusive = true

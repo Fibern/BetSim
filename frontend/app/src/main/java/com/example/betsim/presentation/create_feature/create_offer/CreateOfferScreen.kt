@@ -160,7 +160,7 @@ fun CreateOfferScreen(
             BetSimButton(text = "Przejdź dalej") {
                 viewModel.onEvent(CreationEvent.NavigateFurtherClick)
                 if (actionPossible)
-                    navController.navigate(Screen.AddGameTeamsScreen.route)
+                    navController.navigate(Screen.CreateOfferTeamsScreen.route)
             }
 
         }

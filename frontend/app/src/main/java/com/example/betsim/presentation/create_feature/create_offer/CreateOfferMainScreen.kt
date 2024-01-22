@@ -43,7 +43,7 @@ fun CreateOfferMainScreen(
     }
     LaunchedEffect(eventCreated) {
         if (eventCreated)
-            mainNavController.navigate("${Screen.TournamentDetailDefaultScreen.route}?id=$id"){
+            mainNavController.navigate("${Screen.OffersScreenDefault.route}?id=$id"){
                 popUpTo(mainNavController.graph.findStartDestination().id) {
                     saveState = true
                 }
@@ -54,7 +54,7 @@ fun CreateOfferMainScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             BetSimSubsidiaryTopBar(text = "Tworzenie rozgrywki") {
-                if (navController.currentDestination?.route == Screen.AddGameScreen.route){
+                if (navController.currentDestination?.route == Screen.CreateOfferScreen.route){
                     mainNavController.navigateUp()
                 }else {
                     navController.navigateUp()
@@ -66,10 +66,10 @@ fun CreateOfferMainScreen(
         NavHost(
             modifier = Modifier.padding(paddingValues),
             navController = navController,
-            startDestination = Screen.AddGameScreen.route
+            startDestination = Screen.CreateOfferScreen.route
         ){
-            composable(Screen.AddGameScreen.route){ CreateOfferScreen(viewModel = viewModel, navController = navController) }
-            composable(Screen.AddGameTeamsScreen.route){ CreateOfferTeamsScreen(viewModel = viewModel) }
+            composable(Screen.CreateOfferScreen.route){ CreateOfferScreen(viewModel = viewModel, navController = navController) }
+            composable(Screen.CreateOfferTeamsScreen.route){ CreateOfferTeamsScreen(viewModel = viewModel) }
         }
 
     }

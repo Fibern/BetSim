@@ -17,29 +17,25 @@ sealed class Screen(val route: String) {
     data object LoginScreen: Screen("login_screen")
     data object RegisterScreen: Screen("register_screen")
     data object UserNav: Screen("user_navigation")
-    data object UserMainScreen: Screen("user_main_screen")
-    data object TournamentsNav: Screen("tournaments_navigation")
-    data object TodayTournamentsNav: Screen("today_tournaments_navigation")
-    data object TournamentsScreen: Screen("tournaments_screen?today={today}&mod={mod}")
-    data object TodayTournamentsScreen: Screen("today_tournaments_screen?today={today}&mod={mod}")
-    data object TournamentDetailDefaultScreen: Screen("tournament_detail_screen")
-
-    data object TournamentDetailScreen: Screen("tournament_detail_screen?today={today}&mod={mod}&id={id}")
-    data object TodayTournamentDetailDefaultScreen: Screen("today_tournament_detail_screen")
-    data object TodayTournamentDetailScreen: Screen("today_tournament_detail_screen?today={today}&mod={mod}&id={id}")
+    data object MainScreen: Screen("main_screen")
+    data object EventsNav: Screen("events_navigation")
+    data object EventsScreen: Screen("events_screen?today={today}&mod={mod}")
+    data object OffersScreenDefault: Screen("offers_screen")
+    data object OffersScreen: Screen("offers_screen?mod={mod}&id={id}")
+    data object TodayOffersScreen: Screen("today_offers_screen?mod={mod}&id={id}")
     data object ProfileScreen: Screen("settings_screen")
     data object CouponsNav: Screen("coupons_navigation")
     data object CouponsScreen: Screen("coupons_screen")
     data object CouponDetailsScreen: Screen("coupon_details_screen")
     data object LeaderboardScreen: Screen("leaderboard_screen")
-    data object EventsNav: Screen("event_navigation")
-    data object AddTournamentScreen: Screen("add_event_screen")
-    data object AddGameMainDefaultScreen: Screen("add_game_main_screen")
-    data object AddGameMainScreen: Screen("add_game_main_screen?id={id}")
-    data object AddGameScreen: Screen("add_game_screen")
-    data object AddGameTeamsScreen: Screen("add_game_teams_screen")
-    data object StartedGamesScreen: Screen("started_games_screen?today={today}&mod={mod}&id={id}")
-    data object ModifyGameDefaultScreen: Screen("modify_game_screen")
+    data object CreateEventNav: Screen("create_event_navigation")
+    data object CreateEventScreen: Screen("create_event_screen")
+    data object CreateOfferMainScreenDefault: Screen("create_offer_main_screen")
+    data object CreateOfferMainScreen: Screen("create_offer_main_screen?id={id}")
+    data object CreateOfferScreen: Screen("create_offer_screen")
+    data object CreateOfferTeamsScreen: Screen("create_offer_teams_screen")
+    data object StartedOffersScreen: Screen("started_offers_screen?mod={mod}&id={id}")
+    data object ModifyGameScreenDefault: Screen("modify_game_screen")
     data object ModifyGameScreen: Screen("modify_game_screen?id={id}")
 
 }
@@ -66,10 +62,10 @@ fun BetSimSurface() {
                 }
             }
             navigation(
-                startDestination = Screen.UserMainScreen.route,
+                startDestination = Screen.MainScreen.route,
                 route = Screen.UserNav.route
             ){
-                composable(route = Screen.UserMainScreen.route){
+                composable(route = Screen.MainScreen.route){
                     UserMainScreen(navController)
                 }
 

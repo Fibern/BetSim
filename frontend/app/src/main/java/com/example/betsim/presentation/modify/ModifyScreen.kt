@@ -63,7 +63,7 @@ fun ModifyScreen(
     }
     LaunchedEffect(success) {
         if (success)
-            navController.navigate("${Screen.TournamentDetailDefaultScreen.route}?id=$eventId"){
+            navController.navigate("${Screen.OffersScreenDefault.route}?id=$eventId"){
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }

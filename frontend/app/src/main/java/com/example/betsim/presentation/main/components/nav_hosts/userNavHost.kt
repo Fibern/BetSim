@@ -38,45 +38,26 @@ fun UserNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.TournamentsNav.route,
+        startDestination = Screen.EventsNav.route,
         modifier = Modifier.padding(paddingValues)
     ){
 
-        navigation(startDestination = Screen.TodayTournamentsScreen.route, route = Screen.TodayTournamentsNav.route){
+        composable(
+            Screen.TodayOffersScreen.route,
+            arguments = listOf(
+                navArgument("mod"){
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+                navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ) { OffersScreen(mainViewModel = viewModel, navController = navController) }
+        navigation(startDestination = Screen.EventsScreen.route, route = Screen.EventsNav.route){
             composable(
-                Screen.TodayTournamentsScreen.route,
-                arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = true
-                    },
-                    navArgument("mod"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    }
-                )
-            ) { EventsScreen(navController = navController) }
-            composable(
-                Screen.TodayTournamentDetailScreen.route,
-                arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = true
-                    },
-                    navArgument("mod"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    },
-                    navArgument("id"){
-                        type = NavType.IntType
-                    }
-                )
-            ) { OffersScreen(mainViewModel = viewModel, navController = navController) }
-        }
-
-        navigation(startDestination = Screen.TournamentsScreen.route, route = Screen.TournamentsNav.route){
-            composable(
-                Screen.TournamentsScreen.route,
+                Screen.EventsScreen.route,
                 arguments = listOf(
                     navArgument("today"){
                         type = NavType.BoolType
@@ -89,12 +70,8 @@ fun UserNavHost(
                 )
             ) { EventsScreen(navController = navController) }
             composable(
-                Screen.TournamentDetailScreen.route,
+                Screen.OffersScreen.route,
                 arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    },
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = false

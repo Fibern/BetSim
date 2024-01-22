@@ -115,10 +115,10 @@ class MainViewModel @Inject constructor(
                     Screen.ModifyGameScreen.route -> {
                         true
                     }
-                    Screen.AddGameMainScreen.route -> {
+                    Screen.CreateOfferMainScreen.route -> {
                         true
                     }
-                    Screen.AddTournamentScreen.route -> {
+                    Screen.CreateEventScreen.route -> {
                         true
                     }
                     else -> {
