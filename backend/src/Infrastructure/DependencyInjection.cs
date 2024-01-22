@@ -14,6 +14,7 @@ public static class DependencyInjection
         builder => builder.EnableRetryOnFailure()));
         
         //app repository
+        services.AddScoped<IDeviceRepository, DeviceRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IOffertRepository, OffertRepository>();
 

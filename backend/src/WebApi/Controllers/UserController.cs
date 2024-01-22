@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Application;
 using Application.Commands.UserCommand;
+using Application.Dto;
 using Application.Dto.CouponDto;
 using Application.Dto.EventDto;
 using Application.Dto.UserDto;
@@ -37,6 +38,18 @@ namespace WebApi.Controllers
         {
             bool isOddsMaker = _httpContextAccessor.HttpContext.User.IsInRole("OddsMaker");
             var command = new GetUserInfoQuery(_userId,isOddsMaker);
+            var response = await _mediator.Send(command);
+
+            if(response.Succes = true) return Ok(response);
+
+            return BadRequest(response);
+        }
+
+        [HttpPost("AddDeviceToken")]
+        [Authorize]
+        public async Task<ActionResult<BaseResponse<int>>> PostAsync([FromBody] PostTokenDto postToken)
+        {
+            var command = new AddDeviceUserCommand(_userId, postToken.TokenId);
             var response = await _mediator.Send(command);
 
             if(response.Succes = true) return Ok(response);

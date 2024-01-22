@@ -21,12 +21,13 @@ namespace Infrastructure
             modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
 
         }
-
+        
         public DbSet<User> User { get; set; }
         public DbSet<Bet> Bet { get; set; }
         public DbSet<Odd> Odd { get; set; }
         public DbSet<Offert> Offert { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<Coupon> Coupon { get; set; }
+        public DbSet<DeviceToken> DeviceToken { get; set; }
     }
 }
