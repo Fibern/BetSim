@@ -27,6 +27,16 @@ namespace Infrastructure.Repositories
             return device.Id;
         }
 
+        public void Delete(int userId, string deviceToken)
+        {
+            var device = _context.DeviceToken.FirstOrDefault();
+            if(device is not null){
+                _context.DeviceToken.Remove(device);
+                _context.SaveChangesAsync();
+            }
+            _context.SaveChangesAsync();
+        }
+
         public async Task<bool> IsUserDeviceAsync(int userId, string deviceToken)
         {
             bool result = await _context.DeviceToken

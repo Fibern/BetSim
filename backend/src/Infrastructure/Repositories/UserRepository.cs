@@ -50,7 +50,7 @@ namespace Infrastructure.Repositories
 
             var users = await (from role in _context.UserRoles.AsNoTracking()
                         join user in _context.User.AsNoTracking() on role.UserId equals user.Id into Users
-                        from userNotAdmin in Users.DefaultIfEmpty()
+                        from userNotAdmin in Users
                         orderby userNotAdmin.Points descending  
                         select new User{Id = userNotAdmin.Id, UserName = userNotAdmin.UserName, Points = userNotAdmin.Points}
                         ).ToListAsync();

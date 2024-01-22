@@ -57,6 +57,18 @@ namespace WebApi.Controllers
             return BadRequest(response);
         }
 
+        [HttpDelete("DeleteDeviceToken")]
+        [Authorize]
+        public async Task<ActionResult<BaseResponse<string>>> DeleteAsync([FromBody] PostTokenDto postToken)
+        {
+            var command = new DeleteDeviceUserCommand(_userId, postToken.TokenId);
+            var response = await _mediator.Send(command);
+
+            if(response.Succes = true) return Ok(response);
+
+            return BadRequest(response);
+        }
+
         [HttpGet("Event")]
         [Authorize]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetEventDto>>>> GetUserEventAsync()
