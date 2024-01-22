@@ -7,11 +7,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.betsim.presentation.coupons.Category
+import com.example.betsim.data.remote.responses.Coupon
+import com.example.betsim.data.model.Category
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CouponsList(coupons: List<Category>, finished: Boolean, onClick: () -> Unit){
+fun CouponsList(coupons: List<Category>, finished: Boolean, onClick: (Coupon) -> Unit){
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -19,16 +20,16 @@ fun CouponsList(coupons: List<Category>, finished: Boolean, onClick: () -> Unit)
 
         coupons.forEach {category ->
 
-            if (category.coupons.any { it.finished == finished }) {
+            if (category.coupons.any { /*TODO() it.finished == finished */ true}) {
 
                 stickyHeader {
                     CouponHeader(category = category)
                 }
 
                 items(category.coupons) {
-                    if (it.finished == finished) {
+                    if ( /* TODO() it.finished == finished */ true) {
                         CouponListItem(it, Modifier.clickable {
-                            onClick()
+                            onClick(it)
                         })
                     }
                 }

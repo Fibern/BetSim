@@ -1,5 +1,6 @@
 package com.example.betsim.data.remote
 
+import com.example.betsim.data.remote.responses.CouponsResponse
 import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.responses.OfferResponse
@@ -87,5 +88,9 @@ interface BetSimApi {
     @Headers("accept: */*", "Content-Type: application/json")
     @POST("/Coupon")
     suspend fun postCoupon(@Header("authorization") authorization: String, @Body requestBody: RequestBody): Response<JsonObject>
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @GET("/User/Coupon")
+    suspend fun getCoupons(@Header("authorization") authorization: String): Response<CouponsResponse>
 
 }

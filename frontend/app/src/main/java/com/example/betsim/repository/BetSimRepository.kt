@@ -3,6 +3,7 @@ package com.example.betsim.repository
 import com.example.betsim.data.model.OddItem
 import com.example.betsim.data.remote.BetSimApi
 import com.example.betsim.data.remote.error_responses.ErrorResponse
+import com.example.betsim.data.remote.responses.CouponsResponse
 import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.responses.OfferResponse
@@ -216,6 +217,19 @@ class BetSimRepository @Inject constructor(
             response.isSuccessful
         }catch (e: Exception){
             false
+        }
+    }
+
+
+    suspend fun getCoupons(token: String): BasicStatus<CouponsResponse>{
+        try {
+            val response = api.getCoupons("Bearer $token")
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            e.printStackTrace()
+            return BasicStatus.BadInternet
         }
     }
 

@@ -4,10 +4,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.betsim.data.remote.responses.Coupon
 import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.coupons.components.CouponTabItem
 import com.example.betsim.presentation.coupons.components.CouponTabs
@@ -24,10 +23,11 @@ fun CouponsScreen(
     viewModel: CouponsScreenViewModel = hiltViewModel()
 ) {
 
-    val coupons by remember { viewModel.coupons }
+    val coupons = viewModel.coupons
 
-    val onClick: () -> Unit = {
+    val onClick: (Coupon) -> Unit = {
         navController.navigate(Screen.CouponDetailsScreen.route)
+        viewModel.onEvent(CouponsEvent.ItemClicked(it))
         mainViewModel.onEvent(MainEvent.HiddenChange(true))
     }
 

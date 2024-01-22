@@ -81,9 +81,9 @@ class ModifyViewModel @Inject constructor(
                     score = "${_home.value.value} + ${_away.value.value}"
                     val h = _home.value.value.replace(',', '.').toDouble()
                     val a = _away.value.value.replace(',', '.').toDouble()
-                    winner = if (a > h)
+                    winner = if (h > a)
                         _offer.value.odds[0].id
-                    else if (a < h)
+                    else if (h < a)
                         _offer.value.odds[_offer.value.odds.size - 1].id
                     else if (_offer.value.odds.size == 3)
                         _offer.value.odds[1].id

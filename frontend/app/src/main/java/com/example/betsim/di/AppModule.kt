@@ -1,6 +1,7 @@
 package com.example.betsim.di
 
 import android.content.Context
+import com.example.betsim.data.local.CouponHolder
 import com.example.betsim.data.local.OfferHolder
 import com.example.betsim.data.local.SecurePreferencesHelper
 import com.example.betsim.data.remote.BetSimApi
@@ -52,6 +53,12 @@ object AppModule {
     @Provides
     fun provideOfferHolder(): OfferHolder{
         return OfferHolder()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCouponHolder(): CouponHolder{
+        return CouponHolder()
     }
 
 }
