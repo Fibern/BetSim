@@ -36,7 +36,6 @@ class EventsScreenViewModel @Inject constructor(
         _isMod.value = checkNotNull(savedStateHandle["mod"])
         if (_isMod.value) getModEvents()
         else getEvents()
-        _isLoading.value = false
     }
 
     private fun getEvents(){

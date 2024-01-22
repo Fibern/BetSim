@@ -39,7 +39,7 @@ class LoginScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _isLoading.value = true
-            val login = sessionManager.getRefresh()
+            val login = sessionManager.getCurrent()
             if (login != null) {
                 _success.value = true
             }else{

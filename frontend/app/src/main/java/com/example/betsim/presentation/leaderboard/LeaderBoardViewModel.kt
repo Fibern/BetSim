@@ -27,9 +27,8 @@ class LeaderBoardViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-
                 _isLoading.value = true
-                val login = sessionManager.getRefresh()
+                val login = sessionManager.getCurrent()
                 if (login != null) {
                     when (val response = repository.getLeaderboard(login.accessToken)) {
                         BasicStatus.BadInternet -> {}
