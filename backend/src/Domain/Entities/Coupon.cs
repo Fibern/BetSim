@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Domain.Enums;
 
 namespace Domain.Entities
 {
@@ -6,6 +7,7 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public Status Status{ get; set; }
         public User User { get; set; }
         public List<Bet> Bets { get; set; }
         public double Value { get; set; }
