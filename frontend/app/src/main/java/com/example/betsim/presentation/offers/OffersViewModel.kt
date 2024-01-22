@@ -78,7 +78,7 @@ class OffersViewModel @Inject constructor(
                 BasicStatus.BadInternet -> {}
                 BasicStatus.Failure -> {}
                 is BasicStatus.Success -> {
-                    _offers.addAll(response.response.offer)
+                    _offers.addAll(response.response.offer.sortedBy { it.dateTime })
                 }
             }
             _isLoading.value = false

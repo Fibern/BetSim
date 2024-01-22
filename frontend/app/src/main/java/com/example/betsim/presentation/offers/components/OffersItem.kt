@@ -102,7 +102,7 @@ fun OffersItem(
             }
         }
 
-        if (isMod){
+        if (isMod && offer.dateTime.isBefore(LocalDateTime.now()) && offer.active){
 
             Row(
                 modifier = Modifier.fillMaxWidth(),

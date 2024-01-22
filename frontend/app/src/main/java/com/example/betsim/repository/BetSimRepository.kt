@@ -245,4 +245,14 @@ class BetSimRepository @Inject constructor(
         }
     }
 
+    suspend fun deleteUser(token: String): Boolean{
+        return try {
+            val response = api.deleteUser("Bearer $token")
+            response.isSuccessful
+        }catch (e: Exception){
+            e.printStackTrace()
+            false
+        }
+    }
+
 }

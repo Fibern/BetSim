@@ -100,4 +100,8 @@ interface BetSimApi {
     @GET("/User/Coupon")
     suspend fun getCoupons(@Header("authorization") authorization: String): Response<CouponsResponse>
 
+    @Headers("accept: */*", "Content-Type: application/json")
+    @DELETE("/User")
+    suspend fun deleteUser(@Header("authorization") authorization: String): Response<JsonObject>
+
 }
