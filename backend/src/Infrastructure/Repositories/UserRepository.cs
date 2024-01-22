@@ -40,9 +40,21 @@ namespace Infrastructure.Repositories
 
         public async Task<List<User>> GetUserScoreSortedAsync()
         {
-            var users = await _context.User.AsNoTracking()
-            .OrderByDescending(e => e.Points)
-            .Select(e => new User{Id = e.Id, UserName = e.UserName, Points = e.Points}).ToListAsync();
+            // var users = await _context.User.AsNoTracking()
+            // .OrderByDescending(e => e.Points)
+            // .Select(e => new User{Id = e.Id, UserName = e.UserName, Points = e.Points})
+            // .ToListAsync();
+
+            // _context.UserRoles.ToList();
+
+
+            var users = await (from role in _context.UserRoles.AsNoTracking()
+                        join user in _context.User.AsNoTracking() on role.UserId equals user.Id into Users
+                        from userNotAdmin in Users.DefaultIfEmpty()
+                        orderby userNotAdmin.Points descending  
+                        select new User{Id = userNotAdmin.Id, UserName = userNotAdmin.UserName, Points = userNotAdmin.Points}
+                        ).ToListAsync();
+                                       
 
             return users;
         }
