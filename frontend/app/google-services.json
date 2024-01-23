@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156092756399",
+    "project_id": "betsim-d5f3a",
+    "storage_bucket": "betsim-d5f3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156092756399:android:7b996524b9509d873a7f5a",
+        "android_client_info": {
+          "package_name": "com.example.betsim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUAg5tZHRBKcjevsOUETnNfjFLF0uggVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

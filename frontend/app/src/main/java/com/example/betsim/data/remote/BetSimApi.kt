@@ -12,6 +12,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.PATCH
@@ -104,4 +105,12 @@ interface BetSimApi {
     @DELETE("/User")
     suspend fun deleteUser(@Header("authorization") authorization: String): Response<JsonObject>
 
+    @Headers("accept: */*", "Content-Type: application/json")
+    @POST("/User/AddDeviceToken")
+    suspend fun addDeviceToken(@Header("authorization") authorization: String, @Body requestBody: RequestBody): Response<JsonObject>
+
+
+    @Headers("accept: */*", "Content-Type: application/json")
+    @HTTP(method = "DELETE", path = "/User/DeleteDeviceToken", hasBody = true)
+    suspend fun deleteDeviceToken(@Header("authorization") authorization: String, @Body requestBody: RequestBody): Response<JsonObject>
 }

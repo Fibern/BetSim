@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -96,6 +97,8 @@ dependencies {
     implementation("androidx.security:security-crypto:1.0.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")

@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.betsim.data.local.SecurePreferencesHelper
 import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.common.util.TextFieldState
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val repository: BetSimRepository,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager,
+    private val helper: SecurePreferencesHelper
 ) : ViewModel(){
 
     private val _login = mutableStateOf(TextFieldState("Admin"))
@@ -87,12 +89,14 @@ class LoginScreenViewModel @Inject constructor(
                     _isLoading.value = false
                 }
                 is BasicStatus.Success -> {
+                    repository.addDeviceToken(result.response.accessToken, helper.getDeviceToken())
                     sessionManager.saveLoginResponse(result.response)
                     _success.value = true
                 }
             }
         }
     }
+
 
 
     fun clearToast(){

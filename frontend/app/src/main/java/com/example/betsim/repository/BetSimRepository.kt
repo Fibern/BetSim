@@ -8,17 +8,14 @@ import com.example.betsim.data.remote.responses.EventsResponse
 import com.example.betsim.data.remote.responses.LoginResponse
 import com.example.betsim.data.remote.responses.OfferResponse
 import com.example.betsim.data.remote.responses.RankingResponse
+import com.example.betsim.data.remote.responses.User
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.data.remote.status.RegisterStatus
-import com.example.betsim.data.remote.responses.User
 import com.google.gson.Gson
 import dagger.hilt.android.scopes.ActivityScoped
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import javax.inject.Inject
-
-
-
 
 
 @ActivityScoped
@@ -248,6 +245,37 @@ class BetSimRepository @Inject constructor(
     suspend fun deleteUser(token: String): Boolean{
         return try {
             val response = api.deleteUser("Bearer $token")
+            response.isSuccessful
+        }catch (e: Exception){
+            e.printStackTrace()
+            false
+        }
+    }
+
+    suspend fun addDeviceToken(token: String, deviceToken: String): Boolean{
+        val map = hashMapOf(
+            "tokenId" to deviceToken
+        )
+        return try {
+            val response = api.addDeviceToken(
+                "Bearer $token",
+                RequestBody.create(type, gson.toJson(map))
+            )
+            response.isSuccessful
+        }catch (e: Exception){
+            false
+        }
+    }
+
+    suspend fun deleteDeviceToken(token: String, deviceToken: String): Boolean{
+        val map = hashMapOf(
+            "tokenId" to deviceToken
+        )
+        return try {
+            val response = api.deleteDeviceToken(
+                "Bearer $token",
+                RequestBody.create(type, gson.toJson(map))
+            )
             response.isSuccessful
         }catch (e: Exception){
             e.printStackTrace()

@@ -36,4 +36,16 @@ class SecurePreferencesHelper(
         return LoginResponse(accessToken = access, refreshToken = refresh, expiresIn = 0, tokenType = "")
     }
 
+    fun saveDeviceToken(token: String){
+        sharedPreferences.edit()
+            .putString("device_token", token)
+            .apply()
+    }
+
+    fun getDeviceToken(): String{
+        val token = sharedPreferences.getString("device_token", "")
+        if (token == null) return ""
+        else return token
+    }
+
 }
