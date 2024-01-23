@@ -1,5 +1,6 @@
 package com.example.betsim.presentation.coupons
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -25,7 +26,7 @@ class CouponsScreenViewModel @Inject constructor(
     val coupons: List<Category> = _coupons
 
     private val _isLoading = mutableStateOf(true)
-    val isLoading = _isLoading
+    val isLoading: State<Boolean> = _isLoading
 
 
     init {
@@ -37,6 +38,8 @@ class CouponsScreenViewModel @Inject constructor(
             is CouponsEvent.ItemClicked -> {
                 couponHolder.saveCoupon(event.coupon)
             }
+
+            CouponsEvent.Refresh -> getCoupons()
         }
     }
 
@@ -60,7 +63,7 @@ class CouponsScreenViewModel @Inject constructor(
                             .sortedByDescending { it.dateTime }
                             .groupBy { it.dateTime.toLocalDate() }
                             .toMap()
-
+                        _coupons.clear()
                         _coupons.addAll(
                             list.map {
                                 Category(

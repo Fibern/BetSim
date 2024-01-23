@@ -39,7 +39,7 @@ fun LeaderboardItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = user.points.toString(),
+                        text = "%.2f".format(user.points).replace('.',','),
                         color = colorScheme.onSecondary
                     )
                     Spacer(modifier = Modifier.width(16.dp))

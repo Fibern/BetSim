@@ -96,6 +96,10 @@ class EventsScreenViewModel @Inject constructor(
             is EventsScreenEvent.DeleteClicked -> {
                 deleteEvent(event.id)
             }
+            EventsScreenEvent.Refresh -> {
+                if (_isMod.value) getModEvents()
+                else getEvents()
+            }
         }
     }
 

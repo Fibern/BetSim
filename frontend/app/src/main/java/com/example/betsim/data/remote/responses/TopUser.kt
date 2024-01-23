@@ -2,6 +2,6 @@ package com.example.betsim.data.remote.responses
 
 data class TopUser(
     val place: Int,
-    val points: Int,
+    val points: Double,
     val userName: String
 )

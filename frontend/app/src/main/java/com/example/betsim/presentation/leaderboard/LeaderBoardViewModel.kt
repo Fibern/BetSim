@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LeaderBoardViewModel @Inject constructor(
-    repository: BetSimRepository,
-    sessionManager: SessionManager,
+    private val repository: BetSimRepository,
+    private val sessionManager: SessionManager,
 ): ViewModel() {
 
     private val _isLoading = mutableStateOf(true)
@@ -25,6 +25,17 @@ class LeaderBoardViewModel @Inject constructor(
     val rankingUsers: State<RankingUsers?> = _rankingUsers
 
     init {
+        loadLeaderboard()
+    }
+
+    fun onEvent(event: LeaderboardEvent){
+        when(event){
+            LeaderboardEvent.Refresh -> loadLeaderboard()
+        }
+
+    }
+
+    private fun loadLeaderboard(){
         viewModelScope.launch {
             try {
                 _isLoading.value = true

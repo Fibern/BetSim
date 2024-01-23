@@ -59,6 +59,8 @@ class OffersViewModel @Inject constructor(
             is OffersEvent.ModifyClicked -> {
                 offerHolder.saveOffer(_offers[event.index])
             }
+
+            OffersEvent.Refresh -> getGames()
         }
     }
 
@@ -78,7 +80,10 @@ class OffersViewModel @Inject constructor(
                 BasicStatus.BadInternet -> {}
                 BasicStatus.Failure -> {}
                 is BasicStatus.Success -> {
-                    _offers.addAll(response.response.offer.sortedBy { it.dateTime })
+                    val offerResponse = response.response.offer.sortedBy { it.dateTime }.toMutableList()
+                    if (!_isMod.value) offerResponse.retainAll { it.active }
+                    _offers.clear()
+                    _offers.addAll(offerResponse)
                 }
             }
             _isLoading.value = false
