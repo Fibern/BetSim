@@ -26,6 +26,8 @@ public static class DependencyInjection
             .WriteTo.File(configuration["Logging:File"], rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
+        services.AddSingleton(Log.Logger);
+        
         return services;
     }
 }

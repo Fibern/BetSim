@@ -27,8 +27,8 @@ namespace Application.Queries.CouponQuery
             {
                 for (int j = 0; j < all[i].Bets.Count(); j++)
                 {
-                    allViewModel[i].Bets[j].Title = all[i].Bets[j].Offert.Title;
-                    allViewModel[i].Bets[j].Score = all[i].Bets[j].Offert.Score;
+                    allViewModel[i].Bets[j].Title = all[i].Bets[j].PredictedWinner.Offert.Title;
+                    allViewModel[i].Bets[j].Score = all[i].Bets[j].PredictedWinner.Offert.Score;
                 }
             }
 

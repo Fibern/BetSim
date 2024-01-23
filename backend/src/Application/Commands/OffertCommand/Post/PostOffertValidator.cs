@@ -1,4 +1,5 @@
 ﻿using Application.Dto.OffertDto;
+using Domain.Entities;
 using Domain.Enums;
 using FluentValidation;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.OffertCommand.Post
 {
-    public class PostOffertValidator : AbstractValidator<OffertDto>
+    public class PostOffertValidator : AbstractValidator<Offert>
     {
         public PostOffertValidator(Func<bool> validateOdds)
         {

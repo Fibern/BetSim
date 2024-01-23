@@ -6,9 +6,9 @@ namespace WebApi.Filtres
 {
     public class ExceptionFilter : IExceptionFilter
     {
-        private readonly ILogger<ExceptionFilter> _logger;
+        private readonly ILogger _logger;
 
-        public ExceptionFilter(ILogger<ExceptionFilter> logger)
+        public ExceptionFilter(ILogger logger)
         {
             _logger = logger;
         }
