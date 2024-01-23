@@ -7,7 +7,12 @@ namespace Domain.UseCase{
     public class CouponCase : ICouponCase
     {
         
-        public void UpdateBetsAndCouponsAfterScore(List<Coupon> coupons,int winner, int offertId)
+        public void UpdateBetsAndCouponsAfterScore
+        (
+        List<Coupon> coupons,int winner, int offertId, 
+        Action<Bet, string> sendNotyfication , 
+        Action<double,string> sendPoints
+        ) 
         {
             foreach (var coupon in coupons)
             {
@@ -26,8 +31,12 @@ namespace Domain.UseCase{
                             bet.Status = Status.Lose;
                         }
                     }
+
                     // send push notification
-                    
+                     foreach(var device in coupon.User.Devices){
+                            sendNotyfication(bet,device.TokenId);
+                    }
+     
                     // calculate how many bets are over
                     if(bet.Status != Status.InProgress)betsOver++;
 
@@ -41,6 +50,12 @@ namespace Domain.UseCase{
                         coupon.Status = Status.Win;
                         //update user points
                         coupon.User.Points += Math.Round(coupon.OddSum * coupon.Value,2);
+
+                        //send data payload notyfication
+                        foreach(var device in coupon.User.Devices){
+                            sendPoints(coupon.User.Points,device.TokenId);
+                        }
+                        
                     }
                     else{
                         coupon.Status = Status.Lose;
