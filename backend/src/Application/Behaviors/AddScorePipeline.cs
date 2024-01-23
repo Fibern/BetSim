@@ -7,7 +7,8 @@ using Serilog;
 
 namespace Application.Behaviors
 {
-    public class AddScorePipeline : IPipelineBehavior<PatchOffertScoreCommand, BaseResponse<string>>
+    public class AddScorePipeline<TRequest,TResponse> : IPipelineBehavior<TRequest, TResponse> 
+    where TRequest : PatchOffertScoreCommand where TResponse : BaseResponse<string>
     {
         private readonly ICouponRepository _couponRepository;
         private readonly ILogger _logger;
@@ -18,11 +19,11 @@ namespace Application.Behaviors
             _logger = logger;
         }
 
-        public async Task<BaseResponse<string>> Handle(PatchOffertScoreCommand request, RequestHandlerDelegate<BaseResponse<string>> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             _logger.Information("addScorePipeline started"); 
 
-            BaseResponse<string> response = await next(); 
+            var response = await next(); 
 
             // if not valid
             if (!response.Succes)return response;

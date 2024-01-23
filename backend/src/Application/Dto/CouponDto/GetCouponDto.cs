@@ -1,5 +1,6 @@
 using Application.Dto.BetDto;
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Application.Dto.CouponDto
 {
@@ -9,6 +10,7 @@ namespace Application.Dto.CouponDto
         public double Value { get; set; }
         public int OddSum { get; set; }
         public DateTimeOffset DateTime { get; set; }
+        public Status status { get; set; }
 
     }
 }

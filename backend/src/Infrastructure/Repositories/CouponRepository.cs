@@ -29,6 +29,7 @@ namespace Infrastructure.Repositories
             .AsNoTracking()
             .Include(e=> e.Bets)
             .ThenInclude(e => e.PredictedWinner)
+            .ThenInclude(e => e.Offert)
             .Where(e => e.UserId == userId)
             .ToListAsync();
             return allCoupons;

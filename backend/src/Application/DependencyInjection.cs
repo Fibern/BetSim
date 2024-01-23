@@ -12,7 +12,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services,IConfiguration configuration)
     {
-        services.AddTransient<IPipelineBehavior<PatchOffertScoreCommand, BaseResponse<string>>, AddScorePipeline>();
+        services.AddTransient
+            (
+            typeof(IPipelineBehavior<,>), 
+            typeof(AddScorePipeline<,>)
+            );
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
