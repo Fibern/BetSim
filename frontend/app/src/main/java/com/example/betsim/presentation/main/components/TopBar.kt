@@ -34,7 +34,7 @@ fun BetSimTopAppBar(
     var rotationState by remember { mutableFloatStateOf(0f) }
 
    val rotation by animateFloatAsState(
-        targetValue = rotationState + 360f,
+        targetValue = rotationState,
         animationSpec = tween(1000), label = "rotate",
     )
 
@@ -49,7 +49,7 @@ fun BetSimTopAppBar(
                 Row(
                     modifier = Modifier
                         .clickable {
-                            rotationState = rotation
+                            rotationState += 360f
                             onClick()
                         },
                     verticalAlignment = Alignment.CenterVertically
