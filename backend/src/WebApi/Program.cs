@@ -23,7 +23,7 @@ if(builder.Environment.IsProduction()){
     builder.WebHost.UseUrls("https://sport-bet-simulator.pl");
 }
 
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfraStucture(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();

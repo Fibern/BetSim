@@ -38,6 +38,7 @@ namespace Infrastructure.Repositories
         {
             List<Coupon> allCoupons =  await _context.Coupon
             .Include(e=> e.User)
+            .ThenInclude(e => e.Devices)
             .Include(e=> e.Bets)
             .Where(e => e.Bets.Where(e => e.OffertId == offertId).Any())
             .ToListAsync();
