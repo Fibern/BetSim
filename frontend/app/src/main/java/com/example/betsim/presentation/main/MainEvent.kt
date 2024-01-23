@@ -10,4 +10,6 @@ sealed class MainEvent {
     data class CollapsedChange(val collapsed: Boolean): MainEvent()
     data class HiddenChange(val hidden: Boolean): MainEvent()
     data class DestinationChange(val destination: String?): MainEvent()
+
+    data object Refresh: MainEvent()
 }

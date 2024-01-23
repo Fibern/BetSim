@@ -41,22 +41,9 @@ class MainViewModel @Inject constructor(
     private val _toastMessage = mutableStateOf("")
     val toastMessage: State<String> = _toastMessage
     init {
-        viewModelScope.launch {
-            val login = sessionManager.getCurrent()
-            if (login == null){
-                _isLoading.value = false
-                return@launch
-            }
-            when (val response: BasicStatus<User> = repository.getUser(login.accessToken)) {
-                BasicStatus.BadInternet -> {}
-                BasicStatus.Failure -> {}
-                is BasicStatus.Success -> {
-                    _user.value = response.response
-                }
-            }
-            _isLoading.value = false
-        }
+        getUser()
     }
+
 
     fun onEvent(event: MainEvent){
         when(event){
@@ -127,6 +114,26 @@ class MainViewModel @Inject constructor(
                 }
 
             }
+
+            MainEvent.Refresh -> getUser()
+        }
+    }
+
+    private fun getUser() {
+        viewModelScope.launch {
+            val login = sessionManager.getCurrent()
+            if (login == null){
+                _isLoading.value = false
+                return@launch
+            }
+            when (val response: BasicStatus<User> = repository.getUser(login.accessToken)) {
+                BasicStatus.BadInternet -> {}
+                BasicStatus.Failure -> {}
+                is BasicStatus.Success -> {
+                    _user.value = response.response
+                }
+            }
+            _isLoading.value = false
         }
     }
 

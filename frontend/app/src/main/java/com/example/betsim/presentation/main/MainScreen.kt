@@ -28,12 +28,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BasicLoadingScreen
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
-import com.example.betsim.presentation.util.Screen
 import com.example.betsim.presentation.main.components.BetSimBottomAppBar
 import com.example.betsim.presentation.main.components.BetSimTopAppBar
 import com.example.betsim.presentation.main.components.FloatingActionAnimation
 import com.example.betsim.presentation.main.components.nav_hosts.ModNavHost
 import com.example.betsim.presentation.main.components.nav_hosts.UserNavHost
+import com.example.betsim.presentation.util.Screen
 
 
 @Composable
@@ -79,7 +79,9 @@ fun UserMainScreen(
 
         topBar = {
                 if (!appBarsHidden) {
-                    BetSimTopAppBar(user)
+                    BetSimTopAppBar(user){
+                        viewModel.onEvent(MainEvent.Refresh)
+                    }
                 }
             },
 
