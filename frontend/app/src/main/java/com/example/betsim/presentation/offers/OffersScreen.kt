@@ -86,7 +86,8 @@ fun OffersScreen(
 
                 LazyColumn(
                     contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxSize()
                 ) {
 
                     itemsIndexed(offers) { index, offer ->

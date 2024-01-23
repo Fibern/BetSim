@@ -56,7 +56,8 @@ fun LeaderboardScreen(
                     .weight(1f),
             ) {
                 LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(1.dp)
+                    verticalArrangement = Arrangement.spacedBy(1.dp),
+                    modifier = Modifier.fillMaxSize()
                 ) {
 
                     if (users != null) {
