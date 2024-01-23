@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +39,12 @@ fun BetSimTopAppBar(
         animationSpec = tween(1000), label = "rotate",
     )
 
+    LaunchedEffect(user.points) {
+        rotationState += 360f
+    }
+
+
+
     TopAppBar(
         title = { Text(user.username) },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -54,10 +61,9 @@ fun BetSimTopAppBar(
                         },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "%.2f".format(user.points).replace('.', ','),
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
+
+                    AnimatedPoints(points = user.points)
+
                     Icon(
                         painterResource(id = ic_casino_chip),
                         "",
