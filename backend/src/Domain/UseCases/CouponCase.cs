@@ -32,7 +32,7 @@ namespace Domain.UseCase{
                     if(bet.Status != Status.InProgress)betsOver++;
 
                     // calculate how many bets are win
-                    if(bet.Status == Status.Win)betWin++;;
+                    if(bet.Status == Status.Win)betWin++;
                 }
 
                 //update user points if coupon is over and win

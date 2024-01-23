@@ -33,5 +33,22 @@ namespace Infrastructure.Repositories
             .ToListAsync();
             return allCoupons;
         }
+
+        public async Task<List<Coupon>> GetCouponsByOffert(int offertId)
+        {
+            List<Coupon> allCoupons =  await _context.Coupon
+            .Include(e=> e.User)
+            .Include(e=> e.Bets)
+            .Where(e => e.Bets.Where(e => e.OffertId == offertId).Any())
+            .ToListAsync();
+            
+            return allCoupons;
+        }
+
+        public async Task<bool> UpdateRangeAsync(List<Coupon> coupon)
+        {
+            _context.Coupon.UpdateRange(coupon);
+            return (await _context.SaveChangesAsync() > 0);
+        }
     }
 }
