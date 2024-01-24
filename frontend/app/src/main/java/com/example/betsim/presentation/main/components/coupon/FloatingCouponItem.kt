@@ -50,7 +50,7 @@ fun FloatingCouponItem(offer: Offer, onClick: () -> Unit){
                 lineHeight = MaterialTheme.typography.bodyLarge.lineHeight
             )
             Text(
-                "TODO OfferName",
+                offer.title,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
@@ -90,7 +90,7 @@ fun FloatingCouponItem(offer: Offer, onClick: () -> Unit){
 @Preview
 @Composable
 fun FlIt(){
-    FloatingCouponItem(offer = Offer(true, LocalDateTime.now(), 1, listOf(Odd(1, 1.2, "Team 1"), Odd(2, 1.3, "Team 3")), "", 0, -1, 0)){
+    FloatingCouponItem(offer = Offer(true, LocalDateTime.now(), 1, listOf(Odd(1, 1.2, "Team 1"), Odd(2, 1.3, "Team 3")), "", 0, -1, 0, "Asd")){
 
     }
 }

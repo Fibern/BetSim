@@ -1,6 +1,5 @@
 package com.example.betsim.presentation.offers.components
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -73,7 +72,7 @@ fun OffersItem(
         }
 
         Text(
-            text = "TODO OfferName",
+            text = offer.title,
             textAlign = TextAlign.Center,
             color = colorScheme.onSecondary
         )
@@ -102,9 +101,6 @@ fun OffersItem(
                 }
             }
         }
-        Log.i("jd1", LocalDateTime.now().toString())
-        Log.i("jd2", offer.dateTime.toString())
-        Log.i("jd3", offer.dateTime.isBefore(LocalDateTime.now()).toString())
 
         if (isMod && offer.dateTime.isBefore(LocalDateTime.now()) && offer.active){
 
@@ -153,7 +149,8 @@ fun OffersItemPreview(){
             score = "",
             type = 0,
             winner = -1,
-            selected = 0
+            selected = 0,
+            title = "jd"
             ),
         true,
         onClick = {}

@@ -76,6 +76,10 @@ interface BetSimApi {
     ): Response<OfferResponse>
 
     @Headers("accept: */*", "Content-Type: application/json")
+    @GET("/User/Offert")
+    suspend fun getOfferByUser(@Header("authorization") authorization: String): Response<OfferResponse>
+
+    @Headers("accept: */*", "Content-Type: application/json")
     @GET("/Offert")
     suspend fun getOfferByDate(
         @Query("dateTime") date: String

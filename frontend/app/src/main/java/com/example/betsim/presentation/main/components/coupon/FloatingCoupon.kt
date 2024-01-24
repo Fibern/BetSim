@@ -175,7 +175,7 @@ fun FloatingCoupon(
 @Preview
 @Composable
 fun FCoupon(){
-    val odd = Offer(true, LocalDateTime.now(), 1, listOf(Odd(1, 1.2, "Team 1"), Odd(2, 1.3, "Team 3")), "", 0, -1, 0)
+    val odd = Offer(true, LocalDateTime.now(), 1, listOf(Odd(1, 1.2, "Team 1"), Odd(2, 1.3, "Team 3")), "", 0, -1, 0, "asd")
     val offers = listOf(odd,odd,odd,odd,odd,odd,odd,odd)
     FloatingCoupon(
         MainCouponState(offers = offers), onClick = {}, onValueChange = {}, {}

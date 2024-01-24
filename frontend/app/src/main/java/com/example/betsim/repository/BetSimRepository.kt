@@ -170,6 +170,17 @@ class BetSimRepository @Inject constructor(
         }
     }
 
+    suspend fun getOfferByUser(token: String): BasicStatus<OfferResponse>{
+        try {
+            val response = api.getOfferByUser("Bearer $token")
+            if (response.isSuccessful)
+                return BasicStatus.Success(response.body()!!)
+            return BasicStatus.Failure
+        }catch (e: Exception){
+            return BasicStatus.BadInternet
+        }
+    }
+
     suspend fun getOffer(date: String): BasicStatus<OfferResponse>{
         try {
             val response = api.getOfferByDate(date)

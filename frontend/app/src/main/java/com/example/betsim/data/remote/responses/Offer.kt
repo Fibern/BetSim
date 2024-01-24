@@ -11,7 +11,8 @@ data class Offer(
     val score: String,
     val type: Int,
     val winner: Int,
-    var selected: Int? = null
+    var selected: Int? = null,
+    val title: String
 ){
 
     override fun equals(other: Any?): Boolean {
@@ -30,7 +31,9 @@ data class Offer(
         result = 31 * result + type
         result = 31 * result + winner
         result = 31 * result + (selected ?: 0)
+        result = 31 * result + title.hashCode()
         return result
     }
+
 
 }

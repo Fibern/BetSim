@@ -114,7 +114,7 @@ fun ModifyScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "TODO offerName",
+                        text = offer.title,
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.headlineSmall
                     )

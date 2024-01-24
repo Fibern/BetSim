@@ -9,6 +9,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.data.local.OfferHolder
+import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.remote.responses.Offer
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.util.Screen
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class OffersViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: BetSimRepository,
-    private val offerHolder: OfferHolder
+    private val offerHolder: OfferHolder,
+    private val sessionManager: SessionManager
 ): ViewModel() {
 
     private val _offers = mutableStateListOf<Offer>()
@@ -69,9 +71,13 @@ class OffersViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             val response = if (_id.intValue == -1) {
-                if (_isMod.value)
-                    repository.getOffer(LocalDateTime.now().toString())
-                else
+                if (_isMod.value) {
+                    val login = sessionManager.getCurrent()
+                    if(login != null)
+                        repository.getOfferByUser(login.accessToken)
+                    else
+                        BasicStatus.Failure
+                } else
                     repository.getOffer(LocalDateTime.now().toString())
             } else {
                     repository.getOffer(_id.intValue)
@@ -81,7 +87,8 @@ class OffersViewModel @Inject constructor(
                 BasicStatus.Failure -> {}
                 is BasicStatus.Success -> {
                     val offerResponse = response.response.offer.sortedBy { it.dateTime }.toMutableList()
-                    if (!_isMod.value) offerResponse.retainAll { it.active }
+                    if (!_isMod.value) offerResponse.retainAll { it.active && it.dateTime.isAfter(LocalDateTime.now()) }
+                    else if (_id.intValue == -1) offerResponse.retainAll { it.active && it.dateTime.isBefore(LocalDateTime.now()) }
                     _offers.clear()
                     _offers.addAll(offerResponse)
                 }
