@@ -38,6 +38,9 @@ namespace UnitTests{
                 
 
             };
+
+            var sendNotyfication = (Bet bet,string token) => Task.CompletedTask;
+            var sendDataPayload = (double points,string token) => Task.CompletedTask;
         }
     }
 }

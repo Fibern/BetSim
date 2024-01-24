@@ -8,6 +8,8 @@ namespace UnitTests
     public class CouponTest : IClassFixture<CouponFixture>
     {
         private Coupon exampleCoupon;
+        private Func<Bet, string, Task> sendNotyfication;
+        private Func<double, string, Task> sendDataPayload;
 
         public CouponTest(CouponFixture couponFixture)
         {
@@ -29,7 +31,7 @@ namespace UnitTests
             exampleCoupon.Bets[1].Status = Status.Win;
 
             // Act
-            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId);
+            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId, sendNotyfication , sendDataPayload);
 
             // Assert
             Assert.Equal(exampleCoupon.Bets[0].Status , Status.Lose);
@@ -50,7 +52,7 @@ namespace UnitTests
             exampleCoupon.Bets[1].Status = Status.Win;
 
             // Act
-            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId);
+            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId, sendNotyfication , sendDataPayload);
 
             // Assert
             Assert.Equal(exampleCoupon.Bets[0].Status , Status.Win);
@@ -71,7 +73,7 @@ namespace UnitTests
             exampleCoupon.Bets[1].Status = Status.InProgress;
 
             // Act
-            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId);
+            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId, sendNotyfication , sendDataPayload);
 
             // Assert
             Assert.Equal(exampleCoupon.Bets[0].Status , Status.Win);

@@ -10,8 +10,8 @@ namespace Domain.UseCase{
         public void UpdateBetsAndCouponsAfterScore
         (
         List<Coupon> coupons,int winner, int offertId, 
-        Action<Bet, string> sendNotyfication , 
-        Action<double,string> sendPoints
+        Func<Bet,string,Task> sendNotyfication , 
+        Func<double,string, Task> sendPoints
         ) 
         {
             foreach (var coupon in coupons)
