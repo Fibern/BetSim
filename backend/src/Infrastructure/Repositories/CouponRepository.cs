@@ -29,9 +29,28 @@ namespace Infrastructure.Repositories
             .AsNoTracking()
             .Include(e=> e.Bets)
             .ThenInclude(e => e.PredictedWinner)
+            .ThenInclude(e => e.Offert)
             .Where(e => e.UserId == userId)
             .ToListAsync();
             return allCoupons;
+        }
+
+        public async Task<List<Coupon>> GetCouponsByOffert(int offertId)
+        {
+            List<Coupon> allCoupons =  await _context.Coupon
+            .Include(e=> e.User)
+            .ThenInclude(e => e.Devices)
+            .Include(e=> e.Bets)
+            .Where(e => e.Bets.Where(e => e.OffertId == offertId).Any())
+            .ToListAsync();
+            
+            return allCoupons;
+        }
+
+        public async Task<bool> UpdateRangeAsync(List<Coupon> coupon)
+        {
+            _context.Coupon.UpdateRange(coupon);
+            return (await _context.SaveChangesAsync() > 0);
         }
     }
 }

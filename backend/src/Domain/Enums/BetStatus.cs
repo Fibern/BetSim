@@ -1,6 +1,7 @@
 ﻿namespace Domain.Enums
 {
-    public enum BetStatus
+    
+    public enum Status
     {
         Lose,
         InProgress,

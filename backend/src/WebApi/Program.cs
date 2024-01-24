@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Configuration;
 using System.Text;
+using WebApi;
 using WebApi.Filtres;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,10 +18,12 @@ var configuration = builder.Configuration;
 
 
 // configure kerstel for https
-builder.WebHost.ConfigureKestrel( o => o.ListenLocalhost(7054));
-builder.WebHost.UseUrls("https://localhost");
+// builder.WebHost.ConfigureKestrel( o => o.ListenLocalhost(7054));
+if(builder.Environment.IsProduction()){
+    builder.WebHost.UseUrls("https://sport-bet-simulator.pl");
+}
 
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfraStucture(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
@@ -34,15 +37,16 @@ builder.Services.AddControllers(
 );
 
 //configure identity
-builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<DbMainContext>()
-    .AddApiEndpoints();
+builder.Services.AddIdentityApiEndpoints<User>()
+    .AddRoles<IdentityRole<int>>()
+    .AddRoleManager<RoleManager<IdentityRole<int>>>()
+    .AddEntityFrameworkStores<DbMainContext>();
+
 
 //configre authorization
-builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+builder.Services.AddAuthentication();
 
 builder.Services.AddAuthorizationBuilder();
-
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -144,8 +148,21 @@ app.MapIdentityApi<User>();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
 
+//seeding
+// using (var scope = app.Services.CreateScope())
+// {
+//     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+//     var roles = new [] {"OddsMaker","User"};
+
+//     foreach (var role in roles)
+//     {
+//         await roleManager.CreateAsync(new IdentityRole<int>(role));
+//     }
+// }
 
 app.Run();
 

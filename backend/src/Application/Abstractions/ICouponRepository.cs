@@ -12,5 +12,7 @@ namespace Application.Abstractions
     {
         Task<int> AddAsync(Coupon coupon);
         Task<IReadOnlyList<Coupon>> GetAsync(int userId);
+        Task<List<Coupon>> GetCouponsByOffert(int offertId);
+        Task<bool> UpdateRangeAsync(List<Coupon> coupon);
     }
 }

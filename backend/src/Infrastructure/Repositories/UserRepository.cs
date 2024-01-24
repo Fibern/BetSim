@@ -1,5 +1,7 @@
 using Application.Abstractions;
+using Application.Dto.UserDto;
 using Domain.Entities;
+using Domain.UseCase;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
@@ -11,6 +13,12 @@ namespace Infrastructure.Repositories
         public UserRepository(DbMainContext context)
         {
             _context = context;
+        }
+
+        public async Task<int> AddAsync(User user)
+        {
+            await _context.Users.AddAsync(user);
+            return user.Id;
         }
 
         public void Delete(int userId)
@@ -26,10 +34,33 @@ namespace Infrastructure.Repositories
         public async Task<User> GetUserInfoAsync(int userId)
         {
             User user = await _context.User
-            .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == userId);
             
             return user;
         }
+
+        public async Task<List<User>> GetUserScoreSortedAsync()
+        {
+
+            var AdminsId = _context.UserRoles
+            .AsNoTracking()
+            .Where(e => e.RoleId == 1)
+            .Select(e=> e.UserId);
+
+            var users = _context.Users
+            .AsNoTracking()
+            .Where(e =>  !AdminsId.Contains(e.Id))
+            .ToList();
+                                       
+
+            return users;
+        }
+
+        public async Task<bool> PutAsync(User user)
+        {
+            _context.User.Update(user);
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
     }
 }

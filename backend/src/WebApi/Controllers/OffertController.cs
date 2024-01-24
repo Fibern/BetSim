@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("{eventId}")]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker") ]
         public async Task<ActionResult<BaseResponse<int>>> OffertPost([FromRoute] int eventId,OffertDto offert)
         {
             var command = new PostOffertCommand(offert, eventId);
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker") ]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPut([FromRoute] int id, PutOffertDto request)
         {
             var command = new PutOffertCommand(_userId, id, request);
@@ -69,7 +69,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker") ]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertDelete([FromRoute] int id)
         {
             var command = new DeleteOffertCommand(id, _userId);
@@ -79,7 +79,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{offertId}")]
-        [Authorize]
+        [Authorize(Roles = "OddsMaker") ]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPatch([FromRoute] int offertId, ScorePatchOffertDto request)
         {
             var command = new PatchOffertScoreCommand(offertId, _userId, request.winner, request.score);

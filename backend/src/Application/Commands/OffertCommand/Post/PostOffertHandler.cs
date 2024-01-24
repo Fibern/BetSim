@@ -27,7 +27,7 @@ namespace Application.Commands.OffertCommand.Post
             
             newOffert.CreateTilteIfMatch();
             var validator = new PostOffertValidator(newOffert.ValidateOdds);
-            var validationResult = validator.Validate(request.offertDto);
+            var validationResult = validator.Validate(newOffert);
 
             //if not valioddd
             if (validationResult.IsValid == false) return new BaseResponse<int>(validationResult);

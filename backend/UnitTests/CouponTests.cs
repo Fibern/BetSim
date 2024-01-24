@@ -1,37 +1,85 @@
 using Domain.Entities;
+using Domain.Enums;
+using Domain.UseCase;
+using Microsoft.VisualBasic;
 
 namespace UnitTests
 {
-    public class CouponTest
+    public class CouponTest : IClassFixture<CouponFixture>
     {
-        [Fact]
-        public void TestName()
+        private Coupon exampleCoupon;
+        private Func<Bet, string, Task> sendNotyfication;
+        private Func<double, string, Task> sendDataPayload;
+
+        public CouponTest(CouponFixture couponFixture)
         {
-            // act
-            Coupon testcoupon = new Coupon(){
-                Bets = 
-                [
-                    new Bet(){
+            exampleCoupon = couponFixture.ExampleCoupon;
+        }
 
-                        PredictedWinnerId = 0,
-                        PredictedWinner = new Odd(){
-                            OddValue = 2
-                        }
-                    },
 
-                    new Bet(){
-                        PredictedWinnerId = 1,
-                        PredictedWinner = new Odd(){
-                            OddValue = 3
-                        }
-                    }       
-                ]
-            };
+        [Fact]
+        public void UpdateBetsAndCouponsAfterScore_WhenAllBetsAreOverAndOneLose_ShouldUpdateBet()
+        {
+            // Arrange
+            
+            var offertId = 1;
+            var winner = 1;
 
-            // arrange
+            var couponCase = new CouponCase();
 
-            // assertion
-        }  
+            exampleCoupon.Bets[0].Status = Status.InProgress;
+            exampleCoupon.Bets[1].Status = Status.Win;
+
+            // Act
+            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId, sendNotyfication , sendDataPayload);
+
+            // Assert
+            Assert.Equal(exampleCoupon.Bets[0].Status , Status.Lose);
+            Assert.Equal(exampleCoupon.Status , Status.Lose);
+        }
+
+        [Fact]
+        public void UpdateBetsAndCouponsAfterScore_WhenAllBetsAreWinning_ShouldUpdateUserPoints()
+        {
+            // Arrange
+
+            var offertId = 1;
+            var winner = 2;
+
+            var couponCase = new CouponCase();
+
+            exampleCoupon.Bets[0].Status = Status.InProgress;
+            exampleCoupon.Bets[1].Status = Status.Win;
+
+            // Act
+            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId, sendNotyfication , sendDataPayload);
+
+            // Assert
+            Assert.Equal(exampleCoupon.Bets[0].Status , Status.Win);
+            Assert.Equal(exampleCoupon.Status , Status.Win);
+            Assert.Equal(exampleCoupon.User.Points , 542.21);
+        }
+
+        [Fact]
+        public void UpdateBetsAndCouponsAfterScore_WhenSomeBetsInProgres_ShouldUpdateOneBet()
+        {
+            // Arrange
+
+            var offertId = 1;
+            var winner = 2;
+
+            var couponCase = new CouponCase();
+
+            exampleCoupon.Bets[1].Status = Status.InProgress;
+
+            // Act
+            couponCase.UpdateBetsAndCouponsAfterScore(new List<Coupon> { exampleCoupon }, winner, offertId, sendNotyfication , sendDataPayload);
+
+            // Assert
+            Assert.Equal(exampleCoupon.Bets[0].Status , Status.Win);
+            Assert.Equal(exampleCoupon.User.Points , 500);
+            Assert.Equal(exampleCoupon.Status , Status.InProgress);
+        }
     }
 
     

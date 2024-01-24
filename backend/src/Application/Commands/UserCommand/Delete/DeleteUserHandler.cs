@@ -17,7 +17,7 @@ namespace Application.Commands.UserCommand
         {
             _userRepo.Delete(request.UserId);
 
-           return new BaseResponse<string>("");
+           return new BaseResponse<string>("",true);
         }
     }
 }
