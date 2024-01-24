@@ -49,6 +49,7 @@ namespace Infrastructure.Repositories
 
             var users = _context.Users
             .AsNoTracking()
+            .OrderByDescending(e => e.Points)
             .Where(e =>  !AdminsId.Contains(e.Id))
             .ToList();
                                        
