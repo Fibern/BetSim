@@ -55,6 +55,11 @@ namespace Infrastructure.Repositories
             return await _context.Offert.Where(e => e.Id == id).Include(e => e.Odds).FirstOrDefaultAsync(e => e.Event.OwnerId == userId);
         }
 
+        public async Task<IReadOnlyList<Offert>> GetAllUserOffert(int userId)
+        {
+            return await _context.Offert.AsNoTracking().Include(e => e.Odds).Where(e => e.Event.OwnerId == userId).ToListAsync();
+        }
+
         public async Task<bool> UpdateAsync(Offert entity)
         {
             _context.Offert.Update(entity);
