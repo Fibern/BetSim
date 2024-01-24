@@ -23,7 +23,7 @@ namespace Infrastructure.Repositories
 
         public void Delete(int userId)
         {
-            var user = _context.User.Find(userId);
+            var user = _context.User.FirstOrDefault(e => e.Id == userId);
             if(user is not null){
                 _context.User.Remove(user);
                 _context.SaveChangesAsync();
