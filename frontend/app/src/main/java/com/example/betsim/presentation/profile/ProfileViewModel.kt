@@ -33,7 +33,6 @@ class ProfileViewModel @Inject constructor(
             ProfileEvent.LogoutClicked -> {
                 onLogout()
             }
-            ProfileEvent.ResetClicked -> {}
             ProfileEvent.DeleteClicked -> {
                 onDelete()
             }

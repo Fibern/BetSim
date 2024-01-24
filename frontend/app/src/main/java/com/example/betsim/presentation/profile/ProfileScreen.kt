@@ -76,19 +76,6 @@ fun Profile(
 
             if (!mainViewModel.user.value.isMod) {
 
-                OutlinedButton(
-                    modifier = Modifier
-                        .wrapContentHeight()
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                        .padding(horizontal = 16.dp),
-                    onClick = {
-                        viewModel.onEvent(ProfileEvent.ResetClicked)
-                    },
-                    content = {
-                        Text(text = "Zresetuj punkty", modifier = Modifier.padding(vertical = 8.dp))
-                    }
-                )
 
                 OutlinedButton(
                     modifier = Modifier
