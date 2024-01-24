@@ -25,6 +25,9 @@ namespace Application.Commands.OffertCommand.Patch
             //if offert not exist
             if (offert == null) return new BaseResponse<string>("offert not found in yours offerts");
 
+            //if offert is not active
+            if (offert.Active == false) return new BaseResponse<string>("offert is not active",false);
+
             var validator = new PatchOffertScoreValidator(offert.ValidateWinner);
             var validationResult = validator.Validate(request);
 

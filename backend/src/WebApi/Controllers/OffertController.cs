@@ -68,15 +68,15 @@ namespace WebApi.Controllers
             return (response.Succes == true) ? Ok(response) : BadRequest(response);
         }
 
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "OddsMaker") ]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertDelete([FromRoute] int id)
-        {
-            var command = new DeleteOffertCommand(id, _userId);
-            var response = await _mediator.Send(command);
+        // [HttpDelete("{id}")]
+        // [Authorize(Roles = "OddsMaker") ]
+        // public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertDelete([FromRoute] int id)
+        // {
+        //     var command = new DeleteOffertCommand(id, _userId);
+        //     var response = await _mediator.Send(command);
 
-            return (response.Succes == true) ? Ok(response) : BadRequest(response);
-        }
+        //     return (response.Succes == true) ? Ok(response) : BadRequest(response);
+        // }
 
         [HttpPatch("{offertId}")]
         [Authorize(Roles = "OddsMaker") ]

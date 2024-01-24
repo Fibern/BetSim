@@ -58,6 +58,14 @@ namespace Infrastructure.Repositories
              .FirstOrDefaultAsync();
         }
 
+        public async Task<Event> GetUserEventWithOffertsAsync(int id, int userId)
+        {
+             return await _context.Event
+             .Where(e => e.Id == id && e.OwnerId == userId)
+             .Include(e => e.Offerts)
+             .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> UpdateAsync(Event entity)
         {
             _context.Event.Update(entity);
