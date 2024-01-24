@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Application.Commands.CouponCommand
 {
-   public record PostCouponCommand(int UserId, PostCouponDto CouponDto):IRequest<BaseResponse<int>>;
+   public record PostCouponCommand(int UserId, PostCouponDto CouponDto):IRequest<BaseResponse<double>>;
 }
