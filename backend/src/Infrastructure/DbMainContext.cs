@@ -20,6 +20,10 @@ namespace Infrastructure
 
             modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
 
+            //if admin was deleted events still exist
+            modelBuilder.Entity<User>().HasMany(u => u.EventsCreated)
+            .WithOne(u => u.Owner).OnDelete(DeleteBehavior.Restrict);
+            
         }
         
         public DbSet<User> User { get; set; }

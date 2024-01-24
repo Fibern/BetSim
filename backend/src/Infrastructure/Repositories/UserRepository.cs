@@ -21,12 +21,12 @@ namespace Infrastructure.Repositories
             return user.Id;
         }
 
-        public void Delete(int userId)
+        public async Task Delete(int userId)
         {
             var user = _context.User.FirstOrDefault(e => e.Id == userId);
             if(user is not null){
                 _context.User.Remove(user);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             
         }
