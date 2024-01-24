@@ -98,7 +98,6 @@ fun OffersScreen(
                                 index
                             )
                         )
-
                         OffersItem(offer, isMod) { onClickIndex ->
                             if (isMod) {
                                 viewModel.onEvent(OffersEvent.ModifyClicked(index))

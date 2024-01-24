@@ -28,8 +28,10 @@ fun CouponsScreen(
     viewModel: CouponsScreenViewModel = hiltViewModel()
 ) {
 
-    val coupons = viewModel.coupons
+    val inGame = viewModel.inGame
+    val finished = viewModel.finished
     val isLoading by remember { viewModel.isLoading }
+
 
     val onClick: (Coupon) -> Unit = {
         navController.navigate(Screen.CouponDetailsScreen.route)
@@ -45,8 +47,8 @@ fun CouponsScreen(
 
 
     val items = listOf(
-        CouponTabItem.InGame(coupons, pull, onClick),
-        CouponTabItem.Finished(coupons, pull, onClick)
+        CouponTabItem.InGame(inGame, pull, onClick),
+        CouponTabItem.Finished(finished, pull, onClick)
     )
     val pagerState = rememberPagerState( pageCount={items.size}, initialPage = 0 )
 

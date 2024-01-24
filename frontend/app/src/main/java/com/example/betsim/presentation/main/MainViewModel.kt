@@ -190,7 +190,7 @@ class MainViewModel @Inject constructor(
             val login = sessionManager.getCurrent()
             if (login != null) {
                 val response = repository.postCoupon(
-                    login.accessToken, bets, value, _couponState.value.oddValue, LocalDateTime.now().toString())
+                    login.accessToken, bets, value, _couponState.value.oddValue, LocalDateTime.now().minusHours(1).toString())
                 if (response){
                     clearOffers()
                     _user.value = _user.value.copy(points = _user.value.points!! - value)

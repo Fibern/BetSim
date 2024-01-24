@@ -78,7 +78,7 @@ class ModifyViewModel @Inject constructor(
             val winner: Int
             when (OfferType.entries[_offer.value.type]) {
                 OfferType.Match -> {
-                    score = "${_home.value.value} + ${_away.value.value}"
+                    score = "${_home.value.value} : ${_away.value.value}"
                     val h = _home.value.value.replace(',', '.').toDouble()
                     val a = _away.value.value.replace(',', '.').toDouble()
                     winner = if (h > a)

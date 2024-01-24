@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.betsim.R.drawable.ic_casino_chip
 
 @Composable
-fun CouponDetailsBottomBar(odd: Double, value: Double, winnings: Double, finished: Boolean){
+fun CouponDetailsBottomBar(odd: Double, value: Double, winnings: Double, status: Int){
 
     Column(
         modifier = Modifier
@@ -60,10 +60,10 @@ fun CouponDetailsBottomBar(odd: Double, value: Double, winnings: Double, finishe
                 trailingIconColor = MaterialTheme.colorScheme.onPrimary
             ),
             modifier = Modifier.background(MaterialTheme.colorScheme.primary),
-            headlineContent = { Text(text = if(finished) "Wygrana" else "Potencjalna wygrana") },
+            headlineContent = { Text(text = if(status != 1) "Wygrana" else "Potencjalna wygrana") },
             trailingContent = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = winnings.toString())
+                    Text(text = if(status != 0) winnings.toString() else "0")
                     Spacer(modifier = Modifier.width(16.dp))
                     Icon(
                         painterResource(id = ic_casino_chip),

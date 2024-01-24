@@ -22,8 +22,11 @@ class CouponsScreenViewModel @Inject constructor(
     private val couponHolder: CouponHolder
 ): ViewModel(){
 
-    private val _coupons = mutableStateListOf<Category>()
-    val coupons: List<Category> = _coupons
+    private val _inGame = mutableStateListOf<Category>()
+    val inGame: List<Category> = _inGame
+
+    private val _finished = mutableStateListOf<Category>()
+    val finished: List<Category> = _finished
 
     private val _isLoading = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
@@ -59,13 +62,34 @@ class CouponsScreenViewModel @Inject constructor(
                     }
 
                     is BasicStatus.Success -> {
-                        val list = response.response.coupons
+
+                        val (inGameResponse, finishedResponse) = response.response.coupons.partition { it.status == 1 }
+
+                        val inGameTmp = inGameResponse
                             .sortedByDescending { it.dateTime }
                             .groupBy { it.dateTime.toLocalDate() }
                             .toMap()
-                        _coupons.clear()
-                        _coupons.addAll(
-                            list.map {
+
+
+                        val finishedTmp = finishedResponse
+                            .sortedByDescending { it.dateTime }
+                            .groupBy { it.dateTime.toLocalDate() }
+                            .toMap()
+
+                        _inGame.clear()
+                        _finished.clear()
+
+                        _inGame.addAll(
+                            inGameTmp.map {
+                                Category(
+                                    header = it.key,
+                                    coupons = it.value
+                                )
+                            }
+                        )
+
+                        _finished.addAll(
+                            finishedTmp.map {
                                 Category(
                                     header = it.key,
                                     coupons = it.value

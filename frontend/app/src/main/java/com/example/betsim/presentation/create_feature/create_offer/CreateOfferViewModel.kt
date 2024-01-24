@@ -244,7 +244,7 @@ class CreateOfferViewModel @Inject constructor(
                     id = _id.intValue,
                     title = title,
                     offerType = _type.value.ordinal,
-                    dateTime = dateTime.toString(),
+                    dateTime = dateTime.minusHours(1).toString(),
                     odds = oddItems
                 )
                 if (response){

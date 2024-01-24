@@ -1,6 +1,10 @@
 package com.example.betsim
 
+import android.app.NotificationManager
+import android.content.Context
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.example.betsim.data.local.SecurePreferencesHelper
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -15,7 +19,24 @@ class MyFirebaseMessagingService  : FirebaseMessagingService(){
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        Log.i("Jd", message.toString())
+
+        Log.i("jd", message.toString())
+        Log.i("jd", message.notification?.title ?: "asdasd")
+
+        try {
+
+            val notificationBuilder = NotificationCompat.Builder(this, "my_channel_id")
+                .setSmallIcon(R.drawable.ic_casino_chip)
+                .setColor(ContextCompat.getColor(this, R.color.iconBackground))
+                .setContentTitle(message.notification?.title)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(1, notificationBuilder.build())
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     override fun onNewToken(token: String) {

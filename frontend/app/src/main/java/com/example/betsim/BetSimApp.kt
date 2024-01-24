@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -21,12 +22,11 @@ class BetSimApp : Application(){
             val channelName = "My Channel"
             val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
             channel.description = "Notification Description"
-
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
         FirebaseApp.initializeApp(this)
-        //FirebaseMessaging.getInstance().subscribeToTopic("""""")
+        FirebaseMessaging.getInstance()
 
     }
 }

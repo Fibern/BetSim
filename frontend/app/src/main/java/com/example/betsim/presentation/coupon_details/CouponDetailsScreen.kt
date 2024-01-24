@@ -16,9 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.presentation.coupon_details.components.CouponDetailsBottomBar
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.common.components.CouponStatus
+import com.example.betsim.presentation.coupon_details.components.CouponDetailsBottomBar
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun CouponDetailsScreen(
@@ -38,8 +39,8 @@ fun CouponDetailsScreen(
             CouponDetailsBottomBar(
                 coupon.oddSum,
                 coupon.value,
-                0.0, // TODO ()couponState.coupon!!.winnings,
-                false // TODO() couponState.coupon!!.finished
+                coupon.value*coupon.oddSum,
+                coupon.status
             )
         }
     ) {
@@ -51,24 +52,22 @@ fun CouponDetailsScreen(
         ) {
 
             LazyColumn {
-                items(coupon.bets) { bets ->
-                    val odd = bets.prediction
+                items(coupon.bets) { bet ->
+                    val odd = bet.prediction
                     ListItem(
-                        headlineContent = { bets.title },
+                        headlineContent = { Text(text = bet.title) },
                         leadingContent = {
-                             CouponStatus.entries[bets.status].GetIcon()
+                             CouponStatus.entries[bet.status].GetIcon()
                         },
                         supportingContent = { Text(text = odd.playerName) },
                         trailingContent = {
                             Text(text = odd.oddValue.toString().replace('.',','))
                         },
                         overlineContent = {
-                            /*TODO()
                             Text(
                                 text = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                                    .format(bet.date)
+                                    .format(bet.dateTime)
                             )
-                             */
                         }
                     )
                 }
