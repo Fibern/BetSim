@@ -1,8 +1,5 @@
 package com.example.betsim.presentation.create_feature.components
 
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
@@ -11,15 +8,17 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 import com.example.betsim.data.model.EventIcons
+import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +48,7 @@ fun IconDropdown(
                     Icon(
                         Icons.Rounded.CropSquare,
                         "",
-                        tint = MaterialTheme.colorScheme.onSurface.copy(ContentAlpha.medium)
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                     )
                 }
             },

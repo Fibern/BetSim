@@ -3,7 +3,6 @@ package com.example.betsim.presentation.common.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun BlankScreenItem(text: String){
@@ -24,8 +22,8 @@ fun BlankScreenItem(text: String){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Icon(Icons.Filled.Info, "info", modifier = Modifier.size(32.dp), tint = Color.Gray )
-        Text(text = text, style = typography.headlineSmall.copy(fontWeight = typography.headlineLarge.fontWeight), color = Color.Gray)
+        Icon(Icons.Filled.Info, "info", tint = Color.Gray )
+        Text(text = text, style = typography.headlineSmall, color = Color.Gray)
     }
 
 

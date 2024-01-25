@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -51,6 +51,6 @@ fun CouponListItem(coupon: Coupon, modifier: Modifier) {
         },
         modifier = modifier
     )
-    Divider(thickness = 1.dp, modifier = Modifier.padding(horizontal = 16.dp))
+    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 1.dp)
 
 }

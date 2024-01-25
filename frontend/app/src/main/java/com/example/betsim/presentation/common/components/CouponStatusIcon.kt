@@ -1,6 +1,6 @@
 package com.example.betsim.presentation.common.components
 
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.CheckCircle

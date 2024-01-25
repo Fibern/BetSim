@@ -2,6 +2,7 @@ package com.example.betsim.presentation.create_feature.create_offer
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,13 +11,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ShortText
 import androidx.compose.material.icons.rounded.EditCalendar
 import androidx.compose.material.icons.rounded.Handshake
 import androidx.compose.material.icons.rounded.Schedule
-import androidx.compose.material.icons.rounded.ShortText
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -85,84 +87,90 @@ fun CreateOfferScreen(
             .fillMaxSize()
     ) {
 
-        Column(
+        Box(
             modifier = Modifier
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .wrapContentHeight()
+                .padding(horizontal = 16.dp)
         ) {
-
-
-            FormText(text = "Wybierz datę")
-            Box {
-                CreationTextField(
-                    value = toDate(dateTextField.value),
-                    hint = "Wybierz datę",
-                    isError = dateTextField.isError,
-                    errorMessage = dateTextField.errorText,
-                    leadingIcon = Icons.Rounded.EditCalendar
-                )
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .alpha(0f)
-                        .clickable(onClick = {
-                            datePickerDialog.show()
-                        }),
-                )
-            }
-
-
-            FormText(text = "Wybierz godzinę")
-            Box {
-                CreationTextField(
-                    value = toTime(timeTextField.value),
-                    hint = "Wybierz godzinę",
-                    isError = timeTextField.isError,
-                    errorMessage = timeTextField.errorText,
-                    leadingIcon = Icons.Rounded.Schedule
-                )
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .alpha(0f)
-                        .clickable(onClick = {
-                            timePickerDialog.show()
-                        }),
-                )
-            }
-
-            FormText(text = "Rodzaj zakładu")
-            BetSimDropdown(
-                value = type.value,
-                options = OfferType.entries.map { it.value },
-                leadingIcon = { Icon(Icons.Rounded.Handshake, "") }
+            Column(
+                modifier = Modifier
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.entries[it]))
+
+
+                FormText(text = "Wybierz datę")
+                Box {
+                    CreationTextField(
+                        value = toDate(dateTextField.value),
+                        hint = "Wybierz datę",
+                        isError = dateTextField.isError,
+                        errorMessage = dateTextField.errorText,
+                        leadingIcon = Icons.Rounded.EditCalendar
+                    )
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .alpha(0f)
+                            .clickable(onClick = {
+                                datePickerDialog.show()
+                            }),
+                    )
+                }
+
+
+                FormText(text = "Wybierz godzinę")
+                Box {
+                    CreationTextField(
+                        value = toTime(timeTextField.value),
+                        hint = "Wybierz godzinę",
+                        isError = timeTextField.isError,
+                        errorMessage = timeTextField.errorText,
+                        leadingIcon = Icons.Rounded.Schedule
+                    )
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .alpha(0f)
+                            .clickable(onClick = {
+                                timePickerDialog.show()
+                            }),
+                    )
+                }
+
+                FormText(text = "Rodzaj zakładu")
+                BetSimDropdown(
+                    value = type.value,
+                    options = OfferType.entries.map { it.value },
+                    leadingIcon = { Icon(Icons.Rounded.Handshake, "") }
+                ) {
+                    viewModel.onEvent(CreationEvent.SelectDropdown(offerType = OfferType.entries[it]))
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+
+                if (type == OfferType.Selection) {
+                    FormText(text = "Nazwa zakładu")
+                    CreationTextField(
+                        value = offerName.value,
+                        hint = "Nazwa zakładu",
+                        onValueChange = { viewModel.onEvent(CreationEvent.EnteredName(it)) },
+                        isError = offerName.isError,
+                        errorMessage = offerName.errorText,
+                        leadingIcon = Icons.AutoMirrored.Rounded.ShortText
+                    )
+                }
+
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                BetSimButton(text = "Przejdź dalej") {
+                    viewModel.onEvent(CreationEvent.NavigateFurtherClick)
+                    if (actionPossible)
+                        navController.navigate(Screen.CreateOfferTeamsScreen.route)
+                }
+
             }
-            Spacer(modifier = Modifier.height(20.dp))
-
-            if (type == OfferType.Selection) {
-                FormText(text = "Nazwa zakładu")
-                CreationTextField(
-                    value = offerName.value,
-                    hint = "Nazwa zakładu",
-                    onValueChange = { viewModel.onEvent(CreationEvent.EnteredName(it)) },
-                    isError = offerName.isError,
-                    errorMessage = offerName.errorText,
-                    leadingIcon = Icons.Rounded.ShortText
-                )
-            }
-
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            BetSimButton(text = "Przejdź dalej") {
-                viewModel.onEvent(CreationEvent.NavigateFurtherClick)
-                if (actionPossible)
-                    navController.navigate(Screen.CreateOfferTeamsScreen.route)
-            }
-
         }
     }
 
@@ -170,6 +178,7 @@ fun CreateOfferScreen(
 
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun CreateOfferScreenPreview(){
     CreateOfferScreen(hiltViewModel(), rememberNavController())

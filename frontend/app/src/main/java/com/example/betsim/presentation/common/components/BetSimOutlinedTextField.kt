@@ -20,18 +20,18 @@ fun BetSimOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: @Composable() (() -> Unit)? = null,
-    placeholder: @Composable() (() -> Unit)? = null,
-    leadingIcon: @Composable() (() -> Unit)? = null,
-    trailingIcon: @Composable() (() -> Unit)? = null,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     textStyle: TextStyle = LocalTextStyle.current,
     singleLine: Boolean = true,
     readonly: Boolean = false,
-    supportingText: @Composable() (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
-    suffix: @Composable() (() -> Unit)? = null
+    suffix: @Composable (() -> Unit)? = null
 ){
     
     OutlinedTextField(

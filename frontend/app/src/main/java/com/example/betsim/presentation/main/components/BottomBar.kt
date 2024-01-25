@@ -34,7 +34,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.betsim.presentation.util.Screen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BetSimBottomAppBar(
     isMod: Boolean,
