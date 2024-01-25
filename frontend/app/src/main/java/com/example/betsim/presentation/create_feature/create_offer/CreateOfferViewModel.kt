@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -263,17 +262,15 @@ class CreateOfferViewModel @Inject constructor(
     }
 
     private fun validateDate(date: LocalDate): Boolean{
-        val now = LocalDateTime.now().plus(1, ChronoUnit.HOURS)
         if (_timeTextField.value.value == null){
-            return LocalDateTime.of(date,  LocalTime.now()).plus(2, ChronoUnit.HOURS).isAfter(now)
+            return !LocalDate.now().isAfter(date)
         }
-        return LocalDateTime.of(date, _timeTextField.value.value).isAfter(now)
+        return LocalDateTime.of(date, _timeTextField.value.value).isAfter(LocalDateTime.now())
     }
 
     private fun validateTime(time: LocalTime): Boolean{
-        val now = LocalDateTime.now().plus(1, ChronoUnit.HOURS)
         if (_dateTextField.value.value == null) return true
-        return LocalDateTime.of(_dateTextField.value.value, time).isAfter(now)
+        return LocalDateTime.of(_dateTextField.value.value, time).isAfter(LocalDateTime.now())
     }
 
     private fun createOddItems(): List<OddItem>{
