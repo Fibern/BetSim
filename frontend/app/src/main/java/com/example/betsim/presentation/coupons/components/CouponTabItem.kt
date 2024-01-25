@@ -12,7 +12,7 @@ sealed class CouponTabItem(val title:String, val screens: @Composable ()->Unit) 
     class InGame(coupons: List<Category>, pullRefreshState: PullRefreshState, onClick: (Coupon) -> Unit) : CouponTabItem(
         title = "Oczekujące",
         screens = {
-            CouponsList(coupons, false, pullRefreshState){
+            CouponsList(coupons, pullRefreshState){
                 onClick(it)
             }
         }
@@ -22,7 +22,7 @@ sealed class CouponTabItem(val title:String, val screens: @Composable ()->Unit) 
     class Finished(coupons: List<Category>, pullRefreshState: PullRefreshState, onClick: (Coupon) -> Unit): CouponTabItem(
         title = "Zakończone",
         screens = {
-            CouponsList(coupons, true, pullRefreshState){
+            CouponsList(coupons, pullRefreshState){
                 onClick(it)
             }
         }

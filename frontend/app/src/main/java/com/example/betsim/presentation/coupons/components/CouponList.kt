@@ -15,35 +15,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.betsim.data.model.Category
 import com.example.betsim.data.remote.responses.Coupon
+import com.example.betsim.presentation.common.components.BlankScreenItem
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun CouponsList(coupons: List<Category>, finished: Boolean, pullRefreshState: PullRefreshState, onClick: (Coupon) -> Unit){
+fun CouponsList(coupons: List<Category>, pullRefreshState: PullRefreshState, onClick: (Coupon) -> Unit){
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
     ) {
+
+        if (coupons.isEmpty())
+            BlankScreenItem(text = "Brak zakładów")
+
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-
             coupons.forEach { category ->
+                stickyHeader {
+                    CouponHeader(category = category)
+                }
 
-                if (category.coupons.any { /*TODO() it.finished == finished */ true }) {
-
-                    stickyHeader {
-                        CouponHeader(category = category)
-                    }
-
-                    items(category.coupons) {
-                        if ( /* TODO() it.finished == finished */ true) {
-                            CouponListItem(it, Modifier.clickable {
-                                onClick(it)
-                            })
-                        }
-                    }
+                items(category.coupons) {
+                    CouponListItem(it, Modifier.clickable {
+                        onClick(it)
+                    })
                 }
             }
         }

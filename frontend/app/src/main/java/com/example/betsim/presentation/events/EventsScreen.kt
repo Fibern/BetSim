@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.betsim.presentation.common.components.BlankScreenItem
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.events.components.EventItem
 import com.example.betsim.presentation.util.Screen
@@ -57,6 +58,9 @@ fun EventsScreen(
             .pullRefresh(pull)
         ) {
 
+            if (events.isEmpty())
+                BlankScreenItem(text = "Brak wydarzeń")
+
             LazyColumn(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -64,6 +68,7 @@ fun EventsScreen(
                     .background(MaterialTheme.colorScheme.background)
                     .fillMaxSize()
             ) {
+
                 items(events) { event ->
                     EventItem(
                         event,

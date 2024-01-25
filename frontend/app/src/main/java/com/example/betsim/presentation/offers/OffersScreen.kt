@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.betsim.presentation.common.components.BlankScreenItem
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
@@ -77,6 +78,9 @@ fun OffersScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
+
+            if (offers.isEmpty())
+                BlankScreenItem(text = "Brak ofert")
 
             Box(
                 modifier = Modifier
