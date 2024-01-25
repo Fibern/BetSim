@@ -1,6 +1,5 @@
 package com.example.betsim.presentation.profile
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -62,11 +61,10 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             val token = sessionManager.getCurrent()
             if (token != null) {
-                val response = repository.deleteDeviceToken(
+                repository.deleteDeviceToken(
                     token.accessToken,
                     helper.getDeviceToken()
                 )
-                Log.i("kd",response.toString())
             }
             sessionManager.clearSession()
             _success.value = true
