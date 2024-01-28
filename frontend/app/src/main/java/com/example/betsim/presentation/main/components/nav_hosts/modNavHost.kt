@@ -17,7 +17,7 @@ import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile
 import com.example.betsim.presentation.offers.OffersScreen
 import com.example.betsim.presentation.events.EventsScreen
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 @Composable
 fun ModNavHost(

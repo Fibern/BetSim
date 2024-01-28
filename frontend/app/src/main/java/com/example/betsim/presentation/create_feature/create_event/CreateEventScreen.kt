@@ -35,7 +35,7 @@ import com.example.betsim.presentation.common.components.SemiTransparentLoadingS
 import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.CreationTextField
 import com.example.betsim.presentation.create_feature.components.IconDropdown
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 @Composable
 fun CreateEventScreen(

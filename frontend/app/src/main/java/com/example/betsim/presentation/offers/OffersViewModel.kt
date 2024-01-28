@@ -12,7 +12,7 @@ import com.example.betsim.data.local.OfferHolder
 import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.remote.responses.Offer
 import com.example.betsim.data.remote.status.BasicStatus
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 import com.example.betsim.repository.BetSimRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

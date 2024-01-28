@@ -32,7 +32,7 @@ import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.modify.components.ModifyMatchType
 import com.example.betsim.presentation.modify.components.ModifySelectionType
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 import java.time.format.DateTimeFormatter
 
 @Composable

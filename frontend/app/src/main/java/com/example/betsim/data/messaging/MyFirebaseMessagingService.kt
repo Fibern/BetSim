@@ -1,9 +1,10 @@
-package com.example.betsim
+package com.example.betsim.data.messaging
 
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.example.betsim.R
 import com.example.betsim.data.local.SecurePreferencesHelper
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

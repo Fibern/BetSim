@@ -33,7 +33,7 @@ import com.example.betsim.presentation.main.components.BetSimTopAppBar
 import com.example.betsim.presentation.main.components.FloatingActionAnimation
 import com.example.betsim.presentation.main.components.nav_hosts.ModNavHost
 import com.example.betsim.presentation.main.components.nav_hosts.UserNavHost
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 
 @Composable

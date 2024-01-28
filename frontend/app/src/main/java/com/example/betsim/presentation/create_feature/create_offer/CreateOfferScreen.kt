@@ -37,7 +37,7 @@ import com.example.betsim.presentation.common.components.BetSimDropdown
 import com.example.betsim.presentation.common.components.FormText
 import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.CreationTextField
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

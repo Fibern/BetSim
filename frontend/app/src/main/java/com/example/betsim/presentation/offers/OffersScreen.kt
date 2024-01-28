@@ -32,7 +32,7 @@ import com.example.betsim.presentation.common.components.SemiTransparentLoadingS
 import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.offers.components.OffersItem
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

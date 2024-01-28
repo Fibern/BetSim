@@ -1,4 +1,4 @@
-package com.example.betsim.presentation.util
+package com.example.betsim.presentation.common.util
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface

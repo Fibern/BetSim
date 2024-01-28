@@ -23,9 +23,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.main.MainViewModel
-import com.example.betsim.presentation.util.Screen.AuthNav
-import com.example.betsim.presentation.util.Screen.EventsScreen
-import com.example.betsim.presentation.util.Screen.UserNav
+import com.example.betsim.presentation.common.util.Screen.AuthNav
+import com.example.betsim.presentation.common.util.Screen.EventsScreen
+import com.example.betsim.presentation.common.util.Screen.UserNav
 
 @SuppressLint("RestrictedApi")
 @Composable

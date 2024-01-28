@@ -29,7 +29,7 @@ import com.example.betsim.presentation.auth.components.AuthText
 import com.example.betsim.presentation.auth.components.AuthTextField
 import com.example.betsim.presentation.common.components.BasicLoadingScreen
 import com.example.betsim.presentation.common.components.BetSimButton
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 @Composable
 fun LoginScreen(

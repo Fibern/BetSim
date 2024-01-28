@@ -27,7 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BlankScreenItem
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.events.components.EventItem
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 
 @OptIn(ExperimentalMaterialApi::class)

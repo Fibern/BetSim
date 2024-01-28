@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 
 @Composable

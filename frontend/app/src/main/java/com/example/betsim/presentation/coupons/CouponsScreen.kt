@@ -17,7 +17,7 @@ import com.example.betsim.presentation.coupons.components.CouponTabs
 import com.example.betsim.presentation.coupons.components.TabContent
 import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)

@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 import com.example.betsim.presentation.coupon_details.CouponDetailsScreen
 import com.example.betsim.presentation.coupons.CouponsScreen
 import com.example.betsim.presentation.leaderboard.LeaderboardScreen
