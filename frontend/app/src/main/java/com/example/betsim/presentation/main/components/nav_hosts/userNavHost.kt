@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 import com.example.betsim.presentation.coupon_details.CouponDetailsScreen
 import com.example.betsim.presentation.coupons.CouponsScreen
 import com.example.betsim.presentation.leaderboard.LeaderboardScreen
@@ -22,8 +22,8 @@ import com.example.betsim.presentation.main.MainEvent
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.main.components.coupon.CouponFog
 import com.example.betsim.presentation.profile.Profile
-import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
-import com.example.betsim.presentation.tournaments.TournamentsScreen
+import com.example.betsim.presentation.offers.OffersScreen
+import com.example.betsim.presentation.events.EventsScreen
 
 @Composable
 fun UserNavHost(
@@ -38,42 +38,26 @@ fun UserNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.TournamentsNav.route,
+        startDestination = Screen.EventsNav.route,
         modifier = Modifier.padding(paddingValues)
     ){
 
-        navigation(startDestination = Screen.TodayTournamentsScreen.route, route = Screen.TodayTournamentsNav.route){
+        composable(
+            Screen.TodayOffersScreen.route,
+            arguments = listOf(
+                navArgument("mod"){
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+                navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ) { OffersScreen(mainViewModel = viewModel, navController = navController) }
+        navigation(startDestination = Screen.EventsScreen.route, route = Screen.EventsNav.route){
             composable(
-                Screen.TodayTournamentsScreen.route,
-                arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = true
-                    },
-                    navArgument("mod"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    }
-                )
-            ) { TournamentsScreen(navController = navController) }
-            composable(
-                Screen.TodayTournamentDetailScreen.route,
-                arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = true
-                    },
-                    navArgument("mod"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    }
-                )
-            ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
-        }
-
-        navigation(startDestination = Screen.TournamentsScreen.route, route = Screen.TournamentsNav.route){
-            composable(
-                Screen.TournamentsScreen.route,
+                Screen.EventsScreen.route,
                 arguments = listOf(
                     navArgument("today"){
                         type = NavType.BoolType
@@ -84,20 +68,19 @@ fun UserNavHost(
                         defaultValue = false
                     }
                 )
-            ) { TournamentsScreen(navController = navController) }
+            ) { EventsScreen(navController = navController) }
             composable(
-                Screen.TournamentDetailScreen.route,
+                Screen.OffersScreen.route,
                 arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    },
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = false
+                    },
+                    navArgument("id"){
+                        type = NavType.IntType
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
+            ) { OffersScreen(mainViewModel = viewModel, navController = navController) }
         }
 
         navigation(startDestination = Screen.CouponsScreen.route, route = Screen.CouponsNav.route){

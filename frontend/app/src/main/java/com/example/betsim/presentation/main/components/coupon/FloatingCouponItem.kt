@@ -16,16 +16,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.betsim.domain.model.Odd
-import com.example.betsim.domain.model.TournamentGame
+import com.example.betsim.data.remote.responses.Odd
+import com.example.betsim.data.remote.responses.Offer
+import java.time.LocalDateTime
 
 @Composable
-fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
-    val odd = game.odds[game.selected.value!!]
+fun FloatingCouponItem(offer: Offer, onClick: () -> Unit){
+    val odd = offer.odds[offer.selected!!]
 
     Row (
         modifier = Modifier
@@ -43,14 +43,14 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                odd.name,
+                odd.playerName,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                 fontWeight = MaterialTheme.typography.bodyLarge.fontWeight,
                 lineHeight = MaterialTheme.typography.bodyLarge.lineHeight
             )
             Text(
-                game.name,
+                offer.title,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
@@ -65,7 +65,7 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = odd.odd,
+                    text = odd.oddValue.toString().replace('.',','),
                     color = MaterialTheme.colorScheme.onPrimary)
             }
 
@@ -90,9 +90,7 @@ fun FloatingCouponItem(game: TournamentGame, onClick: () -> Unit){
 @Preview
 @Composable
 fun FlIt(){
-    FloatingCouponItem(game = TournamentGame(
-        1, "aaa - bbb", listOf(Odd(1,"Team 1", "1.2"), Odd(2, "Team 3", "1.5")), selected = mutableStateOf(1)
-    )){
+    FloatingCouponItem(offer = Offer(true, LocalDateTime.now(), 1, listOf(Odd(1, 1.2, "Team 1"), Odd(2, 1.3, "Team 3")), "", 0, -1, 0, "Asd")){
 
     }
 }

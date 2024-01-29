@@ -5,7 +5,9 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.betsim.data.remote.responses.LoginResponse
 
-class SecurePreferencesHelper(context: Context){
+class SecurePreferencesHelper(
+    context: Context,
+){
 
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
@@ -32,6 +34,18 @@ class SecurePreferencesHelper(context: Context){
         val access = sharedPreferences.getString("access_token", null)
         if (refresh.isNullOrBlank() || access.isNullOrBlank()) return null
         return LoginResponse(accessToken = access, refreshToken = refresh, expiresIn = 0, tokenType = "")
+    }
+
+    fun saveDeviceToken(token: String){
+        sharedPreferences.edit()
+            .putString("device_token", token)
+            .apply()
+    }
+
+    fun getDeviceToken(): String{
+        val token = sharedPreferences.getString("device_token", "")
+        if (token == null) return ""
+        else return token
     }
 
 }

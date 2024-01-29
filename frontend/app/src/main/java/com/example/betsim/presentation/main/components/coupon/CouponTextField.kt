@@ -18,7 +18,7 @@ import com.example.betsim.R
 fun CouponTextField(
     value: String,
     modifier: Modifier,
-    label: @Composable() (() -> Unit)? = null,
+    label: @Composable (() -> Unit)? = null,
     onValueChange: (String) -> Unit
 ) {
     CompositionLocalProvider(

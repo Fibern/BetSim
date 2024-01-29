@@ -2,10 +2,9 @@ package com.example.betsim.presentation.main.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ReceiptLong
+import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FloatAB(onClick: () -> Unit, count: Int){
     FloatingActionButton(
@@ -31,7 +29,7 @@ fun FloatAB(onClick: () -> Unit, count: Int){
                 }
             }
         ) {
-            Icon(Icons.Filled.ReceiptLong, "kupon", tint = MaterialTheme.colorScheme.onPrimary )
+            Icon(Icons.AutoMirrored.Filled.ReceiptLong, "kupon", tint = MaterialTheme.colorScheme.onPrimary )
         }
 
     }

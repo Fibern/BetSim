@@ -11,13 +11,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.betsim.presentation.create_feature.create_event.CreateEventScreen
-import com.example.betsim.presentation.create_feature.create_offer.CreateGameMainScreen
+import com.example.betsim.presentation.create_feature.create_offer.CreateOfferMainScreen
 import com.example.betsim.presentation.main.MainViewModel
 import com.example.betsim.presentation.modify.ModifyScreen
 import com.example.betsim.presentation.profile.Profile
-import com.example.betsim.presentation.tournament_details.TournamentDetailScreen
-import com.example.betsim.presentation.tournaments.TournamentsScreen
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.offers.OffersScreen
+import com.example.betsim.presentation.events.EventsScreen
+import com.example.betsim.presentation.common.util.Screen
 
 @Composable
 fun ModNavHost(
@@ -28,17 +28,17 @@ fun ModNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.EventsNav.route,
+        startDestination = Screen.CreateEventNav.route,
         modifier = Modifier.padding(paddingValues)
     ){
 
         navigation(
-            startDestination = Screen.TournamentsScreen.route,
-            route = Screen.EventsNav.route
+            startDestination = Screen.EventsScreen.route,
+            route = Screen.CreateEventNav.route
         ){
             
             composable(
-                route = Screen.TournamentsScreen.route,
+                route = Screen.EventsScreen.route,
                 arguments = listOf(
                     navArgument("today"){
                         type = NavType.BoolType
@@ -49,39 +49,53 @@ fun ModNavHost(
                         defaultValue = true
                     }
                 )
-            ){ TournamentsScreen(navController = navController) }
+            ){ EventsScreen(navController = navController) }
 
             composable(
-                Screen.TournamentDetailScreen.route,
+                Screen.OffersScreen.route,
                 arguments = listOf(
-                    navArgument("today"){
-                        type = NavType.BoolType
-                        defaultValue = false
-                    },
                     navArgument("mod"){
                         type = NavType.BoolType
                         defaultValue = true
+                    },
+                    navArgument("id"){
+                        type = NavType.IntType
                     }
                 )
-            ) { TournamentDetailScreen(mainViewModel = viewModel , navController = navController) }
+            ) { OffersScreen(mainViewModel = viewModel , navController = navController) }
 
-            composable(route = Screen.AddTournamentScreen.route){ CreateEventScreen(navController) }
-            composable(route = Screen.AddGameMainScreen.route){ CreateGameMainScreen(navController) }
+            composable(route = Screen.CreateEventScreen.route){ CreateEventScreen(navController) }
+            composable(
+                route = Screen.CreateOfferMainScreen.route,
+                arguments = listOf(
+                    navArgument("id"){
+                        type = NavType.IntType
+                    }
+                )
+            ){ CreateOfferMainScreen(navController) }
         }
         composable(
-            Screen.StartedGamesScreen.route,
+            Screen.StartedOffersScreen.route,
             arguments = listOf(
-                navArgument("today"){
-                    type = NavType.BoolType
-                    defaultValue = true
-                },
                 navArgument("mod"){
                     type = NavType.BoolType
                     defaultValue = true
+                },
+                navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
                 }
             )
-        ){ TournamentDetailScreen(mainViewModel = viewModel, navController = navController) }
-        composable(route = Screen.ModifyGameScreen.route){ ModifyScreen(navController) }
+        ){ OffersScreen(mainViewModel = viewModel, navController = navController) }
+        composable(
+            route = Screen.ModifyGameScreen.route,
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ){ ModifyScreen(navController) }
         composable(route = Screen.ProfileScreen.route){ Profile(viewModel, mainNavController, navController) }
 
     }

@@ -17,7 +17,6 @@ import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.Today
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -32,9 +31,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.betsim.presentation.util.Screen
+import com.example.betsim.presentation.common.util.Screen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BetSimBottomAppBar(
     isMod: Boolean,
@@ -116,7 +114,7 @@ private val userDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.TodayTournamentsNav.route
+        route = Screen.TodayOffersScreen.route
     ),
     BottomNavigationItem(
         title = "Wszystko",
@@ -125,7 +123,7 @@ private val userDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.TournamentsNav.route
+        route = Screen.EventsNav.route
     ),
     BottomNavigationItem(
         title = "Kupony",
@@ -164,7 +162,7 @@ private val modDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = false,
-        route = Screen.EventsNav.route
+        route = Screen.CreateEventNav.route
     ),
     BottomNavigationItem(
         title = "Rozpoczęte",
@@ -173,7 +171,7 @@ private val modDestinations = listOf(
         hasNews = false,
         badgeCount = null,
         hide = true,
-        route = Screen.StartedGamesScreen.route,
+        route = Screen.StartedOffersScreen.route,
     ),
     BottomNavigationItem(
         title = "Profil",

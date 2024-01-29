@@ -1,40 +1,36 @@
 package com.example.betsim.presentation.coupons.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.TabRow
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
-import com.google.accompanist.pager.pagerTabIndicatorOffset
+import androidx.compose.ui.unit.Dp
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun CouponTabs(items: List<CouponTabItem>, pagerState: PagerState) {
     val scope = rememberCoroutineScope()
-    TabRow(
+    PrimaryTabRow(
         selectedTabIndex = pagerState.currentPage,
-        backgroundColor = MaterialTheme.colorScheme.primary,
+        containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
-        indicator = {tabPositions ->
-            Box(
+        indicator = {
+            TabRowDefaults.PrimaryIndicator(
                 modifier = Modifier
-                    .pagerTabIndicatorOffset(pagerState, tabPositions)
-                    .height(3.dp)
-                    .padding(horizontal = 72.dp)
-                    .clip(RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp))
-                    .background(MaterialTheme.colorScheme.onPrimary)
+                    .tabIndicatorOffset(
+                        selectedTabIndex = pagerState.currentPage,
+                        matchContentSize = true
+                    ),
+                width = Dp.Unspecified,
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     ) {

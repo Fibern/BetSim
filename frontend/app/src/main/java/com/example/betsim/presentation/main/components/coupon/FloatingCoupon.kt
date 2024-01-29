@@ -20,8 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,15 +27,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.betsim.R.drawable.ic_casino_chip
-import com.example.betsim.domain.model.Odd
-import com.example.betsim.domain.model.TournamentGame
+import com.example.betsim.data.remote.responses.Odd
+import com.example.betsim.data.remote.responses.Offer
 import com.example.betsim.presentation.main.MainCouponState
+import java.time.LocalDateTime
 
 
 @Composable
 fun FloatingCoupon(
     coupon: MainCouponState,
-    onClick: (TournamentGame) -> Unit,
+    onClick: (Offer) -> Unit,
     onValueChange: (String) -> Unit,
     onBet: () -> Unit
 ) {
@@ -84,8 +83,8 @@ fun FloatingCoupon(
                     .weight(1f)
             ){
                 LazyColumn{
-                    items(coupon.games){
-                        FloatingCouponItem(game = it){
+                    items(coupon.offers){
+                        FloatingCouponItem(offer = it){
                             onClick(it)
                         }
                     }
@@ -176,17 +175,9 @@ fun FloatingCoupon(
 @Preview
 @Composable
 fun FCoupon(){
-    val state: MutableState<Int?> = mutableStateOf(0)
-    val list = listOf(
-        TournamentGame(1,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(5,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(4,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(3,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(2,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(7,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-        TournamentGame(8,"asd - asdd", listOf(Odd(1,"1","1.2"), Odd(2,"2","1.4")), selected = state),
-    )
+    val odd = Offer(true, LocalDateTime.now(), 1, listOf(Odd(1, 1.2, "Team 1"), Odd(2, 1.3, "Team 3")), "", 0, -1, 0, "asd")
+    val offers = listOf(odd,odd,odd,odd,odd,odd,odd,odd)
     FloatingCoupon(
-        MainCouponState(games = list), onClick = {}, onValueChange = {}, {}
+        MainCouponState(offers = offers), onClick = {}, onValueChange = {}, {}
     )
 }

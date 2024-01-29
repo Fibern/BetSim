@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.betsim.domain.model.OfferType
+import com.example.betsim.data.model.OfferType
 import com.example.betsim.presentation.common.components.BetSimOutlinedTextField
 import com.example.betsim.presentation.common.util.TextFieldState
 

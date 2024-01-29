@@ -16,10 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.betsim.R.drawable.ic_casino_chip
+import com.example.betsim.data.remote.responses.TopUser
 
 @Composable
 fun LeaderboardItem(
-    place: Int,
+    user: TopUser,
     isUser: Boolean
 ){
 
@@ -31,14 +32,14 @@ fun LeaderboardItem(
     ) {
 
         ListItem(
-            leadingContent = { Text(text = place.toString(), color = colorScheme.onSecondary) },
-            headlineContent = { Text(text = "Username", color = colorScheme.onSecondary) },
+            leadingContent = { Text(text = user.place.toString(), color = colorScheme.onSecondary) },
+            headlineContent = { Text(text = user.userName, color = colorScheme.onSecondary) },
             trailingContent = {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "650",
+                        text = "%.2f".format(user.points).replace('.',','),
                         color = colorScheme.onSecondary
                     )
                     Spacer(modifier = Modifier.width(16.dp))

@@ -1,35 +1,41 @@
 package com.example.betsim.presentation.create_feature.create_event
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ShortText
+import androidx.compose.material.icons.automirrored.rounded.ShortText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.betsim.data.model.EventIcons
 import com.example.betsim.presentation.common.components.BetSimButton
 import com.example.betsim.presentation.common.components.BetSimSubsidiaryTopBar
 import com.example.betsim.presentation.common.components.FormText
-import com.example.betsim.domain.model.EventIcons
+import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
 import com.example.betsim.presentation.create_feature.CreationEvent
 import com.example.betsim.presentation.create_feature.components.CreationTextField
 import com.example.betsim.presentation.create_feature.components.IconDropdown
+import com.example.betsim.presentation.common.util.Screen
 
 @Composable
 fun CreateEventScreen(
@@ -40,6 +46,28 @@ fun CreateEventScreen(
     val icon by remember { viewModel.icon }
     val name by remember { viewModel.name }
     val options = EventIcons.entries.toTypedArray()
+    val isLoading by remember { viewModel.isLoading }
+    val success by remember { viewModel.success }
+    val toast by remember { viewModel.toastMessage }
+    val context = LocalContext.current
+
+    if (toast.isNotBlank()) {
+        LaunchedEffect(toast) {
+            Toast.makeText(
+                context,
+                toast,
+                Toast.LENGTH_SHORT
+            ).show()
+            viewModel.clearToast()
+        }
+    }
+    LaunchedEffect(success) {
+        if (success) navController.navigate(Screen.EventsScreen.route){
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+        }
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -52,14 +80,15 @@ fun CreateEventScreen(
         }
     ) { paddingValues ->
 
-        Surface(
+        Box(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(paddingValues)
         ) {
 
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -67,7 +96,7 @@ fun CreateEventScreen(
 
                 FormText(text = "Nazwa wydarzenia")
                 CreationTextField(
-                    leadingIcon = Icons.Rounded.ShortText,
+                    leadingIcon = Icons.AutoMirrored.Rounded.ShortText,
                     value = name.value,
                     onValueChange = { viewModel.onEvent(CreationEvent.EnteredName(it)) },
                     hint = "Nazwa wydarzenia",
@@ -105,6 +134,10 @@ fun CreateEventScreen(
 
             }
 
+        }
+
+        if (isLoading) {
+            SemiTransparentLoadingScreen()
         }
     }
 }

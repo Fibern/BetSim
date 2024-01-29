@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betsim.data.local.SecurePreferencesHelper
+import com.example.betsim.data.local.SessionManager
 import com.example.betsim.data.remote.status.BasicStatus
 import com.example.betsim.presentation.common.util.TextFieldState
 import com.example.betsim.presentation.common.util.validateTextFieldState
@@ -18,13 +19,14 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val repository: BetSimRepository,
+    private val sessionManager: SessionManager,
     private val helper: SecurePreferencesHelper
 ) : ViewModel(){
 
-    private val _login = mutableStateOf(TextFieldState(""))
+    private val _login = mutableStateOf(TextFieldState("Admin"))
     val login: State<TextFieldState<String>> = _login
 
-    private val _password = mutableStateOf(TextFieldState(""))
+    private val _password = mutableStateOf(TextFieldState("zaq12wsx"))
     val password: State<TextFieldState<String>> = _password
 
     private val _toastMessage = mutableStateOf("")
@@ -38,20 +40,12 @@ class LoginScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val login = helper.getLoginResponse()
-            if (login == null){
+            _isLoading.value = true
+            val login = sessionManager.getCurrent()
+            if (login != null) {
+                _success.value = true
+            }else{
                 _isLoading.value = false
-                return@launch
-            }
-            when(val result = repository.refresh(login.refreshToken)){
-                is BasicStatus.Success -> {
-                    helper.saveLoginResponse(result.response)
-                    _success.value = true
-                }
-                else -> {
-                    _isLoading.value = false
-                    return@launch
-                }
             }
         }
     }
@@ -61,11 +55,11 @@ class LoginScreenViewModel @Inject constructor(
         when(event){
             is AuthEvent.EnteredLogin -> {
                 if (!validateTextInput(event.value)) return
-                _login.value = _login.value.copy(value = event.value)
+                _login.value = _login.value.copy(value = event.value.trim())
             }
             is AuthEvent.EnteredPassword -> {
                 if (!validateTextInput(event.value)) return
-                _password.value = _password.value.copy(value = event.value)
+                _password.value = _password.value.copy(value = event.value.trim())
             }
             AuthEvent.OnAuthClick -> {
                 if (!checkInputFields()) return
@@ -88,18 +82,21 @@ class LoginScreenViewModel @Inject constructor(
             when(val result = repository.login(_login.value.value, _password.value.value)){
                 BasicStatus.BadInternet -> {
                     _toastMessage.value = "Brak połączenia z internetem!"
+                    _isLoading.value = false
                 }
                 BasicStatus.Failure -> {
                     _toastMessage.value = "Błędny login lub hasło!"
+                    _isLoading.value = false
                 }
                 is BasicStatus.Success -> {
-                    helper.saveLoginResponse(result.response)
+                    repository.addDeviceToken(result.response.accessToken, helper.getDeviceToken())
+                    sessionManager.saveLoginResponse(result.response)
                     _success.value = true
                 }
             }
-            _isLoading.value = false
         }
     }
+
 
 
     fun clearToast(){
