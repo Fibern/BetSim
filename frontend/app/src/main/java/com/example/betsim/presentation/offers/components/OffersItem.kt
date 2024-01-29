@@ -9,9 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -110,7 +108,7 @@ fun OffersItem(
             ) {
                 OutlinedButton(
                     onClick = { onClick(offer.id) },
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(0.5f),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = colorScheme.onSecondary
                     ),
@@ -118,16 +116,7 @@ fun OffersItem(
                 ) {
                     Text(text = "Dodaj wynik")
                 }
-                Button(
-                    onClick = { /*TODO*/  },
-                    modifier = Modifier.width(150.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorScheme.secondaryContainer,
-                        contentColor = colorScheme.onSecondaryContainer
-                    )
-                ) {
-                    Text(text = "Usuń")
-                }
+
             }
 
         }

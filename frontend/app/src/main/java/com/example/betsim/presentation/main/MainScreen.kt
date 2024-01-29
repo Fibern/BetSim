@@ -1,5 +1,7 @@
 package com.example.betsim.presentation.main
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -28,14 +30,17 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.betsim.presentation.common.components.BasicLoadingScreen
 import com.example.betsim.presentation.common.components.SemiTransparentLoadingScreen
+import com.example.betsim.presentation.common.util.Screen
 import com.example.betsim.presentation.main.components.BetSimBottomAppBar
 import com.example.betsim.presentation.main.components.BetSimTopAppBar
 import com.example.betsim.presentation.main.components.FloatingActionAnimation
 import com.example.betsim.presentation.main.components.nav_hosts.ModNavHost
 import com.example.betsim.presentation.main.components.nav_hosts.UserNavHost
-import com.example.betsim.presentation.common.util.Screen
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun UserMainScreen(
     mainNavController: NavHostController,
@@ -155,7 +160,19 @@ fun UserMainScreen(
     if (isLoadingSemiTransparent)
         SemiTransparentLoadingScreen()
 
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val notificationsPermissionState =
+            rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS)
+
+        LaunchedEffect(key1 = Unit) {
+            notificationsPermissionState.launchPermissionRequest()
+        }
+    }
+
+
 }
+
 
 @Preview
 @Composable
