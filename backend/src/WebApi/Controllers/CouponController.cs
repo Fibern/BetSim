@@ -25,7 +25,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<BaseResponse<int>>> PostAsync(PostCouponDto coupon)
+        public async Task<ActionResult<BaseResponse<double>>> PostAsync(PostCouponDto coupon)
         {
             var command = new PostCouponCommand(_userId, coupon);
             var response = await _mediator.Send(command);

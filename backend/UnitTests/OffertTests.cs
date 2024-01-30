@@ -16,11 +16,14 @@ namespace UnitTests
         [InlineData(1.66,60.24)]
         public void courseToPercent_returnPercent(double course, double score)
         {
+            //arrange
             var offert = new Offert();
-
+            
+            //act
             double percent = offert.CourseToPercent(course);
             percent = Math.Round(percent, 2);
 
+            //assert
             Assert.Equal(percent, score);
         }
 

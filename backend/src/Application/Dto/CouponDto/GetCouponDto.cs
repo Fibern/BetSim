@@ -8,7 +8,7 @@ namespace Application.Dto.CouponDto
     {
         public List<CouponGetBet> Bets { get; set; }
         public double Value { get; set; }
-        public int OddSum { get; set; }
+        public double OddSum { get; set; }
         public DateTimeOffset DateTime { get; set; }
         public Status status { get; set; }
 

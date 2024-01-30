@@ -11,6 +11,7 @@ namespace Application.Abstractions
     {
         Task<Event> GetById(int id);
         Task<Event> GetUserEventAsync(int id, int userId);
+        Task<Event> GetUserEventWithOffertsAsync(int id, int userId);
         Task<IReadOnlyList<Event>> GetAllAsync(bool active = true);
 
         Task<IReadOnlyList<Event>> GetAllMyAsync(int userId); 

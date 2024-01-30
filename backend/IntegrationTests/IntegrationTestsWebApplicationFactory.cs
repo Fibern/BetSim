@@ -5,11 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization.Policy;
 using FluentAssertions.Common;
+using Testcontainers.PostgreSql;
+using FluentAssertions;
 
 namespace IntegrationTests
 {
-    public class IntegrationTestsWebApplicationFactory : WebApplicationFactory<Program>
+    public class IntegrationTestsWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
+        private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
+        .WithImage("postgres:latest")
+        .WithDatabase("betSim")
+        .WithUsername("postgres")
+        .WithPassword("postgres")
+        .WithCleanUp(true)        
+        .Build();
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureTestServices(s =>
@@ -18,13 +28,21 @@ namespace IntegrationTests
                 base.ConfigureWebHost(builder);
                 s.AddDbContext<DbMainContext>(options =>
                 {
-                    // This is what makes a unique in-memory database per instance of TestWebApplicationFactory
-                    options.UseInMemoryDatabase("database");
+                    options.UseNpgsql(_dbContainer.GetConnectionString());
                 });
-
-
             });
-
         }
+
+
+        public Task InitializeAsync()
+        {
+            return _dbContainer.StartAsync();
+        }
+
+        Task IAsyncLifetime.DisposeAsync()
+        {
+            return _dbContainer.StopAsync();
+        }
+
     }
 }

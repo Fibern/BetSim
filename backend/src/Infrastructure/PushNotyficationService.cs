@@ -37,8 +37,7 @@ namespace Infrastructure
             var firebaseMessage = new Message()
             {
                 Notification = new Notification
-                {
-                    Title = title,
+                {                    Title = title,
                     Body = message
                 },
                 Token = deviceToken
@@ -70,6 +69,7 @@ namespace Infrastructure
                     {"points",points.ToString()}
                 },
                 Token = deviceToken
+            
             };
 
             var messaging = FirebaseMessaging.DefaultInstance;

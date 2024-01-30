@@ -15,6 +15,6 @@ namespace Application.Abstractions
         Task<bool> PutAsync(User user);
         Task<User> GetUserInfoAsync(int userId);
         Task<List<User>> GetUserScoreSortedAsync();
-        void Delete(int userId);
+        Task Delete(int userId);
     }
 }

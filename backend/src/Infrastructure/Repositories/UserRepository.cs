@@ -21,12 +21,12 @@ namespace Infrastructure.Repositories
             return user.Id;
         }
 
-        public void Delete(int userId)
+        public async Task Delete(int userId)
         {
-            var user = _context.User.Find(userId);
+            var user = _context.User.FirstOrDefault(e => e.Id == userId);
             if(user is not null){
                 _context.User.Remove(user);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             
         }
@@ -49,6 +49,7 @@ namespace Infrastructure.Repositories
 
             var users = _context.Users
             .AsNoTracking()
+            .OrderByDescending(e => e.Points)
             .Where(e =>  !AdminsId.Contains(e.Id))
             .ToList();
                                        

@@ -5,6 +5,7 @@ using Application.Commands.UserCommand;
 using Application.Dto;
 using Application.Dto.CouponDto;
 using Application.Dto.EventDto;
+using Application.Dto.OffertDto;
 using Application.Dto.UserDto;
 using Application.Queries.CouponQuery;
 using Application.Queries.UserQuery;
@@ -88,6 +89,18 @@ namespace WebApi.Controllers
 
         {
             var command = new GetUserCouponQuery(_userId);
+            var response = await _mediator.Send(command);
+
+            if (response.Succes == true) return Ok(response);
+
+            return BadRequest(response);
+        }
+
+        [HttpGet("Offert")]
+        [Authorize]    
+        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> GetOffertAsync()
+        {
+            var command = new GetUserOffertQuery(_userId);
             var response = await _mediator.Send(command);
 
             if (response.Succes == true) return Ok(response);

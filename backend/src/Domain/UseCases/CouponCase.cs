@@ -30,11 +30,12 @@ namespace Domain.UseCase{
                         else{
                             bet.Status = Status.Lose;
                         }
-                    }
 
-                    // send push notification
-                     foreach(var device in coupon.User.Devices){
+                        // send push notification
+                        foreach(var device in coupon.User.Devices){
                             sendNotyfication(bet,device.TokenId);
+                        }
+
                     }
      
                     // calculate how many bets are over

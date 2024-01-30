@@ -29,6 +29,7 @@ namespace Application.Queries.CouponQuery
                 {
                     allViewModel[i].Bets[j].Title = all[i].Bets[j].PredictedWinner.Offert.Title;
                     allViewModel[i].Bets[j].Score = all[i].Bets[j].PredictedWinner.Offert.Score;
+                    allViewModel[i].Bets[j].DateTime = all[i].Bets[j].PredictedWinner.Offert.DateTime;
                 }
             }
 

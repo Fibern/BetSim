@@ -35,6 +35,10 @@ namespace Domain.Entities
                 if(Odds.Count == 2 ){
                     Title = $"{Odds[0].PlayerName} - {Odds[1].PlayerName}";
                 }
+                
+                if(Odds.Count == 3 ){
+                    Title = $"{Odds[0].PlayerName} - {Odds[2].PlayerName}";
+                }
             }
         }
 
