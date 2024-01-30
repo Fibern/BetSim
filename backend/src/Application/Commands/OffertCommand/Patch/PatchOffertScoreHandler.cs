@@ -22,17 +22,17 @@ namespace Application.Commands.OffertCommand.Patch
         {
             Offert offert = await _offertRepo.GetUserOffert(request.Id, request.UserId);
 
-            //if offert not exist
-            if (offert == null) return new BaseResponse<string>("offert not found in yours offerts");
-
-            //if offert is not active
-            if (offert.Active == false) return new BaseResponse<string>("offert is not active",false);
-
             var validator = new PatchOffertScoreValidator(offert.ValidateWinner);
             var validationResult = validator.Validate(request);
 
             //if invalid
             if(validationResult.IsValid == false) return new BaseResponse<string>(validationResult);
+
+            //if offert not exist
+            if (offert == null) return new BaseResponse<string>("offert not found in yours offerts");
+
+            //if offert is not active
+            if (offert.Active == false) return new BaseResponse<string>("offert is not active",false);
 
             //update score
             offert.AddScore(request.Winner, request.Score);

@@ -32,17 +32,17 @@ namespace Application.Behaviors
 
             List<Coupon> coupons = await _couponRepository.GetCouponsByOffert(request.Id);
 
+            //create CouponCase to update coupons 
             var couponcase = new CouponCase();
+
             couponcase.UpdateBetsAndCouponsAfterScore(
                 coupons, request.Winner, request.Id,
                 _pushNotificationService.SendNotificationAboutNewScore,
                 _pushNotificationService.SendNotyficationPointsPayload
             );
-
+            // update coupons in database by repository
             bool succes = await _couponRepository.UpdateRangeAsync(coupons);
             response.Succes = succes;
-
-                       
 
             return response;
         }

@@ -80,7 +80,7 @@ namespace WebApi.Controllers
 
         [HttpPatch("{offertId}")]
         [Authorize(Roles = "OddsMaker") ]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<GetOffertDto>>>> OffertPatch([FromRoute] int offertId, ScorePatchOffertDto request)
+        public async Task<ActionResult<BaseResponse<string>>> OffertPatch([FromRoute] int offertId, ScorePatchOffertDto request)
         {
             var command = new PatchOffertScoreCommand(offertId, _userId, request.winner, request.score);
             var response = await _mediator.Send(command);

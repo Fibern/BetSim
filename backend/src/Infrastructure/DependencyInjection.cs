@@ -25,10 +25,13 @@ public static class DependencyInjection
 
         services.AddScoped<IPushNotificationService, PushNotyficationService>();
 
-        FirebaseApp.Create(new AppOptions()
-        {
-            Credential = GoogleCredential.FromFile(configuration["Firebase:File"]),
-        });                                                                                                 
+        if (FirebaseApp.DefaultInstance == null)
+            {
+                FirebaseApp.Create(new AppOptions()
+                {
+                    Credential = GoogleCredential.FromFile(configuration["Firebase:File"]),
+                });     
+            }                                                                                            
 
         return services;
     }
