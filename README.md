@@ -1,3 +1,4 @@
+# Sports Betting Simulation Environment
 ## About The Project
 This work has been created for sports betting enthusiasts who want to perfect their skills without involving the risk of losing money. Users are able to test their skills in a realistic simulator environment provided in the form of an accessible mobile application. During the design process, consideration was given not only to users but also to people in charge of setting the odds. The application provides a dedicated administrator account available only to selected individuals. This account allows the creation of sports bets in an intuitive and transparent way. The presented solution takes a holistic approach by providing both a mobile app and a server-side component accessed through an API interface. The application offers not only entertainment but also educational opportunities for improving betting strategy skills without financial risk.
 
