@@ -32,19 +32,20 @@ This work has been created for sports betting enthusiasts who want to perfect th
 
 ## Demo
 
+#### Moderators can create events and games, and add scores to them
+![create event](https://media.giphy.com/media/YZG091XEKkFM83Ogzw/giphy.gif)
 
 
+![create game](https://media.giphy.com/media/KHwFU3jQkqHMopf4Ur/giphy.gif)
 
 
-https://github.com/Fibern/BetSim/assets/72557793/2a728279-64e3-4da3-8a08-4f996db8db84
+![add score](https://media.giphy.com/media/nHMrn2XHnGJ3CQExkI/giphy.gif)
 
-https://github.com/Fibern/BetSim/assets/72557793/c6802d79-f669-48fd-aa73-654fc05ec36a
+#### Users can place bets, check the status of their bets and climb up the leaderboard.
+![place bet](https://media.giphy.com/media/UDzVCqLMGSpL59oF3j/giphy.gif)
 
-https://github.com/Fibern/BetSim/assets/72557793/0cc27e11-d4f1-4aef-a78e-ec3b5974d6e6
+![uptadate](https://media.giphy.com/media/s2MSuB2YtqCMp1Ov2c/giphy.gif)
 
 
-https://github.com/Fibern/BetSim/assets/72557793/82409858-3163-493f-9921-742d9ef4079d
-
-https://github.com/Fibern/BetSim/assets/72557793/a9b4f8b8-77b0-4f24-a90b-814824108dbe
 
 
